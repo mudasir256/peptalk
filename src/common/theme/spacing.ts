@@ -1,8 +1,10 @@
-export const SPACING = {
-  xxs: 4,
-  xs: 6,
-  sm: 8,
-  smd: 10,
+export const SPACINGS = {
+  tiny: 4,
+  xxs: 6,
+  xs: 8,
+  sm: 10,
+  rg: 12,
   md: 16,
-  xmd:20,
+  lg: 20,
+  xl: 32
 }

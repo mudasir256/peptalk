@@ -6,16 +6,15 @@ import SignUpWithEmail from '../../content/onboarding/signupWithEmail';
 import { LandingScreen } from '../../content/onboarding/landing/landing';
 import { LoginStackRoutes } from './routes';
 
-
 const Stack = createStackNavigator();
 
 const LoginStack = () => {
   return (
-      <Stack.Navigator screenOptions={headerOptions}>
-        <Stack.Screen name={LoginStackRoutes.Landing} component={LandingScreen} options={noHeader} />
-        <Stack.Screen name={LoginStackRoutes.Signup} component={SignupScreen} options={noHeader} />
-        <Stack.Screen name={LoginStackRoutes.SignUpWithEmail} component={SignUpWithEmail} />
-      </Stack.Navigator>
+    <Stack.Navigator screenOptions={headerOptions}>
+      <Stack.Screen name={LoginStackRoutes.Landing} component={LandingScreen} options={noHeader} />
+      <Stack.Screen name={LoginStackRoutes.Signup} component={SignupScreen} options={noHeader} />
+      <Stack.Screen name={LoginStackRoutes.SignUpWithEmail} component={SignUpWithEmail} options={{ title: "Create Account" }} />
+    </Stack.Navigator>
   );
 }
 

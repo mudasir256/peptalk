@@ -1,22 +1,22 @@
 import React from "react";
-import {View, Text, TouchableOpacity, StyleSheet} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { styles } from "../../../common/theme/styles";
 import { COLORS } from "../../../common/theme/colors";
 import { OnboardingPager } from "./onboardingPager/onboardingPager";
-import { SPACING } from "../../../common/theme/spacing";
+import { SPACINGS } from "../../../common/theme/spacing";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LoginStackRoutes } from "../../../common/navigation/routes";
 
 export const LandingScreen = () => {
   const { navigate } = useNavigation()
-  const onLoginPress = () => {}
+  const onLoginPress = () => { }
   const onCreateAccountPress = () => navigate(LoginStackRoutes.Signup)
 
   return (
     <SafeAreaView style={[styles.flex, style.mainContainer]}>
-      <OnboardingPager/>
-      <TouchableOpacity 
+      <OnboardingPager />
+      <TouchableOpacity
         style={style.createButton}
         onPress={onCreateAccountPress}
       >
@@ -37,11 +37,11 @@ export const LandingScreen = () => {
 
 const style = StyleSheet.create({
   mainContainer: {
-    backgroundColor: COLORS.contrast,    
+    backgroundColor: COLORS.contrast,
   },
   loginButton: {
     textAlign: "center",
-    marginLeft: SPACING.xs
+    marginLeft: SPACINGS.xxs
   },
   loginButtonText: {
     color: COLORS.link,
@@ -57,20 +57,18 @@ const style = StyleSheet.create({
     fontWeight: '500',
     fontFamily: 'Rubik-Regular'
   },
-  createButton:{
-   borderRadius: 25,
-   backgroundColor: COLORS.secondary,
-   marginHorizontal: SPACING.md,
-   height: 50, 
-   marginTop: 28,
-   justifyContent: 'center'
+  createButton: {
+    borderRadius: 25,
+    backgroundColor: COLORS.secondary,
+    marginHorizontal: SPACINGS.md,
+    height: 50,
+    marginTop: 28,
+    justifyContent: 'center'
   },
-  login:{
-    flexDirection:"row",
-    justifyContent:"center",
-    alignItems:"center",
+  login: {
+    ...styles.rowCenter,
     marginTop: 24,
-    paddingVertical: SPACING.md,
+    paddingVertical: SPACINGS.md,
   },
-  
+
 });

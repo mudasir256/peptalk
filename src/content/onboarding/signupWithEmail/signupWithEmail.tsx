@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { View, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from "react-native";
-import { InputField } from "./input";
 import { style } from "./style";
 import PrimaryButton from "../../../common/components/primaryButton";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
@@ -8,6 +7,10 @@ import { COLORS } from "../../../common/theme/colors";
 import { useAppDispatch } from "../../../common/store";
 import { setAuthenticated } from "../../../common/store/slice/authentication/slice";
 import { AuthState } from "../../../common/store/slice/authentication/types";
+import { TextInputField } from "../../../common/components/input/input";
+import { PasswordInput } from "../../../common/components/passwordInput/passwordInput";
+import { KeyboardAvoidingViewWrapper } from "../../../common/components/keyboardAvoidingViewWrapper/keyboardAvoidingViewWrapper";
+import { SPACINGS } from "../../../common/theme/spacing";
 
 export const SignUpWithEmail = () => {
   const dispatch = useAppDispatch()
@@ -56,11 +59,11 @@ export const SignUpWithEmail = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-  
+
   const validatePassword = (password: string): boolean => {
     return password && password.length >= 8;
   };
-  
+
   const validateForm = () => {
     const isFormValid: boolean =
       termsOfServiceSelection.current &&
@@ -71,59 +74,59 @@ export const SignUpWithEmail = () => {
     setFormValid(isFormValid);
   };
 
-  const onCreateAccountPress = () => dispatch(setAuthenticated({authState: AuthState.Authenticated}))
+  const onCreateAccountPress = () => dispatch(setAuthenticated({ authState: AuthState.Authenticated }))
 
   return (
-    <KeyboardAvoidingView style={style.container} behavior="padding">
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={style.innerContainer}>
-          <InputField
-            placeholder="First Name"
-            onChangeText={text => setFirstName(text)}
-            validationError={firstNameError}
+    <KeyboardAvoidingViewWrapper>
+      <View style={style.innerContainer}>
+        <TextInputField
+          placeholder="First Name"
+          onChangeText={text => setFirstName(text)}
+          validationError={firstNameError}
+        />
+        <TextInputField
+          containerStyle={{ marginTop: SPACINGS.tiny }}
+          placeholder="Last Name"
+          onChangeText={text => setLastName(text)}
+          validationError={lastNameError}
+        />
+        <TextInputField
+          containerStyle={{ marginTop: SPACINGS.tiny }}
+          autoCapitalize="none"
+          placeholder="Email"
+          onChangeText={text => setEmail(text)}
+          validationError={emailError}
+        />
+        <PasswordInput
+          containerStyle={{ marginTop: SPACINGS.tiny }}
+          placeholder="Password (8+ Characters)"
+          onChangeText={text => setPassword(text)}
+          validationError={passwordError}
+        />
+        <View
+          style={style.checkboxContainer}
+        >
+          <BouncyCheckbox
+            size={25}
+            fillColor={COLORS.border}
+            unFillColor="#FFFFFF"
+            iconStyle={[style.checkbox, { borderColor: COLORS.text }]}
+            innerIconStyle={style.checkbox}
+            onPress={toggleCheckbox}
           />
-          <InputField
-            placeholder="Last Name"
-            onChangeText={text => setLastName(text)}
-            validationError={lastNameError}
-          />
-          <InputField
-            autoCapitalize="none"
-            placeholder="Email"
-            onChangeText={text => setEmail(text)}
-            validationError={emailError}
-          />
-          <InputField
-            placeholder="password (8+ characters)"
-            onChangeText={text => setPassword(text)}
-            isPasswordVisible={true}
-            validationError={passwordError}
-          />
-          <View
-            style={style.checkboxContainer}
-          >
-            <BouncyCheckbox
-              size={25}
-              fillColor={COLORS.border}
-              unFillColor="#FFFFFF"
-              iconStyle={{ borderColor:COLORS.text }}
-              innerIconStyle={style.checkbox}
-              textStyle={{ fontFamily: "JosefinSans-Regular" }}
-              onPress={toggleCheckbox}
-            />
-            <View style={style.labelContainer}>
-              <Text style={style.label}>By continuing you agree to our</Text>
-              <Text style={style.labellink}> terms of service</Text>
-            </View>
+          <View style={style.labelContainer}>
+            <Text style={style.label}>By continuing you agree to our</Text>
+            <Text style={style.labellink}> terms of service</Text>
           </View>
-          <PrimaryButton
-            title={"Create Account"}
-            containerStyle={{...style.buttonContainer, opacity: formValid ? 1 : 0.5, alignSelf: 'center' }}
-            onPress={onCreateAccountPress}
-            disabled={!formValid} 
-          />
         </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+        <View style={style.spacer}></View>
+        <PrimaryButton
+          title={"Create Account"}
+          containerStyle={{ ...style.buttonContainer, opacity: formValid ? 1 : 0.5, alignSelf: 'center' }}
+          onPress={onCreateAccountPress}
+          disabled={!formValid}
+        />
+      </View>
+    </KeyboardAvoidingViewWrapper>
   );
 };

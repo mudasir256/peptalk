@@ -4,13 +4,13 @@ import { useAppleIdSignin } from './useAppleIdSignin';
 import { IMAGES } from '../../../assets/images';
 import { styles } from '../../../common/theme/styles';
 import { style } from './style';
-import PrimaryButton from '../../../common/components/primaryButton/index'; 
+import PrimaryButton from '../../../common/components/primaryButton/index';
 import { useNavigation } from "@react-navigation/native";
 import { LoginStackRoutes } from '../../../common/navigation/routes';
 import { useAppDispatch } from '../../../common/store';
 import { setAuthenticated } from '../../../common/store/slice/authentication/slice';
 import { AuthState } from '../../../common/store/slice/authentication/types';
-
+import { SPACINGS } from '../../../common/theme/spacing';
 
 export const SignupScreen = () => {
   const { navigate } = useNavigation();
@@ -30,26 +30,21 @@ export const SignupScreen = () => {
         },
         {
           text: 'Ok',
-          onPress: () => {
+          onPress: async () => {
             try {
-              const credential = signInWithAppleId();
-              credential.then(() => {
-                dispatch(setAuthenticated({authState: AuthState.Authenticated}))
-              }).catch(error => {
-                console.error('Apple ID Sign-In Error:', error);
-              });
-            } catch (e) {
-              console.error('Error:', e);
+              const credential = await signInWithAppleId();
+              dispatch(setAuthenticated({ authState: AuthState.Authenticated }))
+            } catch (error) {
+              console.error('Apple ID Sign-In Error:', error);
             }
           }
         }
       ]
     );
   };
-  
-  const SignupWithEmail = () => {
+
+  const SignupWithEmail = () =>
     navigate(LoginStackRoutes.SignUpWithEmail);
-  }
 
   return (
     <SafeAreaView style={[styles.flex, style.container]}>
@@ -60,31 +55,31 @@ export const SignupScreen = () => {
       >
         <Text style={style.getStartedText}>Let's Get Started!</Text>
       </ImageBackground>
-      <View style={styles.flex}/>
+      <View style={styles.flex} />
       <View style={style.buttonsContainer}>
         <PrimaryButton
-          onPress={onAppldIdPress}
-          icon={IMAGES.appleIcon}
+          containerStyle={{ marginBottom: SPACINGS.md }}
           title="Sign Up With Apple"
-          containerStyle={{ marginBottom: 20 }}
+          icon={IMAGES.appleIcon}
+          onPress={onAppldIdPress}
         />
         <PrimaryButton
-          onPress={() =>{}}
-          icon={IMAGES.googleIcon}
+          containerStyle={{ marginBottom: SPACINGS.md }}
           title="Sign Up With Google"
-          containerStyle={{ marginBottom: 20 }}
+          icon={IMAGES.googleIcon}
+          onPress={() => { }}
         />
         <PrimaryButton
-          containerStyle={{alignSelf: 'center'}}
-          onPress={SignupWithEmail}
-          icon={IMAGES.emailIcon}
+          containerStyle={{ alignSelf: 'center' }}
           title="Sign Up With Email"
+          icon={IMAGES.emailIcon}
+          onPress={SignupWithEmail}
         />
         <View style={style.loginContainer}>
           <Text style={style.alreadyAccount}>Already have an account?</Text>
           <Text style={style.loginButton}>Login</Text>
         </View>
       </View>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };

@@ -1,21 +1,26 @@
 export enum HomeStackRoutes {
-    Welcome = "Welcome",
-    Home = "Home",
-    HomeTab = "HomeTab",
-    Camera = "CameraTab",
-    Folder = "FoldersTab",
-    Settings = "SettingsTab",
-  }
-  
-  export enum DetailStackRoutes {
-    Detail = "Detail",
-  }
+  Welcome = "Welcome",
+  Home = "Home",
+  HomeTab = "HomeTab",
+  Camera = "CameraTab",
+  Folder = "FoldersTab",
+  Settings = "SettingsTab",
+  Search = "Search"
+}
 
-  export enum LoginStackRoutes {
-    Splash = "Splash",
-    Landing = "Landing",
-    Login = "Login",
-    Signup = "Signup",
-    SignUpWithEmail = "SignUpWithEmail",
-  }
-  
+export enum DetailStackRoutes {
+  Detail = "Detail",
+}
+
+export enum LoginStackRoutes {
+  Splash = "Splash",
+  Landing = "Landing",
+  Login = "Login",
+  Signup = "Signup",
+  SignUpWithEmail = "SignUpWithEmail",
+}
+
+export enum SearchStackRoutes {
+  HomeX = "HomeX",
+  SearchX = "SearchX"
+}

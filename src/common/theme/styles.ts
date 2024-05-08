@@ -4,14 +4,39 @@ const flex: Partial<ViewStyle> = {
   flex: 1
 }
 
+const flexRow: Partial<ViewStyle> = {
+  flexDirection: "row",
+  justifyContent: "space-between",
+}
+
 const center: Partial<ViewStyle> = {
   alignItems: 'center',
   justifyContent: 'center',
 }
+
 const start: Partial<ViewStyle> = {
-  flexDirection:"row",
+  flexDirection: "row",
   alignItems: 'center',
   justifyContent: "flex-start",
+}
+
+const rowStart: Partial<ViewStyle> = {
+  flexDirection: "row",
+  justifyContent: "flex-start",
+}
+
+const rowBetween: Partial<ViewStyle> = {
+  justifyContent: "space-between",
+}
+
+const alignCenter: Partial<ViewStyle> = {
+  alignItems: 'center',
+}
+
+const between: Partial<ViewStyle> = {
+  flexDirection: "row",
+  alignItems: 'center',
+  ...rowBetween
 }
 
 const flexCenter: Partial<ViewStyle> = {
@@ -32,7 +57,7 @@ const absoluteFill: Partial<ViewStyle> = {
 }
 
 const absoluteCenter: Partial<ViewStyle> = {
-  ...absoluteFill, 
+  ...absoluteFill,
   ...center
 }
 
@@ -69,5 +94,10 @@ export const styles = {
   start,
   rowCenter,
   buttonSize,
-  iconSize
+  iconSize,
+  between,
+  rowStart,
+  rowBetween,
+  flexRow,
+  alignCenter
 }

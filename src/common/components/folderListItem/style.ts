@@ -1,0 +1,49 @@
+import { StyleSheet } from 'react-native'
+import { COLORS } from '../../theme/colors';
+import { SPACINGS } from '../../theme/spacing';
+import { styles } from '../../theme/styles';
+
+
+
+export const style = StyleSheet.create({
+  container: {
+    backgroundColor: COLORS.listbg,
+    padding: SPACINGS.sm,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: COLORS.header,
+    borderRadius: 5,
+    ...styles.row,
+  },
+  image: {
+    width: 127,
+    height: 147,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  details: {
+    ...styles.rowBetween,
+    flex: 1
+  },
+  title: {
+    fontSize: 17,
+    fontWeight: "500",
+    lineHeight: 22,
+    color: COLORS.text
+  },
+  date: {
+    fontSize: 15,
+    fontWeight: "400",
+    lineHeight: 20,
+    color: COLORS.listtxt
+  },
+  iconContainer: {
+    ...styles.row,
+    justifyContent: 'flex-end',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+});

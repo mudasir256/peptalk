@@ -1,11 +1,14 @@
 import React from "react";
-import {View, Text} from "react-native";
+import { View } from "react-native";
+import Header from "../../common/header/header";
 import { styles } from "../../common/theme/styles";
+import FolderItemsList from "./folderItemsList/folderItemsList";
 
 const HomeScreen = () => (
-    <View style={styles.flexCenter}>
-      <Text>Home Screen</Text>
-    </View>
+  <View style={styles.flex}>
+    <Header title="Recent" />
+    <FolderItemsList />
+  </View>
 )
 
 export default HomeScreen

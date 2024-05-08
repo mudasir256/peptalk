@@ -1,24 +1,24 @@
 import { COLORS } from "../../../common/theme/colors";
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 import { styles } from "../../../common/theme/styles";
-import { SPACING } from "../../../common/theme/spacing";
+import { SPACINGS } from "../../../common/theme/spacing";
 
 export const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#dcf6f4",
-  },
   innerContainer: {
-    padding: SPACING.md,
+    padding: SPACINGS.md,
+    ...styles.flex,
+  },
+  spacer: {
+    ...styles.flex,
   },
   checkboxContainer: {
     marginTop: 30,
     ...styles.rowCenter,
   },
   checkbox: {
-    borderRadius: 8,
-    borderColor:COLORS.text,
-    borderWidth:2
+    borderRadius: 4,
+    borderColor: COLORS.text,
+    borderWidth: 2
   },
 
   labelContainer: {
@@ -35,12 +35,11 @@ export const style = StyleSheet.create({
     backgroundColor: COLORS.secondary,
     ...styles.center,
     borderRadius: 25,
-    marginTop: "60%",
-    borderWidth:0,
+    borderWidth: 0,
+    marginBottom: SPACINGS.xl
   },
   buttonText: {
     color: "white",
     fontWeight: "700"
   },
-
 });

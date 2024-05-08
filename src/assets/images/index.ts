@@ -9,5 +9,17 @@ export const IMAGES = {
   signupBackground: require('./signupBackground.png'),
   appleIcon: require('./appleIcon.png'),
   googleIcon: require('./googleIcon.png'),
-  emailIcon: require('./emailIcon.png')
+  emailIcon: require('./emailIcon.png'),
+  edit: require('./editIcon3x.png'),
+  trash: require('./trash3x.png'),
+  movefolder: require('./movefolder3x.png'),
+  close: require('./x.png'),
+  folder: require('./folder.png'),
+  addFolder: require('./addFolder.png'),
+  rectangle1: require('./rectangle1.png'),
+  rectangle2: require('./rectangle3.png'),
+  rectangle3: require('./rectangle2.png'),
+  rectangle4: require('./videoicon.png'),
+  rectangle5: require('./sidearrow.png'),
+  rectangle6: require('./version.png')
 }

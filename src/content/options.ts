@@ -9,16 +9,12 @@ export const header = {
 }
 
 export const headerOptions = {
-  headerTitle: "Back", 
-  title:'my home',
+  headerBackTitle: 'Back',
   headerStyle: {
-    backgroundColor: COLORS.contrast, 
-    borderBottomWidth: 0, 
-    shadowColor: "transparent" 
-    
+    backgroundColor: COLORS.contrast,
+    borderBottomWidth: 0,
+    shadowColor: "transparent",
   },
   headerTintColor: COLORS.text,
-   headerShadowVisible: false, 
-  headerTitleStyle:{
-  }
- }
+  headerShadowVisible: false,
+}

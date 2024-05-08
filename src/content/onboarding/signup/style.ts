@@ -1,7 +1,7 @@
 import { COLORS } from "../../../common/theme/colors";
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 import { styles } from "../../../common/theme/styles";
-import { SPACING } from "../../../common/theme/spacing";
+import { SPACINGS } from "../../../common/theme/spacing";
 
 export const style = StyleSheet.create({
   container: {
@@ -16,32 +16,32 @@ export const style = StyleSheet.create({
     fontWeight: "700",
     color: COLORS.text,
     textShadowColor: COLORS.shadow,
-    textShadowOffset: { 
-      width: 2, 
+    textShadowOffset: {
+      width: 2,
       height: 6
     },
     textShadowRadius: 5,
     lineHeight: 38
   },
-  buttonsContainer:{
+  buttonsContainer: {
     alignItems: 'center'
   },
-  alreadyAccount:{
-    fontSize:17,
-    fontWeight:"500",
-    color:COLORS.text,
-    lineHeight:22
+  alreadyAccount: {
+    fontSize: 17,
+    fontWeight: "500",
+    color: COLORS.text,
+    lineHeight: 22
   },
-  loginButton:{
-    fontSize:17,
-    fontWeight:"500",
-    color:COLORS.link,
-    marginLeft: SPACING.sm,
-    lineHeight:22
+  loginButton: {
+    fontSize: 17,
+    fontWeight: "500",
+    color: COLORS.link,
+    marginLeft: SPACINGS.xs,
+    lineHeight: 22
   },
-  loginContainer:{
+  loginContainer: {
     ...styles.rowCenter,
-    marginBottom: 18,
+    marginBottom: SPACINGS.md,
     marginTop: 40
   }
 });
