@@ -17,6 +17,8 @@ export const COLORS = {
   folderBorder: "rgba(255, 255, 255, 0.75)",
   searchBorder: "#D3D3D3",
   searchbackground: "#F5F9F9",
-  inputbg: "rgba(118, 118, 128, 0.12)"
-  
+  inputbg: "#7676801F",
+  buttonbg: "#FFF2EF",
+
+
 }

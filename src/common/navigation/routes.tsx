@@ -5,7 +5,7 @@ export enum HomeStackRoutes {
   Camera = "CameraTab",
   Folder = "FoldersTab",
   Settings = "SettingsTab",
-  Search = "Search"
+  Search = "Search",
 }
 
 export enum DetailStackRoutes {
@@ -18,9 +18,4 @@ export enum LoginStackRoutes {
   Login = "Login",
   Signup = "Signup",
   SignUpWithEmail = "SignUpWithEmail",
-}
-
-export enum SearchStackRoutes {
-  HomeX = "HomeX",
-  SearchX = "SearchX"
 }

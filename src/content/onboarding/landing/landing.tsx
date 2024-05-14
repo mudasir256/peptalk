@@ -9,9 +9,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LoginStackRoutes } from "../../../common/navigation/routes";
 
 export const LandingScreen = () => {
-  const { navigate } = useNavigation()
-  const onLoginPress = () => { }
-  const onCreateAccountPress = () => navigate(LoginStackRoutes.Signup)
+  const { navigate } = useNavigation();
+  const onLoginPress = () => {};
+  const onCreateAccountPress = () => navigate(LoginStackRoutes.Signup);
 
   return (
     <SafeAreaView style={[styles.flex, style.mainContainer]}>
@@ -23,17 +23,14 @@ export const LandingScreen = () => {
         <Text style={style.createButtonText}>Create a free account</Text>
       </TouchableOpacity>
       <View style={style.login}>
-        <Text style={style.loginButtonOr}>Or</Text >
-        <TouchableOpacity
-          onPress={onLoginPress}
-          style={style.loginButton}
-        >
+        <Text style={style.loginButtonOr}>Or</Text>
+        <TouchableOpacity onPress={onLoginPress} style={style.loginButton}>
           <Text style={style.loginButtonText}>Login</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const style = StyleSheet.create({
   mainContainer: {
@@ -41,21 +38,20 @@ const style = StyleSheet.create({
   },
   loginButton: {
     textAlign: "center",
-    marginLeft: SPACINGS.xxs
+    marginLeft: SPACINGS.xxs,
   },
   loginButtonText: {
     color: COLORS.link,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   loginButtonOr: {
     color: COLORS.text,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   createButtonText: {
     textAlign: "center",
     color: COLORS.text,
-    fontWeight: '500',
-    fontFamily: 'Rubik-Regular'
+    fontWeight: "500",
   },
   createButton: {
     borderRadius: 25,
@@ -63,12 +59,11 @@ const style = StyleSheet.create({
     marginHorizontal: SPACINGS.md,
     height: 50,
     marginTop: 28,
-    justifyContent: 'center'
+    justifyContent: "center",
   },
   login: {
     ...styles.rowCenter,
     marginTop: 24,
     paddingVertical: SPACINGS.md,
   },
-
 });

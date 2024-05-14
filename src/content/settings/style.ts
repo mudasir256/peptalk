@@ -51,7 +51,7 @@ export const style = StyleSheet.create({
   itemContainer: {
     ...styles.row,
     paddingVertical: SPACINGS.sm,
-    borderBottomWidth: 2,
+    borderBottomWidth: 0.3,
     borderBottomColor: COLORS.searchBorder,
     padding: SPACINGS.md,
   },
@@ -70,6 +70,9 @@ export const style = StyleSheet.create({
   list: {
     marginVertical: SPACINGS.md,
     marginBottom: 80
+  },
+  version: {
+    marginRight: SPACINGS.md
   }
 
 });

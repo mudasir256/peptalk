@@ -6,6 +6,7 @@ import { styles } from "../../common/theme/styles"
 export const style = StyleSheet.create({
 
   container: {
+    backgroundColor: "white",
   },
   back: {
     ...styles.row,
@@ -14,12 +15,13 @@ export const style = StyleSheet.create({
   headerContainer: {
     ...styles.row,
     ...styles.alignCenter,
-    paddingVertical: SPACINGS.lg
+    paddingVertical: SPACINGS.lg,
   },
   search: {
     width: "76%",
     height: 50,
     marginLeft: 10,
+    backgroundColor: COLORS.inputbg
   },
   backbtn: {
     color: COLORS.text,
@@ -33,7 +35,7 @@ export const style = StyleSheet.create({
     lineHeight: 20,
     padding: SPACINGS.md,
     color: COLORS.text,
-    backgroundColor: COLORS.searchbackground,
+    backgroundColor: COLORS.listbg,
   },
   itemContainer: {
     ...styles.row,
@@ -41,6 +43,7 @@ export const style = StyleSheet.create({
     borderBottomWidth: 2,
     borderBottomColor: COLORS.searchBorder,
     padding: SPACINGS.md,
+    backgroundColor: "white",
   },
   icon: {
     width: 24,

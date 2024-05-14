@@ -15,11 +15,24 @@ export const style = StyleSheet.create({
     borderRadius: 5,
     ...styles.row,
   },
+  imageContainer: {
+    position: 'relative',
+  },
   image: {
     width: 127,
     height: 147,
     borderRadius: 5,
     marginRight: 10,
+  },
+  imageIconContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // Adjust as needed to position the icon
   },
   details: {
     ...styles.rowBetween,
@@ -37,7 +50,7 @@ export const style = StyleSheet.create({
     lineHeight: 20,
     color: COLORS.listtxt
   },
-  iconContainer: {
+  iconsContainer: {
     ...styles.row,
     justifyContent: 'flex-end',
   },
@@ -45,5 +58,14 @@ export const style = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  iconContainer: {
+    borderWidth: 2,
+    borderColor: COLORS.secondary,
+    borderRadius: 25,
+    backgroundColor: COLORS.dropdownbg,
+    padding: 6,
+    marginLeft: SPACINGS.xs,
+    height: 32
   },
 });

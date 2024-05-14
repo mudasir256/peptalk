@@ -1,5 +1,11 @@
 import React, { useRef, useState } from "react";
-import { View, Text, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+} from "react-native";
 import { style } from "./style";
 import PrimaryButton from "../../../common/components/primaryButton";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
@@ -13,7 +19,7 @@ import { KeyboardAvoidingViewWrapper } from "../../../common/components/keyboard
 import { SPACINGS } from "../../../common/theme/spacing";
 
 export const SignUpWithEmail = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const [formValid, setFormValid] = useState<boolean>(false);
 
   const termsOfServiceSelection = useRef(false);
@@ -29,30 +35,40 @@ export const SignUpWithEmail = () => {
 
   const toggleCheckbox = (isChecked: boolean) => {
     termsOfServiceSelection.current = isChecked;
-    validateForm()
-  }
+    validateForm();
+  };
 
   const setFirstName = (value: string) => {
     firstName.current = value;
-    setFirstNameError(value ? '' : 'Please enter first name');
-    validateForm()
+    setFirstNameError(value ? "" : "Please enter first name");
+    validateForm();
   };
 
   const setLastName = (value: string) => {
     lastName.current = value;
-    setLastNameError(value ? '' : 'Please enter last name');
-    validateForm()
-  }
+    setLastNameError(value ? "" : "Please enter last name");
+    validateForm();
+  };
   const setEmail = (value: string) => {
     email.current = value;
-    setEmailError(value ? validateEmail(value) ? '' : 'Please enter a valid email address' : 'Please enter email address')
-    validateForm()
+    setEmailError(
+      value
+        ? validateEmail(value)
+          ? ""
+          : "Please enter a valid email address"
+        : "Please enter email address"
+    );
+    validateForm();
   };
 
   const setPassword = (value: string) => {
     password.current = value;
-    setPasswordError(validatePassword(value) ? '' : 'Password must be at least 8 characters long');
-    validateForm()
+    setPasswordError(
+      validatePassword(value)
+        ? ""
+        : "Password must be at least 8 characters long"
+    );
+    validateForm();
   };
 
   const validateEmail = (email: string) => {
@@ -74,38 +90,36 @@ export const SignUpWithEmail = () => {
     setFormValid(isFormValid);
   };
 
-  const onCreateAccountPress = () => dispatch(setAuthenticated({ authState: AuthState.Authenticated }))
+  const onCreateAccountPress = () =>
+    dispatch(setAuthenticated({ authState: AuthState.Authenticated }));
 
   return (
     <KeyboardAvoidingViewWrapper>
-      <View style={style.innerContainer}>
+      <View style={{ ...style.innerContainer }}>
         <TextInputField
           placeholder="First Name"
-          onChangeText={text => setFirstName(text)}
+          onChangeText={(text) => setFirstName(text)}
           validationError={firstNameError}
         />
         <TextInputField
-          containerStyle={{ marginTop: SPACINGS.tiny }}
+          containerStyle={{ marginTop: SPACINGS.md }}
           placeholder="Last Name"
-          onChangeText={text => setLastName(text)}
+          onChangeText={(text) => setLastName(text)}
           validationError={lastNameError}
         />
         <TextInputField
-          containerStyle={{ marginTop: SPACINGS.tiny }}
-          autoCapitalize="none"
+          containerStyle={{ marginTop: SPACINGS.md }}
           placeholder="Email"
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
           validationError={emailError}
         />
         <PasswordInput
-          containerStyle={{ marginTop: SPACINGS.tiny }}
+          containerStyle={{ marginTop: SPACINGS.md }}
           placeholder="Password (8+ Characters)"
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           validationError={passwordError}
         />
-        <View
-          style={style.checkboxContainer}
-        >
+        <View style={style.checkboxContainer}>
           <BouncyCheckbox
             size={25}
             fillColor={COLORS.border}
@@ -122,7 +136,11 @@ export const SignUpWithEmail = () => {
         <View style={style.spacer}></View>
         <PrimaryButton
           title={"Create Account"}
-          containerStyle={{ ...style.buttonContainer, opacity: formValid ? 1 : 0.5, alignSelf: 'center' }}
+          containerStyle={{
+            ...style.buttonContainer,
+            opacity: formValid ? 1 : 0.5,
+            alignSelf: "center",
+          }}
           onPress={onCreateAccountPress}
           disabled={!formValid}
         />

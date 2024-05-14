@@ -1,77 +1,117 @@
-import React, { ReactNode, useState } from "react";
-import { View, TextInput, TouchableOpacity, StyleSheet, Text, TextInputProps, ImageRequireSource, ViewStyle, TextStyle } from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+} from "react-native";
 import { COLORS } from "../../theme/colors";
 import { SPACINGS } from "../../theme/spacing";
+import { SearchIcon } from "../../../assets/svgs/svgIcons";
 
-export type TextInputFieldProps = TextInputProps & {
-  containerStyle?: ViewStyle
-  inputStyle?: TextStyle
-  placeholder: string
-  validationError?: string
-  rightIcon?: ReactNode
-  iconSize?: number
-  onChangeText?: (text: string) => void
-  onRightIconPress?: VoidFunction
-  onPress?: () => void
-}
+export type TextInputFieldProps = {
+  containerStyle?: any;
+  inputStyle?: any;
+  placeholder: string;
+  validationError?: string;
+  rightIcon?: React.ReactNode;
+  iconSize?: number;
+  onChangeText?: (text: string) => void;
+  onRightIconPress?: () => void;
+  onPress?: () => void;
+  searchIcon?: boolean;
+  focusBorderColor?: string;
+  FocusBorderWidth?: number;
+  secureTextEntry?: boolean;
+  value?: string;
+};
 
 export const TextInputField = ({
-  containerStyle = undefined,
-  inputStyle = undefined,
+  containerStyle,
+  inputStyle,
   placeholder,
+  searchIcon,
   onChangeText,
   validationError,
-  rightIcon = undefined,
+  rightIcon,
   iconSize = 20,
+  onRightIconPress,
   onPress,
-  onRightIconPress = undefined,
+  focusBorderColor = COLORS.primary,
+  FocusBorderWidth = 2,
   ...rest
 }: TextInputFieldProps) => {
   const [focus, setFocus] = useState(false);
 
   return (
-    <View style={containerStyle}>
-      <TouchableOpacity>
+    <>
+      <View
+        style={[
+          style.searchContainer,
+          focus && {
+            borderColor: focusBorderColor,
+            borderWidth: FocusBorderWidth,
+          },
+          containerStyle,
+        ]}
+      >
+        {searchIcon && <SearchIcon style={style.iconStyle} />}
         <TextInput
-          style={[style.input, focus && style.border, inputStyle,]}
+          style={[style.input, inputStyle]}
           placeholder={placeholder}
           onChangeText={onChangeText}
-          onFocus={() => { setFocus(true,), onPress() }}
+          onFocus={() => {
+            onPress ? onPress() : setFocus(true);
+          }}
           onBlur={() => setFocus(false)}
           {...rest}
         />
+
         {rightIcon && (
-          <TouchableOpacity onPress={onRightIconPress} style={[style.icon, { transform: [{ translateY: -iconSize / 2 }] }]}>
+          <TouchableOpacity
+            onPress={onRightIconPress}
+            style={[
+              style.iconButton,
+              { transform: [{ translateY: -iconSize / 20 }] },
+            ]}
+          >
             {rightIcon}
           </TouchableOpacity>
         )}
-      </TouchableOpacity>
+      </View>
       <Text style={style.errorText}>{validationError}</Text>
-    </View >
+    </>
   );
 };
 
 const style = StyleSheet.create({
   input: {
-    height: 50,
-    padding: SPACINGS.rg,
-    backgroundColor: COLORS.white,
-    borderRadius: SPACINGS.sm,
-    borderColor: COLORS.primary,
-    borderWidth: 0,
-    fontSize: 17
+    flex: 1,
+    paddingHorizontal: 10,
   },
-  border: {
-    borderWidth: 2,
-  },
-  icon: {
+  iconButton: {
     position: "absolute",
-    right: 8,
-    top: '50%',
+    right: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+  },
+  iconStyle: {
+    marginLeft: 10,
   },
   errorText: {
     color: "red",
     fontSize: 12,
     marginTop: SPACINGS.tiny,
+  },
+  searchContainer: {
+    flexDirection: "row",
+    backgroundColor: COLORS.white,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "transparent",
+    height: 50,
+    alignItems: "center",
   },
 });

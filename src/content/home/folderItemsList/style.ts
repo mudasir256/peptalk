@@ -4,6 +4,10 @@ import { styles } from '../../../common/theme/styles';
 import { SPACINGS } from '../../../common/theme/spacing';
 
 export const style = StyleSheet.create({
+  container: {
+    ...styles.flex,
+    zIndex: -1
+  },
   modalContainer: {
     paddingHorizontal: SPACINGS.md,
   },

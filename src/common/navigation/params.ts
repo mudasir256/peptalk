@@ -11,10 +11,5 @@ export type HomeStackParamsList = {
   [HomeStackRoutes.Home]: undefined;
   [HomeStackRoutes.Search]: undefined;
 };
-export type SearchStackParamsList = {
-  [SearchStackRoutes.HomeX]: undefined;
-  [SearchStackRoutes.SearchX]: undefined;
-};
 export type AppStackParamsList = LoginStackParamsList &
-  HomeStackParamsList &
-  SearchStackParamsList;
+  HomeStackParamsList;

@@ -42,4 +42,15 @@ export const style = StyleSheet.create({
     color: "white",
     fontWeight: "700"
   },
+  input: {
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  border: {
+    borderWidth: 2,
+    borderColor: COLORS.primary,
+    padding: 11,
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
 });

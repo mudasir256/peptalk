@@ -4,6 +4,9 @@ import { styles } from '../../../common/theme/styles';
 import { SPACINGS } from '../../../common/theme/spacing';
 
 export const style = StyleSheet.create({
+  container:{
+    flex: 1 
+  },
   modalContainer: {
     paddingHorizontal: SPACINGS.md,
   },
@@ -27,9 +30,18 @@ export const style = StyleSheet.create({
     marginTop: 1,
   },
   buttonContainer: {
-    ...styles.flex,
     ...styles.rowCenter,
     borderTopWidth: 1,
     borderTopColor: "white",
-  }
+    marginBottom: 30
+  },
+  iconContainer: {
+    borderWidth: 2,
+    borderColor: COLORS.secondary,
+    borderRadius: 25,
+    backgroundColor: COLORS.dropdownbg,
+    padding: 8,
+    marginLeft: SPACINGS.xs,
+    height: 32
+  },
 });

@@ -55,12 +55,14 @@ export const style = StyleSheet.create({
     right: 0,
     top: 0,
     width: 150,
+    zIndex: 1000
   },
   item: {
     padding: 10,
   },
   input: {
-    marginTop: 12,
+    backgroundColor: COLORS.inputbg,
+    marginVertical: 15,
     zIndex: -1,
   },
   headerButton: {

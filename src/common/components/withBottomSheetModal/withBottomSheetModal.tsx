@@ -1,17 +1,11 @@
-import React, { useCallback, useMemo, useRef } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { IMAGES } from '../../../assets/images';
-import HomeFolder from '../../../common/components/homeFolder/homeFolder';
-import PrimaryButton from '../../../common/components/primaryButton';
-import { style } from './style';
-import IconButton from '../../../content/home/folderItemsList/iconButton';
-import {
-  BottomSheetModal,
-  BottomSheetView,
-  BottomSheetBackdropProps,
-  BottomSheetBackdrop,
-} from '@gorhom/bottom-sheet';
-
+import React, { useRef } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import HomeFolder from "../../../common/components/homeFolder/homeFolder";
+import PrimaryButton from "../../../common/components/primaryButton";
+import { style } from "./style";
+import { BottomSheetView } from "@gorhom/bottom-sheet";
+import { CrossIcon } from "../../../assets/svgs/svgIcons";
+import bottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet";
 
 const foldersData = [
   "Dentist",
@@ -22,58 +16,33 @@ const foldersData = [
   "Birthday Party",
 ];
 
-
-const WithBottomSheetModal = () => {
-
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ['1', '70%'], []);
-
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index);
-  }, []);
-
-  const backdropComponent = useCallback(
-    (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop
-        {...props}
-        appearsOnIndex={0}
-        disappearsOnIndex={-1}
-        opacity={0.48}
-      />
-    ),
-    []
-  );
-
+const WithBottomSheetModal = ({ handleClosePress }) => {
   return (
-    <BottomSheetModal
-      ref={bottomSheetModalRef}
-      index={1}
-      backdropComponent={backdropComponent}
-      snapPoints={snapPoints}
-      onChange={handleSheetChanges}
-    >
-      <BottomSheetView style={style.modalContainer}>
-        <View style={style.head}>
-          <Text style={style.move}>Move</Text>
-          <IconButton icon={IMAGES.close} />
-        </View>
-        <FlatList
-          data={foldersData}
-          renderItem={({ item }) => (
-            <HomeFolder name={item} />
-          )}
-          keyExtractor={(index) => index.toString()}
-          contentContainerStyle={style.folder}
-        />
-      </BottomSheetView>
-      <View style={style.buttonContainer}>
-        <PrimaryButton
-          title={"Folder"}
-          containerStyle={style.button}
-        />
+    <>
+      <View style={style.container}>
+        <BottomSheetView style={style.modalContainer}>
+          <View style={style.head}>
+            <Text style={style.move}>Move</Text>
+            <TouchableOpacity
+              onPress={handleClosePress}
+              style={style.iconContainer}
+            >
+              <CrossIcon />
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            data={foldersData}
+            renderItem={({ item }) => <HomeFolder name={item} />}
+            keyExtractor={(index) => index.toString()}
+            contentContainerStyle={style.folder}
+          />
+        </BottomSheetView>
       </View>
-    </BottomSheetModal>
-  )
-}
+      <View style={style.buttonContainer}>
+        <PrimaryButton title={"Folder"} containerStyle={style.button} />
+      </View>
+    </>
+  );
+};
 
-export default WithBottomSheetModal
+export default WithBottomSheetModal;

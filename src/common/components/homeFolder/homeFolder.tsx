@@ -1,17 +1,16 @@
-import { StyleSheet, Text, View, Image } from 'react-native'
-import React from 'react'
-import { IMAGES } from '../../../assets/images'
-import { styles } from '../../theme/styles';
-import { COLORS } from '../../theme/colors';
-import { SPACINGS } from '../../theme/spacing';
-import BouncyCheckbox from 'react-native-bouncy-checkbox/build/dist/BouncyCheckbox';
-
+import { StyleSheet, Text, View, Image } from "react-native";
+import React from "react";
+import { styles } from "../../theme/styles";
+import { COLORS } from "../../theme/colors";
+import { SPACINGS } from "../../theme/spacing";
+import BouncyCheckbox from "react-native-bouncy-checkbox/build/dist/BouncyCheckbox";
+import { Folders } from "../../../assets/svgs/svgIcons";
 
 const HomeFolder = ({ name }) => {
   return (
     <View style={style.head}>
       <View style={style.folder}>
-        <Image source={IMAGES.folder} />
+        <Folders />
         <Text style={style.move}>{name}</Text>
       </View>
       <BouncyCheckbox
@@ -22,15 +21,15 @@ const HomeFolder = ({ name }) => {
         textStyle={{}}
       />
     </View>
-  )
-}
+  );
+};
 
-export default HomeFolder
+export default HomeFolder;
 
 const style = StyleSheet.create({
   head: {
     ...styles.flexRow,
-    marginVertical: SPACINGS.md
+    marginVertical: SPACINGS.md,
   },
   folder: {
     ...styles.rowCenter,
@@ -40,14 +39,13 @@ const style = StyleSheet.create({
     fontSize: 17,
     fontWeight: "400",
     lineHeight: 22,
-    color: COLORS.text
+    color: COLORS.text,
   },
   checkbox: {
     borderRadius: 4,
     borderColor: COLORS.text,
     borderWidth: 2,
     backgroundColor: "white",
-    // marginLeft: SPACINGS.lg,
+    marginLeft: SPACINGS.lg,
   },
-
-})
+});
