@@ -2,6 +2,7 @@ import { COLORS } from "../../../common/theme/colors";
 import { StyleSheet } from 'react-native'
 import { styles } from "../../../common/theme/styles";
 import { SPACINGS } from "../../../common/theme/spacing";
+import { ButtonTextPrimary, PrimaryTitle } from "../../../common/theme/typography";
 
 export const style = StyleSheet.create({
   container: {
@@ -9,35 +10,21 @@ export const style = StyleSheet.create({
   },
   imageBg: {
     width: '100%',
-    aspectRatio: 1,
+    ...styles.aspectRatio,
   },
   getStartedText: {
-    fontSize: 34,
-    fontWeight: "700",
-    color: COLORS.text,
-    textShadowColor: COLORS.shadow,
-    textShadowOffset: {
-      width: 2,
-      height: 6
-    },
-    textShadowRadius: 5,
-    lineHeight: 38
+    ...PrimaryTitle,
   },
   buttonsContainer: {
-    alignItems: 'center'
+    ...styles.alignCenter,
   },
   alreadyAccount: {
-    fontSize: 17,
-    fontWeight: "500",
-    color: COLORS.text,
-    lineHeight: 22
+    ...ButtonTextPrimary,
   },
   loginButton: {
-    fontSize: 17,
-    fontWeight: "500",
+    ...ButtonTextPrimary,
     color: COLORS.link,
     marginLeft: SPACINGS.xs,
-    lineHeight: 22
   },
   loginContainer: {
     ...styles.rowCenter,

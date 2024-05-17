@@ -6,6 +6,9 @@ export enum HomeStackRoutes {
   Folder = "FoldersTab",
   Settings = "SettingsTab",
   Search = "Search",
+  TermsOfUse = "TermsOfUse",
+  About = "About",
+  Contact = "Contact",
 }
 
 export enum DetailStackRoutes {

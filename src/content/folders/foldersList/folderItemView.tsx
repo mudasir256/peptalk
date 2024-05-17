@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -5,23 +6,59 @@ import {
   StyleSheet,
   ImageSourcePropType,
 } from "react-native";
-import React from "react";
-import { SPACINGS } from "../../../common/theme/spacing";
-import { styles } from "../../../common/theme/styles";
-import { COLORS } from "../../../common/theme/colors";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ellipses, Folders } from "../../../assets/svgs/svgIcons";
+import Dropdown from "../../../common/components/modal/dropDownModal/dropDown";
+import { useTranslation } from "react-i18next";
 import { Folder } from "./types";
+import { COLORS } from "../../../common/theme/colors";
+import { SPACINGS } from "../../../common/theme/spacing";
+import { SecondryFont, NormalFont } from "../../../common/theme/typography";
+import { styles } from "../../../common/theme/styles";
+import CustomModal from "../../../common/components/modal/modal";
 
 type Props = {
   folder: Folder;
+  isOpen?: boolean;
+  toggleDropdown: VoidFunction;
+  updateFolder: (index: number, newName: string) => void;
+  handleDelete: () => void;
 };
 
-const FolderItemView = ({ folder }: Props) => {
+const FolderItemView: React.FC<Props> = ({
+  folder,
+  isOpen,
+  toggleDropdown,
+  handleDelete,
+  updateFolder,
+}) => {
+  const { t } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
+  const options = [
+    { label: t("dropDown.rename"), value: "rename" },
+    { label: t("dropDown.delete"), value: "delete" },
+  ];
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
+  const handleOptionSelect = (option: string) => {
+    if (option === "delete") {
+      handleDelete();
+    }
+    if (option === "rename") {
+      setShowModal(true);
+    }
+    toggleDropdown();
+  };
+
   const numImages = folder.images.length;
   const imageStyle =
     numImages === 1
       ? [style.singleImage]
       : [style.multiImage, { flex: 1 / numImages }];
+
   return (
     <View style={style.container}>
       <View
@@ -43,8 +80,19 @@ const FolderItemView = ({ folder }: Props) => {
           <Folders />
           <Text style={style.folderText}>{folder.name}</Text>
         </View>
-        <Ellipses />
+        <TouchableOpacity onPress={toggleDropdown}>
+          <Ellipses />
+        </TouchableOpacity>
       </View>
+      {isOpen && <Dropdown options={options} onSelect={handleOptionSelect} />}
+      {showModal && (
+        <CustomModal
+          title={"Update Folder Name"}
+          showInput
+          onClose={handleClose}
+          onPressOk={updateFolder}
+        />
+      )}
     </View>
   );
 };
@@ -54,9 +102,9 @@ const style = StyleSheet.create({
     padding: SPACINGS.md,
   },
   imageContainer: {
-    borderColor: "#E0E0E0",
-    borderWidth: 2,
-    borderRadius: 10,
+    borderRadius: SPACINGS.sm,
+    borderWidth: SPACINGS.s,
+    borderColor: COLORS.imageBorder,
     height: 162,
     overflow: "hidden",
   },
@@ -71,27 +119,27 @@ const style = StyleSheet.create({
     height: "100%",
   },
   folderIcon: {
-    fontSize: 20,
+    ...SecondryFont,
     marginRight: 5,
   },
   folderText: {
-    fontSize: 16,
-    marginLeft: 8,
+    marginLeft: SPACINGS.xs,
+    ...NormalFont,
   },
   ellipseIcon: {
     color: COLORS.text,
-    marginHorizontal: 2,
+    marginHorizontal: SPACINGS.s,
   },
   folderBottom: {
     ...styles.flexRow,
     ...styles.alignCenter,
-    marginTop: 10,
+    marginTop: SPACINGS.sm,
   },
   imageOverlap: {
+    borderColor: COLORS.white,
+    borderRadius: SPACINGS.sm,
+    borderWidth: SPACINGS.s,
     marginLeft: -40,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: "white",
   },
 });
 

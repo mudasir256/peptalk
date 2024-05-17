@@ -6,10 +6,12 @@ import { styles } from "../../../../common/theme/styles";
 import { WelcomePage } from "../welcomePage";
 import { HighlightPage } from "../highlightPage";
 import { IMAGES } from "../../../../assets/images";
+import { useTranslation } from "react-i18next";
 
 const ONBOARDING_PAGES_COUNT = 6;
 
 export const OnboardingPager = () => {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   return (
     <>
@@ -22,32 +24,32 @@ export const OnboardingPager = () => {
         <HighlightPage
           key="1"
           image={IMAGES.illustration0}
-          detail="Show your child they can do it, with a pep talk from themselves!"
+          detail={t("landingScreen.detail1")}
         />
         <HighlightPage
           key="2"
-          title="Step 1"
+          title={t("landingScreen.step1")}
           image={IMAGES.illustration1}
-          detail="Use the app camera or import video from your phone."
+          detail={t("landingScreen.detail2")}
           imageStyle={{ width: "60%" }}
         />
         <HighlightPage
           key="3"
-          title="Step 2"
+          title={t("landingScreen.step2")}
           image={IMAGES.illustration2}
-          detail="Add stickers or voiceover to the video recording."
+          detail={t("landingScreen.detail3")}
         />
         <HighlightPage
           key="4"
-          title="Step 3"
+          title={t("landingScreen.step3")}
           image={IMAGES.illustration3}
-          detail="Play back the pep talk for a boost of confidence!"
+          detail={t("landingScreen.detail4")}
           imageStyle={{ width: "60%" }}
         />
         <HighlightPage
           key="5"
           image={IMAGES.illustration4}
-          detail="You’ve got this!"
+          detail={t("landingScreen.detail5")}
           detailStyle={style.detailStyle}
         />
       </PagerView>

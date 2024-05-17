@@ -19,6 +19,6 @@ export const COLORS = {
   searchbackground: "#F5F9F9",
   inputbg: "#7676801F",
   buttonbg: "#FFF2EF",
-
-
+  dropDownBorder: "#E6EFEF",
+  imageBorder: "#E0E0E0"
 }

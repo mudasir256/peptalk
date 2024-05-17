@@ -9,6 +9,8 @@ import {
 import { COLORS } from "../../theme/colors";
 import { SPACINGS } from "../../theme/spacing";
 import { SearchIcon } from "../../../assets/svgs/svgIcons";
+import { styles } from "../../theme/styles";
+import { Radius } from "../../theme/typography";
 
 export type TextInputFieldProps = {
   containerStyle?: any;
@@ -87,18 +89,17 @@ export const TextInputField = ({
 
 const style = StyleSheet.create({
   input: {
-    flex: 1,
+    ...styles.flex,
     paddingHorizontal: 10,
   },
   iconButton: {
+    ...styles.center,
     position: "absolute",
-    right: 10,
-    justifyContent: "center",
-    alignItems: "center",
     height: "100%",
+    right: SPACINGS.sm,
   },
   iconStyle: {
-    marginLeft: 10,
+    marginLeft: SPACINGS.sm,
   },
   errorText: {
     color: "red",
@@ -106,12 +107,10 @@ const style = StyleSheet.create({
     marginTop: SPACINGS.tiny,
   },
   searchContainer: {
-    flexDirection: "row",
     backgroundColor: COLORS.white,
-    borderRadius: 10,
-    borderWidth: 2,
+    borderRadius: SPACINGS.sm,
+    ...styles.rowCenter,
     borderColor: "transparent",
     height: 50,
-    alignItems: "center",
   },
 });

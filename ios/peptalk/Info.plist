@@ -26,7 +26,18 @@
     <string>????</string>
     <key>CFBundleURLTypes</key>
     <array>
-      <string>com.googleusercontent.apps.1095775536528-1o9nvdo2qf3c8lvuol9k3r6npdk3n25r</string>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.mombrain.peptalk</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>exp+peptalk</string>
+        </array>
+      </dict>
     </array>
     <key>CFBundleVersion</key>
     <string>1</string>
@@ -39,6 +50,10 @@
       <key>NSAllowsLocalNetworking</key>
       <true/>
     </dict>
+    <key>NSCameraUsageDescription</key>
+    <string>$(PRODUCT_NAME) needs access to your Camera.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>$(PRODUCT_NAME) needs access to your Microphone.</string>
     <key>NSUserActivityTypes</key>
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>

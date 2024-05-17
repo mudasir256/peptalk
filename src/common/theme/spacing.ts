@@ -1,4 +1,5 @@
 export const SPACINGS = {
+  s:2,
   tiny: 4,
   xxs: 6,
   xs: 8,
@@ -6,5 +7,6 @@ export const SPACINGS = {
   rg: 12,
   md: 16,
   lg: 20,
-  xl: 32
+  xl: 32,
+ Radius: 25,
 }

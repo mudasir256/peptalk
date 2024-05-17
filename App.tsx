@@ -5,8 +5,14 @@ import { StyleSheet, View } from "react-native";
 import { COLORS } from "./src/common/theme/colors";
 import FontProvider from "./src/common/components/fontProvider/fontProvider";
 import { RootNavigator } from "./src/common/navigation/RootNavigator";
+import i18n from "./src/common/components/utils/i18n";
+import { useEffect } from "react";
 
 export default function App() {
+  useEffect(() => {
+    i18n.changeLanguage("en");
+  }, []);
+
   return (
     <Provider store={store}>
       <FontProvider>

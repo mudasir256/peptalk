@@ -8,6 +8,11 @@ import {
 } from "react-native";
 import { styles } from "../../../common/theme/styles";
 import { COLORS } from "../../../common/theme/colors";
+import {
+  PrimaryFont,
+  PrimaryText,
+  TextAlign,
+} from "../../../common/theme/typography";
 
 type Props = {
   title?: string;
@@ -44,21 +49,20 @@ const style = StyleSheet.create({
   },
   title: {
     color: COLORS.text,
-    fontSize: 34,
+    ...PrimaryFont,
     marginTop: 20,
     marginBottom: 12,
   },
   detail: {
-    textAlign: "center",
-    fontWeight: "600",
-    fontSize: 20,
-    marginHorizontal: 32,
+    ...TextAlign,
+    ...PrimaryText,
     color: COLORS.text,
+    marginHorizontal: 32,
   },
   imageContainer: {
     width: "100%",
     marginHorizontal: 30,
-    aspectRatio: 1,
+    ...styles.aspectRatio,
     ...styles.center,
   },
   image: {

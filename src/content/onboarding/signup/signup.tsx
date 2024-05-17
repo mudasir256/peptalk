@@ -1,50 +1,47 @@
-import React from 'react';
-import { View, Text, ImageBackground, Alert, SafeAreaView } from 'react-native';
-import { useAppleIdSignin } from './useAppleIdSignin';
-import { IMAGES } from '../../../assets/images';
-import { styles } from '../../../common/theme/styles';
-import { style } from './style';
-import PrimaryButton from '../../../common/components/primaryButton/index';
+import React from "react";
+import { View, Text, ImageBackground, Alert, SafeAreaView } from "react-native";
+import { useAppleIdSignin } from "./useAppleIdSignin";
+import { IMAGES } from "../../../assets/images";
+import { styles } from "../../../common/theme/styles";
+import { style } from "./style";
+import PrimaryButton from "../../../common/components/primaryButton/index";
 import { useNavigation } from "@react-navigation/native";
-import { LoginStackRoutes } from '../../../common/navigation/routes';
-import { useAppDispatch } from '../../../common/store';
-import { setAuthenticated } from '../../../common/store/slice/authentication/slice';
-import { AuthState } from '../../../common/store/slice/authentication/types';
-import { SPACINGS } from '../../../common/theme/spacing';
+import { LoginStackRoutes } from "../../../common/navigation/routes";
+import { useAppDispatch } from "../../../common/store";
+import { setAuthenticated } from "../../../common/store/slice/authentication/slice";
+import { AuthState } from "../../../common/store/slice/authentication/types";
+import { SPACINGS } from "../../../common/theme/spacing";
+import { useTranslation } from "react-i18next";
 
 export const SignupScreen = () => {
+  const { t } = useTranslation();
   const { navigate } = useNavigation();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const { signInWithAppleId } = useAppleIdSignin();
 
   const onAppldIdPress = () => {
-    Alert.alert(
-      'Terms Of Service',
-      "By continuing you agree to Mom Brain's Terms Of Service",
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log("cancel"),
-          style: "cancel"
-        },
-        {
-          text: 'Ok',
-          onPress: async () => {
-            try {
-              const credential = await signInWithAppleId();
-              dispatch(setAuthenticated({ authState: AuthState.Authenticated }))
-            } catch (error) {
-              console.error('Apple ID Sign-In Error:', error);
-            }
+    Alert.alert(t("signUpScreen.termsAlert1"), t("signUpScreen.termsAlert2"), [
+      {
+        text: t("signUpScreen.cancel"),
+        onPress: () => console.log("cancel"),
+        style: "cancel",
+      },
+      {
+        text: t("signUpScreen.ok"),
+        onPress: async () => {
+          try {
+            const credential = await signInWithAppleId();
+            dispatch(setAuthenticated({ authState: AuthState.Authenticated }));
+          } catch (error) {
+            console.error("Apple ID Sign-In Error:", error);
           }
-        }
-      ]
-    );
+        },
+      },
+    ]);
   };
 
-  const SignupWithEmail = () =>
-    navigate(LoginStackRoutes.SignUpWithEmail);
+  const SignupWithEmail = () => navigate(LoginStackRoutes.SignUpWithEmail);
 
   return (
     <SafeAreaView style={[styles.flex, style.container]}>
@@ -53,33 +50,33 @@ export const SignupScreen = () => {
         resizeMode="cover"
         style={[styles.center, style.imageBg]}
       >
-        <Text style={style.getStartedText}>Let's Get Started!</Text>
+        <Text style={style.getStartedText}>{t("signUpScreen.title")}</Text>
       </ImageBackground>
       <View style={styles.flex} />
       <View style={style.buttonsContainer}>
         <PrimaryButton
           containerStyle={{ marginBottom: SPACINGS.md }}
-          title="Sign Up With Apple"
+          title={t("signUpScreen.appleSignUp")}
           icon={IMAGES.appleIcon}
           onPress={onAppldIdPress}
         />
         <PrimaryButton
           containerStyle={{ marginBottom: SPACINGS.md }}
-          title="Sign Up With Google"
+          title={t("signUpScreen.gmailSignUp")}
           icon={IMAGES.googleIcon}
-          onPress={() => { }}
+          onPress={() => {}}
         />
         <PrimaryButton
-          containerStyle={{ alignSelf: 'center' }}
-          title="Sign Up With Email"
+          containerStyle={{ alignSelf: "center" }}
+          title={t("signUpScreen.emailSignUp")}
           icon={IMAGES.emailIcon}
           onPress={SignupWithEmail}
         />
         <View style={style.loginContainer}>
-          <Text style={style.alreadyAccount}>Already have an account?</Text>
-          <Text style={style.loginButton}>Login</Text>
+          <Text style={style.alreadyAccount}>{t("signUpScreen.already")}</Text>
+          <Text style={style.loginButton}>{t("landingScreen.login")}</Text>
         </View>
       </View>
-    </SafeAreaView >
+    </SafeAreaView>
   );
 };

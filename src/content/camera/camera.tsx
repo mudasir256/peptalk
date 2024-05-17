@@ -6,6 +6,6 @@ const CameraScreen = () => (
   <View style={styles.flexCenter}>
     <Text>Camera Screen</Text>
   </View>
-)
+);
 
-export default CameraScreen
+export default CameraScreen;

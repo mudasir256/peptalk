@@ -2,25 +2,23 @@
 import { COLORS } from "../../theme/colors";
 import { StyleSheet } from 'react-native'
 import { styles } from "../../theme/styles";
+import { ButtonTextPrimary } from "../../theme/typography";
 
 export const style = StyleSheet.create({
   buttonContainer: {
     backgroundColor: COLORS.buttonbg,
-    borderWidth: 2,
     borderColor: COLORS.border,
-    borderRadius: 25,
-    paddingHorizontal: 22,
     ...styles.buttonSize,
-    ...styles.start
+    ...styles.start,
+    paddingHorizontal: 22,
+    borderRadius: 25,
+    borderWidth: 2,
   },
   buttonText: {
-    fontSize: 17,
-    fontStyle: "normal",
-    fontWeight: "500",
-    lineHeight: 24,
+   ...ButtonTextPrimary,
   },
   textContainer: {
     ...styles.flex,
-    alignItems: 'center',
+   ...styles.alignCenter,
   },
 });

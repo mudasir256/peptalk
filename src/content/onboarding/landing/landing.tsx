@@ -7,8 +7,16 @@ import { SPACINGS } from "../../../common/theme/spacing";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LoginStackRoutes } from "../../../common/navigation/routes";
+import {
+  ButtonTextPrimary,
+  TextAlign,
+  TextWeight,
+} from "../../../common/theme/typography";
+import { useTranslation } from "react-i18next";
 
 export const LandingScreen = () => {
+  const { t } = useTranslation();
+
   const { navigate } = useNavigation();
   const onLoginPress = () => {};
   const onCreateAccountPress = () => navigate(LoginStackRoutes.Signup);
@@ -20,12 +28,14 @@ export const LandingScreen = () => {
         style={style.createButton}
         onPress={onCreateAccountPress}
       >
-        <Text style={style.createButtonText}>Create a free account</Text>
+        <Text style={style.createButtonText}>
+          {t("landingScreen.create a free account")}
+        </Text>
       </TouchableOpacity>
       <View style={style.login}>
         <Text style={style.loginButtonOr}>Or</Text>
         <TouchableOpacity onPress={onLoginPress} style={style.loginButton}>
-          <Text style={style.loginButtonText}>Login</Text>
+          <Text style={style.loginButtonText}> {t("landingScreen.login")}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -37,29 +47,27 @@ const style = StyleSheet.create({
     backgroundColor: COLORS.contrast,
   },
   loginButton: {
-    textAlign: "center",
+    ...TextAlign,
     marginLeft: SPACINGS.xxs,
   },
   loginButtonText: {
     color: COLORS.link,
-    fontWeight: "500",
+    ...TextWeight,
   },
   loginButtonOr: {
     color: COLORS.text,
-    fontWeight: "500",
+    ...TextWeight,
   },
   createButtonText: {
-    textAlign: "center",
-    color: COLORS.text,
-    fontWeight: "500",
+    ...ButtonTextPrimary,
   },
   createButton: {
-    borderRadius: 25,
+    borderRadius: SPACINGS.Radius,
     backgroundColor: COLORS.secondary,
     marginHorizontal: SPACINGS.md,
     height: 50,
     marginTop: 28,
-    justifyContent: "center",
+    ...styles.justifyCenter,
   },
   login: {
     ...styles.rowCenter,

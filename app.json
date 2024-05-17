@@ -6,29 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": [
-            "./src/assets/fonts/Rubik-Black.ttf",
-            "./src/assets/fonts/Rubik-BlackItalic.ttf",
-            "./src/assets/fonts/Rubik-Bold.ttf",
-            "./src/assets/fonts/Rubik-BoldItalic.ttf",
-            "./src/assets/fonts/Rubik-ExtraBold.ttf",
-            "./src/assets/fonts/Rubik-ExtraBoldItalic.ttf",
-            "./src/assets/fonts/Rubik-Italic.ttf",
-            "./src/assets/fonts/Rubik-Light.ttf",
-            "./src/assets/fonts/Rubik-LightItalic.ttf",
-            "./src/assets/fonts/Rubik-Medium.ttf",
-            "./src/assets/fonts/Rubik-MediumItalic.ttf",
-            "./src/assets/fonts/Rubik-Regular.ttf",
-            "./src/assets/fonts/Rubik-SemiBold.ttf",
-            "./src/assets/fonts/Rubik-SemiBoldItalic.ttf"
-          ]
-        }
-      ]
-    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -41,14 +18,22 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.mombrain.peptalk",
       "usesAppleSignIn": true,
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera.",
+        "NSMicrophoneUsageDescription": "$(PRODUCT_NAME) needs access to your Microphone."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mombrain.peptalk"
+      "package": "com.mombrain.peptalk",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -57,6 +42,9 @@
       "router": {
         "origin": false
       }
-    }
+    },
+    "plugins": [
+      "react-native-vision-camera"
+    ]
   }
 }

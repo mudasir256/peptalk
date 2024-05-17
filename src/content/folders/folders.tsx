@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import Header from "../../common/header/header";
 import { styles } from "../../common/theme/styles";
 import { IMAGES } from "../../assets/images";
 import FoldersList from "./foldersList/foldersList";
 import { Folder } from "./foldersList/types";
+import { useTranslation } from "react-i18next";
+import { RootState } from "../../common/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addFolders,
+  deleteFolder,
+  updateFolder,
+} from "../../common/store/slice/folders/slice";
 
 const DATA: Folder[] = [
   {
@@ -30,11 +38,33 @@ const DATA: Folder[] = [
   },
 ];
 
-const FoldersScreen = () => (
-  <View style={styles.flex}>
-    <Header title="Folders" iconRight={IMAGES.addFolder} />
-    <FoldersList data={DATA} />
-  </View>
-);
+const FoldersScreen = () => {
+  const { t } = useTranslation();
+  const foldersData = useSelector((state: RootState) => state.folders.folders);
+  const dispatch = useDispatch();
+
+  const handleDeleteFolder = (index: number) => {
+    dispatch(deleteFolder(index));
+  };
+
+  const handleRenameFolder = (index: number, newName: string) => {
+    dispatch(updateFolder({ index, newName }));
+  };
+
+  useEffect(() => {
+    dispatch(addFolders(DATA));
+  }, []);
+
+  return (
+    <View style={styles.flex}>
+      <Header title={t("Folders")} iconRight={IMAGES.addFolder} />
+      <FoldersList
+        data={foldersData}
+        handleDelete={handleDeleteFolder}
+        handleRename={(index, newName) => handleRenameFolder(index, newName)}
+      />
+    </View>
+  );
+};
 
 export default FoldersScreen;

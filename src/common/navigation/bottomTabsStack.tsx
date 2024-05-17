@@ -2,9 +2,8 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { Alert, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { HomeStackRoutes, LoginStackRoutes } from "./routes";
+import { TouchableOpacity } from "react-native";
+import { HomeStackRoutes } from "./routes";
 import { COLORS } from "../theme/colors";
 import { WelcomeScreen } from "../../content/welcome/welcome";
 import { noHeader } from "../../content/options";
@@ -13,31 +12,16 @@ import FoldersScreen from "../../content/folders/folders";
 import SettingsScreen from "../../content/settings/settings";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Logo } from "../../assets/svgs/svgIcons";
-import HomeStack from "./homeStack";
+import HomeStack from "./HomeStack";
+import { useTranslation } from "react-i18next";
+import About from "../../content/settings/settingScreens/about";
+import Contact from "../../content/settings/settingScreens/contact";
+import TermsOfUse from "../../content/settings/settingScreens/termsOfUse";
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-  const navigation = useNavigation();
-  const handleLogout = () => {
-    Alert.alert(
-      "Logout",
-      "Are you sure you want to log out?",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
-        {
-          text: "Logout",
-          onPress: () => {
-            navigation.navigate(LoginStackRoutes.Login);
-          },
-        },
-      ],
-      { cancelable: false }
-    );
-  };
+  const { t } = useTranslation();
 
   return (
     <BottomSheetModalProvider>
@@ -53,15 +37,12 @@ const BottomTabNavigator = () => {
           name=" "
           component={HomeStack}
           options={() => ({
-            tabBarLabel: "HOME",
+            tabBarLabel: t("bottomTab.home"),
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="home" size={size} color={color} />
             ),
             headerRight: () => (
-              <TouchableOpacity
-                style={{ marginRight: 10 }}
-                onPress={handleLogout}
-              >
+              <TouchableOpacity style={{ marginRight: 10 }}>
                 <Logo />
               </TouchableOpacity>
             ),
@@ -71,15 +52,12 @@ const BottomTabNavigator = () => {
           name={HomeStackRoutes.Camera}
           component={CameraScreen}
           options={() => ({
-            tabBarLabel: "Camera",
+            tabBarLabel: t("bottomTab.camera"),
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="camera" size={size} color={color} />
             ),
             headerRight: () => (
-              <TouchableOpacity
-                style={{ marginRight: 10 }}
-                onPress={handleLogout}
-              >
+              <TouchableOpacity style={{ marginRight: 10 }}>
                 <Logo />
               </TouchableOpacity>
             ),
@@ -89,15 +67,12 @@ const BottomTabNavigator = () => {
           name={"    "}
           component={FoldersScreen}
           options={() => ({
-            tabBarLabel: "Folders",
+            tabBarLabel: t("bottomTab.folders"),
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="folder" size={size} color={color} />
             ),
             headerRight: () => (
-              <TouchableOpacity
-                style={{ marginRight: 10 }}
-                onPress={handleLogout}
-              >
+              <TouchableOpacity style={{ marginRight: 10 }}>
                 <Logo />
               </TouchableOpacity>
             ),
@@ -107,15 +82,12 @@ const BottomTabNavigator = () => {
           name={"  "}
           component={SettingsScreen}
           options={() => ({
-            tabBarLabel: "Setting",
+            tabBarLabel: t("bottomTab.settings"),
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="settings" size={size} color={color} />
             ),
             headerRight: () => (
-              <TouchableOpacity
-                style={{ marginRight: 10 }}
-                onPress={handleLogout}
-              >
+              <TouchableOpacity style={{ marginRight: 10 }}>
                 <Logo />
               </TouchableOpacity>
             ),
@@ -136,6 +108,21 @@ const mainStack = () => (
     <Stack.Screen
       name={HomeStackRoutes.Home}
       component={BottomTabNavigator}
+      options={noHeader}
+    />
+    <Stack.Screen
+      name={HomeStackRoutes.TermsOfUse}
+      component={TermsOfUse}
+      options={noHeader}
+    />
+    <Stack.Screen
+      name={HomeStackRoutes.About}
+      component={About}
+      options={noHeader}
+    />
+    <Stack.Screen
+      name={HomeStackRoutes.Contact}
+      component={Contact}
       options={noHeader}
     />
   </Stack.Navigator>

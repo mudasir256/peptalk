@@ -7,6 +7,8 @@ export const IMAGES = {
   illustration3: require('./onboarding7.png'),
   illustration4: require('./onboarding5.png'),
   illustration5: require('./welcome.png'),
+  illustration6: require('./MomBrainLogo.png'),
+  illustration7: require('./blob.png'),
   signupBackground: require('./signupBackground.png'),
   appleIcon: require('./appleIcon.png'),
   googleIcon: require('./googleIcon.png'),

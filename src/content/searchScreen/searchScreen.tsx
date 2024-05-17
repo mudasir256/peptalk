@@ -1,13 +1,16 @@
 import { Text, View, Image, SectionList } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { IMAGES } from "../../assets/images";
 import { TextInputField } from "../../common/components/input/input";
 import { Ionicons } from "@expo/vector-icons";
 import { style } from "./style";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { styles } from "../../common/theme/styles";
+import { useTranslation } from "react-i18next";
 
 const SearchScreen = ({ navigation: { goBack } }) => {
+  const [search, setSearch] = useState("");
+  const { t } = useTranslation();
   const DATA = [
     {
       title: "Video Suggestions",
@@ -30,7 +33,15 @@ const SearchScreen = ({ navigation: { goBack } }) => {
       ],
     },
   ];
-  const renderItem = ({ item, index }) => {
+
+  const filteredData = DATA.map((item) => ({
+    ...item,
+    data: item.data.filter((item) =>
+      item.title.toLowerCase().includes(search.toLowerCase())
+    ),
+  }));
+
+  const renderItem = ({ item }) => {
     return (
       <View style={[style.itemContainer]}>
         <Image source={item.icon} style={style.icon} />
@@ -50,12 +61,14 @@ const SearchScreen = ({ navigation: { goBack } }) => {
           focusBorderColor="black"
           FocusBorderWidth={1}
           searchIcon
+          value={search}
+          onChangeText={(value) => setSearch(value)}
           containerStyle={style.search}
-          placeholder={"Search"}
+          placeholder={t("search.search")}
         />
       </View>
       <SectionList
-        sections={DATA}
+        sections={filteredData}
         keyExtractor={(item, index) => item + index}
         renderItem={renderItem}
         renderSectionHeader={({ section: { title } }) => (

@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import { Folder } from "./types";
+import { SPACINGS } from "../../../common/theme/spacing";
+import { styles } from "../../../common/theme/styles";
 import FolderItemView from "./folderItemView";
 
 type Props = {
   data: Folder[];
+  handleDelete: (index: number) => void;
+  handleRename: (index: number, newName: string) => void;
 };
 
-const FoldersList = ({ data }: Props) => {
-  const renderItem = ({ item }: { item: Folder }) => (
+const FoldersList = ({ data, handleDelete, handleRename }: Props) => {
+  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+
+  const toggleDropdown = (index: number) => {
+    setOpenDropdownIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const renderItem = ({ item, index }: { item: Folder; index: number }) => (
     <View style={style.itemContainer}>
-      <FolderItemView folder={item} />
+      <FolderItemView
+        folder={item}
+        handleDelete={() => handleDelete(index)}
+        isOpen={openDropdownIndex === index}
+        toggleDropdown={() => toggleDropdown(index)}
+        updateFolder={handleRename}
+      />
     </View>
   );
 
@@ -32,14 +48,15 @@ const FoldersList = ({ data }: Props) => {
 
 const style = StyleSheet.create({
   container: {
-    paddingBottom: 10,
+    paddingBottom: SPACINGS.sm,
   },
   itemContainer: {
-    flex: 1,
-    marginBottom: 10,
+    marginBottom: SPACINGS.sm,
+    width: "50%",
   },
   folderContainer: {
     zIndex: -1,
+    ...styles.flex,
   },
 });
 

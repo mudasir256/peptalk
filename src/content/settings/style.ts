@@ -2,27 +2,25 @@ import { StyleSheet } from 'react-native'
 import { COLORS } from '../../common/theme/colors';
 import { styles } from '../../common/theme/styles';
 import { SPACINGS } from '../../common/theme/spacing';
+import { SecondaryText, mainTitle } from '../../common/theme/typography';
 
 export const style = StyleSheet.create({
   container: {
   },
   head: {
-    padding: SPACINGS.md,
+    borderBottomRightRadius: SPACINGS.Radius,
+    borderBottomLeftRadius: SPACINGS.Radius,
     backgroundColor: COLORS.header,
-    borderBottomRightRadius: 25,
-    borderBottomLeftRadius: 25,
+    padding: SPACINGS.md,
     ...styles.row,
   },
   title: {
-    fontSize: 34,
-    fontWeight: '500',
-    lineHeight: 38,
-    color: COLORS.text,
-    flex: 1
+    ...styles.flex,
+    ...mainTitle,
   },
   back: {
-    ...styles.row,
     ...styles.alignCenter,
+    ...styles.row,
   },
   headerContainer: {
     ...styles.row,
@@ -32,40 +30,27 @@ export const style = StyleSheet.create({
   search: {
     width: "76%",
     height: 50,
-    marginLeft: 10,
-  },
-  backbtn: {
-    color: COLORS.text,
-    fontSize: 17,
-    fontWeight: "500",
-    lineHeight: 22,
+    marginLeft: SPACINGS.sm,
   },
   heading: {
-    fontSize: 15,
-    fontWeight: '500',
-    lineHeight: 20,
-    padding: SPACINGS.md,
-    color: COLORS.text,
     backgroundColor: COLORS.header,
+    padding: SPACINGS.md,
+   ...SecondaryText,
   },
   itemContainer: {
-    ...styles.row,
-    paddingVertical: SPACINGS.sm,
-    borderBottomWidth: 0.3,
     borderBottomColor: COLORS.searchBorder,
+    paddingVertical: SPACINGS.sm,
     padding: SPACINGS.md,
+    ...styles.row,
+    borderBottomWidth: 0.3,
   },
   icon: {
-    width: 24,
-    height: 24,
-    marginRight: 10,
+    ...styles.iconSize,
+    marginRight: SPACINGS.sm,
   },
   titleData: {
-    color: COLORS.text,
-    fontSize: 15,
-    fontWeight: "400",
-    lineHeight: 20,
-    flex: 1
+    ...SecondaryText,
+    ...styles.flex,
   },
   list: {
     marginVertical: SPACINGS.md,

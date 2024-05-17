@@ -14,46 +14,46 @@ import WithBottomSheetModal from "../../../common/components/withBottomSheetModa
 
 const data: FolderItem[] = [
   {
-    title: "Item 1",
-    name: "name",
-    date: "April 24, 2024",
+    title: "Doctor",
+    name: "Doctor",
+    date: "10/15/2024",
     image:
-      "https://s3-alpha-sig.figma.com/img/1f97/0bb5/faf17fd2291f8c81839c3f73cbb5ce40?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WditFP07TN5Fq34OKa1q0fYF4afEm4E8LKxXVnnsCjPhkMXYr8mBABtK90K2TP2SDZ7R0qfQpt5kcdVhuajEaQwMBESG6jh~cCkOlYmldVyD9Ph7wVePQ~YKePn39hRySWXsGmBIw3IvCtev6273jumvQVGqivDaA885ZpyZgiyPCVvf1n-BbWBFNws4iLy4jhNb6OQtZXSnKuf7vZvQBWcO12tsLEJxMJf~At4-VHA8RyxNtgNinYXXx6QAXDOzFA6Qt6ZM5WwFqeIR1Ww-PEF7-YH1MZRB06MEUXimL4vQoAZQvQRV0i5tDjUk7JgVVvIQHCn-hAgXTvfQmOxTHA__",
+      "https://s3-alpha-sig.figma.com/img/3aed/6881/32294e3e2b332c8480b147101b7e0f53?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qvjcDf7hLCPsE1W8cGuT9pb9wXhIZZQ~X~HQl6~dO6FBShwRV4mH1tVwdW5uHFPA~TF17qWeI-esYAg8uqFCAx2ydVmvvg07mkGjuDpqpN10fbMxkdKkt9uyEtGRWURIvo4zaR7aXQYL4wi8k4uf53S4x3CS63qdn-x7jcEKXY-A9l8e09mo4wr7XP~T2JjkAGQnV9Mp1QQ1vJJJPX37hcOKICxsiTlBqT~Cu5~JwNeLvd~-JHl37KaixuClFk~f~~Bprc8A9lMiPHPGgnqfGLCw60bjowMEfdXeRP5QWEa87s6Y0nXGnEZcLwBLeA9XOC0yPEZutCyFARRgA7ipsQ__",
   },
   {
-    title: "Item 2",
-    name: "named",
-    date: "April 25, 2024",
+    title: "Trip to the Dentist",
+    name: "Dentist",
+    date: "10/15/2024",
     image:
-      "https://s3-alpha-sig.figma.com/img/cb47/fd92/952db4cc8359f2c61bad4cead959056d?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=H8nTvH9t5hKChN3jN4xWA2wqoK-fkdlJ9LD2soeUQZTABL1fI6aEIqpvSZElMtKBpbp7IvuqQF4Z25KOEfoM~isC52xy3RGkkxBAZluT1EFvEb26x2Dd9Y10NkVe4B5T4fiizjJVumsBv7zx-t5nY0tIyHpHd9G39Ia91YO6WRUfzRaL-F7Pn5Ah9k3mxbkG9K~Y4anbbo5sUcV6KtqwZhmoHtjYtYCTmDcMHgHRYRZCKU4vjpzBrAFRwAZRik7V3ftecWbZpGcEGzXIxBvx3BNTzqKCYeEdBP-wD99KuTUS06Xa5~T3DcH2dS1D0q55T6-5MzIpvCsrcCdQW1JLyg__",
+      "https://s3-alpha-sig.figma.com/img/1f97/0bb5/faf17fd2291f8c81839c3f73cbb5ce40?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VTEfsSTp9m1JffaJsfXBR07abpxGN-FMsvQRB7h~ywWwh7PuduhTe8PuyR0hsj1pS7wh687PcsdalfkknbhfpOAyOqiRip-1GYcWQdsSUC8ZSa2xLsiQbIf04RXh0-E09tWxBlJKFFtNR16iKjcR4jY4mJpJ03alBzcaaJiotkx4vCJdnaPpxHrFLWifyzE8h19jzqs36CB0uv5rIGfD~gvEOJRvdKpyHHZUFlpdAOG-IqVP9L4c3vfdEjgYvEQBfSNeHrg-HH1CVwyNH9gxPq5r~P~rGQ1vIabLW6EhN6exgA0Hk0qnfsDd6NHyV-auzq-lqsVKjdAz0oYBpznbdA__",
   },
   {
-    title: "Item 3",
-    name: "names",
-    date: "April 26, 2024",
+    title: "Soccer Game",
+    name: "Sports",
+    date: "10/15/2024",
     image:
-      "https://s3-alpha-sig.figma.com/img/3aed/6881/32294e3e2b332c8480b147101b7e0f53?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k3N3KS4SmPh0GOATDqNIFZ~EqwewpsM4MWzgiOSlmtnKjdp6Rh8N3JwWsk7qCMobQ~ESM5hMjOxDsVHO6Q975Kefy9MBP-Lp9qEoMJtDK88UVmr3W0sDkQ1cRpl5eoYk~NIvVTQG88khGzUJ90P8vkD-HsW-J1BQx1qcWvJQMVVpTObATu-f5oGnn6qG~tQ~dIBbQ3rY92HzRGM3WE8evAC9G-ZoSJXSo~JBK~fCoMy2NfXQ4m9ldDToQd9H4TbPe-gY2m3VQ2kqWbrZkW6pTaXHfGCD6~m1a9PeRxuWnCxkPwx9BlvcQwUkEZd3t~-QinSJAPTDi4pH0rVDt6mPCQ__",
+      "https://s3-alpha-sig.figma.com/img/cb47/fd92/952db4cc8359f2c61bad4cead959056d?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qmbry6ywFFBqd9Fhy4rVbeKsH~8dFuNrt9EmK9hGP8VnUlzqKv4x01J~ZRWDje2VSvqi-QMEhCQMNboC4u1q8AZQ1Oq3djzVbCAaaWfLQMgVM3Tq-k6s9xhqRxeouKXfvmxm7p4qIuNUkcc1Dc1K~f07IzyVe5jBOUEmeDK2QbUE6lb52bH6KV2A1Ga5s9UzC9cnKkJR~M11Lb0NabyTGmgJXkuOHL3RsrIaWwKOuL3wN-hEZTmEhwNxAyKhbB1OqvZkhGLbSBhJD-q7Hw1uFSdjpW6gkEjL6n6pgmfh1gb6uA~dlIusB0hexcX5aAth6WnPQ2reVOJgnfTzmeFbEw__",
   },
   {
-    title: "Item 3",
-    name: "names",
-    date: "April 26, 2024",
+    title: "Doctor",
+    name: "Doctor",
+    date: "10/15/2024",
     image:
-      "https://s3-alpha-sig.figma.com/img/3aed/6881/32294e3e2b332c8480b147101b7e0f53?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k3N3KS4SmPh0GOATDqNIFZ~EqwewpsM4MWzgiOSlmtnKjdp6Rh8N3JwWsk7qCMobQ~ESM5hMjOxDsVHO6Q975Kefy9MBP-Lp9qEoMJtDK88UVmr3W0sDkQ1cRpl5eoYk~NIvVTQG88khGzUJ90P8vkD-HsW-J1BQx1qcWvJQMVVpTObATu-f5oGnn6qG~tQ~dIBbQ3rY92HzRGM3WE8evAC9G-ZoSJXSo~JBK~fCoMy2NfXQ4m9ldDToQd9H4TbPe-gY2m3VQ2kqWbrZkW6pTaXHfGCD6~m1a9PeRxuWnCxkPwx9BlvcQwUkEZd3t~-QinSJAPTDi4pH0rVDt6mPCQ__",
+      "https://s3-alpha-sig.figma.com/img/3aed/6881/32294e3e2b332c8480b147101b7e0f53?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qvjcDf7hLCPsE1W8cGuT9pb9wXhIZZQ~X~HQl6~dO6FBShwRV4mH1tVwdW5uHFPA~TF17qWeI-esYAg8uqFCAx2ydVmvvg07mkGjuDpqpN10fbMxkdKkt9uyEtGRWURIvo4zaR7aXQYL4wi8k4uf53S4x3CS63qdn-x7jcEKXY-A9l8e09mo4wr7XP~T2JjkAGQnV9Mp1QQ1vJJJPX37hcOKICxsiTlBqT~Cu5~JwNeLvd~-JHl37KaixuClFk~f~~Bprc8A9lMiPHPGgnqfGLCw60bjowMEfdXeRP5QWEa87s6Y0nXGnEZcLwBLeA9XOC0yPEZutCyFARRgA7ipsQ__",
   },
   {
-    title: "Item 3",
-    name: "names",
-    date: "April 26, 2024",
+    title: "Trip to the Dentist",
+    name: "Dentist",
+    date: "10/15/2024",
     image:
-      "https://s3-alpha-sig.figma.com/img/3aed/6881/32294e3e2b332c8480b147101b7e0f53?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k3N3KS4SmPh0GOATDqNIFZ~EqwewpsM4MWzgiOSlmtnKjdp6Rh8N3JwWsk7qCMobQ~ESM5hMjOxDsVHO6Q975Kefy9MBP-Lp9qEoMJtDK88UVmr3W0sDkQ1cRpl5eoYk~NIvVTQG88khGzUJ90P8vkD-HsW-J1BQx1qcWvJQMVVpTObATu-f5oGnn6qG~tQ~dIBbQ3rY92HzRGM3WE8evAC9G-ZoSJXSo~JBK~fCoMy2NfXQ4m9ldDToQd9H4TbPe-gY2m3VQ2kqWbrZkW6pTaXHfGCD6~m1a9PeRxuWnCxkPwx9BlvcQwUkEZd3t~-QinSJAPTDi4pH0rVDt6mPCQ__",
+      "https://s3-alpha-sig.figma.com/img/cb47/fd92/952db4cc8359f2c61bad4cead959056d?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qmbry6ywFFBqd9Fhy4rVbeKsH~8dFuNrt9EmK9hGP8VnUlzqKv4x01J~ZRWDje2VSvqi-QMEhCQMNboC4u1q8AZQ1Oq3djzVbCAaaWfLQMgVM3Tq-k6s9xhqRxeouKXfvmxm7p4qIuNUkcc1Dc1K~f07IzyVe5jBOUEmeDK2QbUE6lb52bH6KV2A1Ga5s9UzC9cnKkJR~M11Lb0NabyTGmgJXkuOHL3RsrIaWwKOuL3wN-hEZTmEhwNxAyKhbB1OqvZkhGLbSBhJD-q7Hw1uFSdjpW6gkEjL6n6pgmfh1gb6uA~dlIusB0hexcX5aAth6WnPQ2reVOJgnfTzmeFbEw__",
   },
   {
-    title: "Item 3",
-    name: "names",
-    date: "April 26, 2024",
+    title: "Soccer Game",
+    name: "Sports",
+    date: "10/15/2024",
     image:
-      "https://s3-alpha-sig.figma.com/img/3aed/6881/32294e3e2b332c8480b147101b7e0f53?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=k3N3KS4SmPh0GOATDqNIFZ~EqwewpsM4MWzgiOSlmtnKjdp6Rh8N3JwWsk7qCMobQ~ESM5hMjOxDsVHO6Q975Kefy9MBP-Lp9qEoMJtDK88UVmr3W0sDkQ1cRpl5eoYk~NIvVTQG88khGzUJ90P8vkD-HsW-J1BQx1qcWvJQMVVpTObATu-f5oGnn6qG~tQ~dIBbQ3rY92HzRGM3WE8evAC9G-ZoSJXSo~JBK~fCoMy2NfXQ4m9ldDToQd9H4TbPe-gY2m3VQ2kqWbrZkW6pTaXHfGCD6~m1a9PeRxuWnCxkPwx9BlvcQwUkEZd3t~-QinSJAPTDi4pH0rVDt6mPCQ__",
+      "https://s3-alpha-sig.figma.com/img/3aed/6881/32294e3e2b332c8480b147101b7e0f53?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=qvjcDf7hLCPsE1W8cGuT9pb9wXhIZZQ~X~HQl6~dO6FBShwRV4mH1tVwdW5uHFPA~TF17qWeI-esYAg8uqFCAx2ydVmvvg07mkGjuDpqpN10fbMxkdKkt9uyEtGRWURIvo4zaR7aXQYL4wi8k4uf53S4x3CS63qdn-x7jcEKXY-A9l8e09mo4wr7XP~T2JjkAGQnV9Mp1QQ1vJJJPX37hcOKICxsiTlBqT~Cu5~JwNeLvd~-JHl37KaixuClFk~f~~Bprc8A9lMiPHPGgnqfGLCw60bjowMEfdXeRP5QWEa87s6Y0nXGnEZcLwBLeA9XOC0yPEZutCyFARRgA7ipsQ__",
   },
 ];
 
@@ -68,7 +68,7 @@ const FolderItemsList = () => {
     console.log("handleSheetChanges", index);
   }, []);
   const handleClosePress = useCallback(() => {
-    bottomSheetModalRef.current?.close();
+    bottomSheetModalRef.current?.dismiss();
   }, []);
 
   const backdropComponent = useCallback(

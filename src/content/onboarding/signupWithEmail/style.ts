@@ -2,6 +2,7 @@ import { COLORS } from "../../../common/theme/colors";
 import { StyleSheet } from 'react-native'
 import { styles } from "../../../common/theme/styles";
 import { SPACINGS } from "../../../common/theme/spacing";
+import { Radius, SecondaryWeight, rare } from "../../../common/theme/typography";
 
 export const style = StyleSheet.create({
   innerContainer: {
@@ -16,31 +17,42 @@ export const style = StyleSheet.create({
     ...styles.rowCenter,
   },
   checkbox: {
-    borderRadius: 4,
+    borderRadius: SPACINGS.tiny,
     borderColor: COLORS.text,
-    borderWidth: 2
+    borderWidth: SPACINGS.s,
   },
 
   labelContainer: {
     ...styles.start
   },
   label: {
-    fontSize: 12,
+   ...rare,
   },
   labellink: {
-    fontSize: 12,
+    ...rare,
     color: COLORS.link,
   },
   buttonContainer: {
     backgroundColor: COLORS.secondary,
+    borderRadius: SPACINGS.Radius,
+    marginBottom: SPACINGS.xl,
     ...styles.center,
-    borderRadius: 25,
     borderWidth: 0,
-    marginBottom: SPACINGS.xl
   },
   buttonText: {
-    color: "white",
-    fontWeight: "700"
+    color: COLORS.white,
+    ...SecondaryWeight,
+  },
+  input: {
+    backgroundColor: COLORS.white,
+    borderRadius: SPACINGS.sm,
+  },
+  border: {
+    ...Radius,
+    borderColor: COLORS.primary,
+    padding: SPACINGS.sm,
+    backgroundColor: COLORS.white,
+    borderRadius: SPACINGS.sm,
   },
   input: {
     backgroundColor: "white",

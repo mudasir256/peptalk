@@ -3,7 +3,7 @@ import { useAppSelector } from "../store";
 import { selectAuthState } from "../store/selectors";
 import { AuthState } from "../store/slice/authentication/types";
 import HomeStack from "./bottomTabsStack";
-import LoginStack from "./loginStack";
+import LoginStack from "./LoginStack";
 
 export const RootNavigator = () => {
   const authStatus = useAppSelector(selectAuthState);

@@ -1,4 +1,4 @@
-import { ViewStyle } from "react-native"
+import { ImageStyle, ViewStyle } from "react-native"
 
 const flex: Partial<ViewStyle> = {
   flex: 1
@@ -8,6 +8,11 @@ const flexRow: Partial<ViewStyle> = {
   flexDirection: "row",
   justifyContent: "space-between",
 }
+
+const end: Partial<ViewStyle> = {
+  justifyContent: "flex-end",
+}
+
 
 const center: Partial<ViewStyle> = {
   alignItems: 'center',
@@ -33,6 +38,10 @@ const alignCenter: Partial<ViewStyle> = {
   alignItems: 'center',
 }
 
+const justifyCenter: Partial<ViewStyle> = {
+  justifyContent: "center",
+}
+
 const between: Partial<ViewStyle> = {
   flexDirection: "row",
   alignItems: 'center',
@@ -45,7 +54,7 @@ const flexCenter: Partial<ViewStyle> = {
 }
 
 const absolute: Partial<ViewStyle> = {
-  position: 'absolute'
+  position: 'absolute',
 }
 
 const absoluteFill: Partial<ViewStyle> = {
@@ -79,7 +88,7 @@ const buttonSize: Partial<ViewStyle> = {
   height: 55,
 }
 
-const iconSize: Partial<ViewStyle> = {
+const iconSize: Partial<ImageStyle> = {
   width: 24,
   height: 24,
 }
@@ -88,9 +97,12 @@ export const styles = {
   flex,
   center,
   flexCenter,
+  absolute,
+  absoluteFill,
   absoluteCenter,
   aspectRatio,
   row,
+  end,
   start,
   rowCenter,
   buttonSize,
@@ -99,5 +111,6 @@ export const styles = {
   rowStart,
   rowBetween,
   flexRow,
-  alignCenter
+  alignCenter,
+  justifyCenter
 }

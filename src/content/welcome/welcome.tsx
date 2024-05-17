@@ -6,9 +6,11 @@ import { SPACINGS } from "../../common/theme/spacing";
 import { useNavigation } from "@react-navigation/native";
 import { WelcomePager } from "./welcomePager";
 import { HomeStackRoutes } from "../../common/navigation/routes";
-import Typography from "../../common/components/typography/typography";
+import { TextAlign, TextWeight } from "../../common/theme/typography";
+import { useTranslation } from "react-i18next";
 
 export const WelcomeScreen = () => {
+  const { t } = useTranslation();
   const { navigate } = useNavigation();
 
   const onSkipPress = () => navigate(HomeStackRoutes.Home);
@@ -19,7 +21,7 @@ export const WelcomeScreen = () => {
         <WelcomePager />
       </View>
       <TouchableOpacity style={style.skipButton} onPress={onSkipPress}>
-        <Text style={style.createButtonText}>SKIP</Text>
+        <Text style={style.createButtonText}>{t("welcomeScreen.skip")}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -30,16 +32,16 @@ const style = StyleSheet.create({
     backgroundColor: COLORS.contrast,
   },
   createButtonText: {
-    textAlign: "center",
     color: COLORS.link,
-    fontWeight: "500",
+    ...TextAlign,
+    ...TextWeight,
   },
   skipButton: {
-    borderRadius: 25,
+    borderRadius: SPACINGS.Radius,
     backgroundColor: COLORS.contrast,
     marginHorizontal: SPACINGS.md,
+    ...styles.end,
     height: 50,
     marginBottom: 30,
-    justifyContent: "flex-end",
   },
 });

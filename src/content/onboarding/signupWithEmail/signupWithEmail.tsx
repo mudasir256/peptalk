@@ -17,8 +17,10 @@ import { TextInputField } from "../../../common/components/input/input";
 import { PasswordInput } from "../../../common/components/passwordInput/passwordInput";
 import { KeyboardAvoidingViewWrapper } from "../../../common/components/keyboardAvoidingViewWrapper/keyboardAvoidingViewWrapper";
 import { SPACINGS } from "../../../common/theme/spacing";
+import { useTranslation } from "react-i18next";
 
 export const SignUpWithEmail = () => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [formValid, setFormValid] = useState<boolean>(false);
 
@@ -40,13 +42,13 @@ export const SignUpWithEmail = () => {
 
   const setFirstName = (value: string) => {
     firstName.current = value;
-    setFirstNameError(value ? "" : "Please enter first name");
+    setFirstNameError(value ? "" : t("signUpWithEmail.errorMessageFirstName"));
     validateForm();
   };
 
   const setLastName = (value: string) => {
     lastName.current = value;
-    setLastNameError(value ? "" : "Please enter last name");
+    setLastNameError(value ? "" : t("signUpWithEmail.errorMessageLastName"));
     validateForm();
   };
   const setEmail = (value: string) => {
@@ -55,8 +57,8 @@ export const SignUpWithEmail = () => {
       value
         ? validateEmail(value)
           ? ""
-          : "Please enter a valid email address"
-        : "Please enter email address"
+          : t("signUpWithEmail.errorMessageValidEmail")
+        : t("signUpWithEmail.errorMessageEmail")
     );
     validateForm();
   };
@@ -64,9 +66,7 @@ export const SignUpWithEmail = () => {
   const setPassword = (value: string) => {
     password.current = value;
     setPasswordError(
-      validatePassword(value)
-        ? ""
-        : "Password must be at least 8 characters long"
+      validatePassword(value) ? "" : t("signUpWithEmail.errorMessagePassword")
     );
     validateForm();
   };
@@ -97,25 +97,25 @@ export const SignUpWithEmail = () => {
     <KeyboardAvoidingViewWrapper>
       <View style={{ ...style.innerContainer }}>
         <TextInputField
-          placeholder="First Name"
+          placeholder={t("signUpWithEmail.firstName")}
           onChangeText={(text) => setFirstName(text)}
           validationError={firstNameError}
         />
         <TextInputField
           containerStyle={{ marginTop: SPACINGS.md }}
-          placeholder="Last Name"
+          placeholder={t("signUpWithEmail.lasttName")}
           onChangeText={(text) => setLastName(text)}
           validationError={lastNameError}
         />
         <TextInputField
           containerStyle={{ marginTop: SPACINGS.md }}
-          placeholder="Email"
+          placeholder={t("signUpWithEmail.email")}
           onChangeText={(text) => setEmail(text)}
           validationError={emailError}
         />
         <PasswordInput
           containerStyle={{ marginTop: SPACINGS.md }}
-          placeholder="Password (8+ Characters)"
+          placeholder={t("signUpWithEmail.password")}
           onChangeText={(text) => setPassword(text)}
           validationError={passwordError}
         />
@@ -129,13 +129,16 @@ export const SignUpWithEmail = () => {
             onPress={toggleCheckbox}
           />
           <View style={style.labelContainer}>
-            <Text style={style.label}>By continuing you agree to our</Text>
-            <Text style={style.labellink}> terms of service</Text>
+            <Text style={style.label}>{t("signUpWithEmail.checkbox")}</Text>
+            <Text style={style.labellink}>
+              {" "}
+              {t("signUpWithEmail.checkboxLink")}
+            </Text>
           </View>
         </View>
         <View style={style.spacer}></View>
         <PrimaryButton
-          title={"Create Account"}
+          title={t("signUpWithEmail.createAccount")}
           containerStyle={{
             ...style.buttonContainer,
             opacity: formValid ? 1 : 0.5,

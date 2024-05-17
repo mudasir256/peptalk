@@ -1,64 +1,63 @@
 import { StyleSheet } from 'react-native';
 import { COLORS } from '../theme/colors';
 import { styles } from '../theme/styles';
+import { CommonFont, NormalFont, TextAlign, mainTitle } from '../theme/typography';
+import { SPACINGS } from '../theme/spacing';
 
 export const style = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    borderBottomRightRadius: SPACINGS.Radius,
+    borderBottomLeftRadius: SPACINGS.Radius,
     backgroundColor: COLORS.header,
-    borderBottomRightRadius: 25,
-    borderBottomLeftRadius: 25,
+    paddingHorizontal: SPACINGS.md,
+    paddingTop: SPACINGS.md,
   },
   head: {
     ...styles.row,
-    alignItems: 'center',
+    ...TextAlign,
   },
   title: {
-    fontSize: 34,
-    fontWeight: '500',
-    lineHeight: 38,
-    color: COLORS.text,
-    flex: 1
+    ...mainTitle,
+    ...styles.flex,
   },
   dropdown: {
     backgroundColor: COLORS.dropdownbg,
     borderColor: COLORS.secondary,
+    borderRadius: SPACINGS.Radius,
+    paddingVertical: SPACINGS.xxs,
+    paddingRight: SPACINGS.rg,
+    paddingLeft: SPACINGS.md,
+    borderWidth: SPACINGS.s,
     ...styles.center,
     ...styles.row,
-    borderWidth: 2,
-    borderRadius: 20,
-    paddingLeft: 16,
-    paddingRight: 12,
-    paddingVertical: 7
   },
   addFolder: {
     backgroundColor: COLORS.secondary,
     borderColor: COLORS.secondary,
+    marginLeft: SPACINGS.rg,
     ...styles.center,
-    height: 30,
-    width: 30,
-    borderRadius: 15,
-    marginLeft: 12,
+    height: 35,
+    width: 35,
+    borderRadius: 20,
   },
   selectedValue: {
+    marginRight: SPACINGS.s,
     color: COLORS.text,
-    fontSize: 15,
-    marginRight: 2
+    ...NormalFont,
   },
   dropdownContent: {
-    backgroundColor: '#fff',
-    borderWidth: 1,
+    backgroundColor: COLORS.white,
+    ...styles.absolute,
     borderColor: '#ccc',
     borderRadius: 10,
-    position: 'absolute',
+    borderWidth: 1,
+    zIndex: 1000,
+    width: 150,
     right: 0,
     top: 0,
-    width: 150,
-    zIndex: 1000
   },
   item: {
-    padding: 10,
+    padding: SPACINGS.sm,
   },
   input: {
     backgroundColor: COLORS.inputbg,
@@ -69,6 +68,6 @@ export const style = StyleSheet.create({
     ...styles.row,
   },
   dropdownLabel: {
-    fontSize: 17
+    ...CommonFont
   }
 });

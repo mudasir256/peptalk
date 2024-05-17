@@ -5,10 +5,13 @@ import { styles } from "../../common/theme/styles";
 import { IMAGES } from "../../assets/images";
 import { HighlightPage } from "../onboarding/landing/highlightPage";
 import { DotIndicator } from "../onboarding/landing/onboardingPager/dotIndicator";
+import { SPACINGS } from "../../common/theme/spacing";
+import { useTranslation } from "react-i18next";
 
 const ONBOARDING_PAGES_COUNT = 4;
 
 export const WelcomePager = () => {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
   return (
     <>
@@ -20,26 +23,26 @@ export const WelcomePager = () => {
         <HighlightPage
           key="1"
           image={IMAGES.illustration5}
-          detail="Show your child they can do it, with a pep talk from themselves!"
+          detail={t("welcomeScreen.detail1")}
         />
         <HighlightPage
           key="2"
-          title="Step 1"
+          title={t("welcomeScreen.step1")}
           image={IMAGES.illustration1}
-          detail="Use the app camera or import video from your phone."
+          detail={t("welcomeScreen.detail2")}
           imageStyle={{ width: "60%" }}
         />
         <HighlightPage
           key="3"
-          title="Step 2"
+          title={t("welcomeScreen.step2")}
           image={IMAGES.illustration2}
-          detail="Add stickers or voiceover to the video recording."
+          detail={t("welcomeScreen.detail3")}
         />
         <HighlightPage
           key="4"
-          title="Step 3"
+          title={t("welcomeScreen.step3")}
           image={IMAGES.illustration3}
-          detail="Play back the pep talk for a boost of confidence!"
+          detail={t("welcomeScreen.detail4")}
           imageStyle={{ width: "60%" }}
         />
       </PagerView>
@@ -54,13 +57,11 @@ export const WelcomePager = () => {
 
 const style = StyleSheet.create({
   WelcomeContainer: {
-    padding: 10,
+    padding: SPACINGS.sm,
     ...styles.center,
   },
   container: {
-    // ...styles.flex,
     height: "80%",
-    // backgroundColor: "red",
     ...styles.center,
   },
 });

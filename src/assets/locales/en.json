@@ -1,0 +1,110 @@
+{
+  "common": {
+    "back": "Back"
+  },
+  "header": {
+    "recent": "Recent",
+    "folders": "Folders",
+    "sort": "Sort",
+    "search": "Search",
+    "title1": "Title: A-Z",
+    "title2": "Title: Z-A",
+    "date1": "Date: Ascending",
+    "date2": "Date: Descending"
+  },
+  "landingScreen": {
+    "create a free account": "Create a free account",
+    "login": "Login",
+    "detail1": "Show your child they can do it, with a pep talk from themselves!",
+    "detail2": "Use the app camera or import video from your phone.",
+    "detail3": "Add stickers or voiceover to the video recording.",
+    "detail4": "Play back the pep talk for a boost of confidence!",
+    "detail5": "You’ve got this!",
+    "step1": "Step 1",
+    "step2": "Step 2",
+    "step3": "Step 3"
+  }, 
+  "signUpScreen": {
+    "title": "Let's Get Started!",
+    "appleSignUp": "Sign Up With Apple",
+    "gmailSignUp": "Sign Up With Google",
+    "emailSignUp": "Sign Up With Email",
+    "already": "Already have an account",
+    "termsAlert1":"Terms Of Service",
+    "termsAlert2":"By continuing you agree to Mom Brain's Terms Of Service.",
+    "cancel":"Cancel",
+    "ok":"Ok"
+  },
+  "signUpWithEmail": {
+    "firstName": "First Name",
+    "lasttName": "Last Name",
+    "email": "Email",
+    "password": "Password (8+ Characters)",
+    "checkbox": "By continuing you agree to our",
+    "checkboxLink": " terms of service", 
+    "createAccount": "Create Account",
+    "errorMessageFirstName":"Please enter first name",
+    "errorMessageLastName":"Please enter last name",
+    "errorMessageValidEmail":"Please enter a valid email address",
+    "errorMessageEmail":"Please enter email address",
+    "errorMessagePassword":"Password must be at least 8 characters long"
+  },
+  "welcomeScreen":{
+    "skip": "SKIP",
+    "detail1": "Show your child they can do it, with a pep talk from themselves!",
+    "detail2": "Use the app camera or import video from your phone.",
+    "detail3": "Add stickers or voiceover to the video recording.",
+    "detail4": "Play back the pep talk for a boost of confidence!",
+    "step1": "Step 1",
+    "step2": "Step 2",
+    "step3": "Step 3"
+  },
+  "bottomTab":{
+    "home": "Home",
+    "camera": "Camera",
+    "folders": "Folders",
+    "settings": "Settings"
+  },
+  "settingsScreen":{
+    "title": "Settings",
+    "account": "Account",
+    "about": "About",
+    "support": "Support",
+    "legel": "Legel",
+    "user": "User",
+    "loggedin" : "Logged in as ksmith",
+    "deleteAccount" : "Delete Account",
+    "logout" : "Logout",
+    "aboutMomBrain": "About Mom Brain",
+    "feedback": "Feedback",
+    "leaveReview": "Leave a Review",
+    "version": "Version",
+    "contact": "Contact",
+    "terms": "Terms of Use"
+  },
+  "modal": {
+    "addFolder": "Add Folder",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "folderName": "Folder Name",
+    "titleModal": "Add New Folder",
+    "deleteAccount": "Delete Account",
+    "description": "Are you sure you want to logout? ",
+    "description1": "Are you sure you want to delete your account? You will loose access to your stored videos and folders."
+
+  },
+  "search": {
+    "search": "Search"
+  },
+  "dropDown": {
+    "rename": "Rename",
+    "delete": "Delete"
+  },
+  "loginStack": {
+    "createAccount": "Create Account",
+    "titleModal": "Add New Folder",
+    "description": "Are you sure you want to logout?",
+    "description1": "Are you sure you want to delete your account? You will loose access to your stored videos and folders",
+    "deleteAccount": "Delete Account"
+  }
+}
