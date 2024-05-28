@@ -84,7 +84,13 @@ const FolderItemView: React.FC<Props> = ({
           <Ellipses />
         </TouchableOpacity>
       </View>
-      {isOpen && <Dropdown options={options} onSelect={handleOptionSelect} />}
+      {isOpen && (
+        <Dropdown
+          options={options}
+          onClose={toggleDropdown}
+          onSelect={handleOptionSelect}
+        />
+      )}
       {showModal && (
         <CustomModal
           title={"Update Folder Name"}

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { View, FlatList, StyleSheet } from "react-native";
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { Folder } from "./types";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { styles } from "../../../common/theme/styles";
@@ -18,6 +23,10 @@ const FoldersList = ({ data, handleDelete, handleRename }: Props) => {
     setOpenDropdownIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
+  const closeDropdown = () => {
+    setOpenDropdownIndex(null);
+  };
+
   const renderItem = ({ item, index }: { item: Folder; index: number }) => (
     <View style={style.itemContainer}>
       <FolderItemView
@@ -33,16 +42,18 @@ const FoldersList = ({ data, handleDelete, handleRename }: Props) => {
   const keyExtractor = (_item: Folder, index: number) => index.toString();
 
   return (
-    <View style={style.folderContainer}>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        numColumns={2}
-        contentContainerStyle={style.container}
-        showsHorizontalScrollIndicator={false}
-      />
-    </View>
+    <TouchableWithoutFeedback onPress={closeDropdown}>
+      <View style={style.folderContainer}>
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          numColumns={2}
+          contentContainerStyle={style.container}
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
