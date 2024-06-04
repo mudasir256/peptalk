@@ -18,7 +18,7 @@ export const LandingScreen = () => {
   const { t } = useTranslation();
 
   const { navigate } = useNavigation();
-  const onLoginPress = () => {};
+  const onLoginPress = () => navigate(LoginStackRoutes.Login);
   const onCreateAccountPress = () => navigate(LoginStackRoutes.Signup);
 
   return (

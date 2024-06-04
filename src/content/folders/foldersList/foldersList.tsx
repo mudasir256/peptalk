@@ -1,59 +1,102 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   View,
   FlatList,
   StyleSheet,
+  ActivityIndicator,
   TouchableWithoutFeedback,
 } from "react-native";
 import { Folder } from "./types";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { styles } from "../../../common/theme/styles";
 import FolderItemView from "./folderItemView";
+import CustomModal from "../../../common/components/modal/modal";
+import { useFoldersData } from "./useFolderListData";
 
-type Props = {
-  data: Folder[];
-  handleDelete: (index: number) => void;
-  handleRename: (index: number, newName: string) => void;
-};
+const FoldersList = () => {
+  const [showModal, setShowModal] = useState(false);
+  const selectedFolder = useRef<Folder>(undefined);
+  const [dropDownIndex, setDropdownIndex] = useState<number>();
 
-const FoldersList = ({ data, handleDelete, handleRename }: Props) => {
-  const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
+  const {
+    handleRenameFolder,
+    handleDeleteFolder,
+    deleting,
+    isLoadingUpdate,
+    isLoading,
+    foldersList,
+  } = useFoldersData();
 
-  const toggleDropdown = (index: number) => {
-    setOpenDropdownIndex((prevIndex) => (prevIndex === index ? null : index));
+  const onFolderNameUpdated = async (folderName: string) => {
+    await handleRenameFolder(selectedFolder.current, folderName);
+    setShowModal(false);
   };
 
-  const closeDropdown = () => {
-    setOpenDropdownIndex(null);
+  const handleUpdateFolder = (folder: Folder) => {
+    selectedFolder.current = folder;
+    setShowModal(true);
+    setDropdownIndex(undefined);
   };
 
-  const renderItem = ({ item, index }: { item: Folder; index: number }) => (
+  const handleDelete = (folder: Folder) => {
+    handleDeleteFolder(folder);
+    setDropdownIndex(undefined);
+  };
+  const handleClose = () => setShowModal(false);
+
+  const handleCloseDropdown = () => {
+    setDropdownIndex(undefined);
+  };
+
+  const renderItem = ({ item, index }) => (
     <View style={style.itemContainer}>
-      <FolderItemView
-        folder={item}
-        handleDelete={() => handleDelete(index)}
-        isOpen={openDropdownIndex === index}
-        toggleDropdown={() => toggleDropdown(index)}
-        updateFolder={handleRename}
-      />
+      <TouchableWithoutFeedback onPress={() => setDropdownIndex(undefined)}>
+        <View>
+          <FolderItemView
+            showDropdown={dropDownIndex === index}
+            folder={item}
+            onRenamePress={() => handleUpdateFolder(item)}
+            onDeletePress={() => handleDelete(item)}
+            onEllipsesPress={() => setDropdownIndex(index)}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 
-  const keyExtractor = (_item: Folder, index: number) => index.toString();
+  const keyExtractor = (_item, index) => index.toString();
 
   return (
-    <TouchableWithoutFeedback onPress={closeDropdown}>
-      <View style={style.folderContainer}>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={keyExtractor}
-          numColumns={2}
-          contentContainerStyle={style.container}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
-    </TouchableWithoutFeedback>
+    <View style={style.folderContainer}>
+      {isLoading ? (
+        <ActivityIndicator style={style.activityIndicator} size={"large"} />
+      ) : (
+        <>
+          <FlatList
+            data={foldersList}
+            renderItem={renderItem}
+            keyExtractor={keyExtractor}
+            numColumns={2}
+            contentContainerStyle={style.container}
+            showsHorizontalScrollIndicator={false}
+          />
+          {showModal && (
+            <CustomModal
+              showInput
+              visible={showModal}
+              title={"Update Folder Name"}
+              onClose={handleClose}
+              onPressOk={onFolderNameUpdated}
+              loading={isLoadingUpdate}
+              selectedFolder={selectedFolder.current}
+            />
+          )}
+          {deleting && (
+            <ActivityIndicator style={style.activityIndicator} size={"large"} />
+          )}
+        </>
+      )}
+    </View>
   );
 };
 
@@ -68,6 +111,16 @@ const style = StyleSheet.create({
   folderContainer: {
     zIndex: -1,
     ...styles.flex,
+  },
+  activityIndicator: {
+    flex: 1,
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
 });
 

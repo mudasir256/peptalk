@@ -1,6 +1,7 @@
 {
   "common": {
-    "back": "Back"
+    "back": "Back",
+    "login": "Login"
   },
   "header": {
     "recent": "Recent",
@@ -72,7 +73,7 @@
     "support": "Support",
     "legel": "Legel",
     "user": "User",
-    "loggedin" : "Logged in as ksmith",
+    "loggedin" : "Logged in as ",
     "deleteAccount" : "Delete Account",
     "logout" : "Logout",
     "aboutMomBrain": "About Mom Brain",
@@ -105,6 +106,7 @@
     "titleModal": "Add New Folder",
     "description": "Are you sure you want to logout?",
     "description1": "Are you sure you want to delete your account? You will loose access to your stored videos and folders",
-    "deleteAccount": "Delete Account"
+    "deleteAccount": "Delete Account",
+    "loginAccount": "Login"
   }
 }

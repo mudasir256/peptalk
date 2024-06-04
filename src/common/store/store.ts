@@ -1,7 +1,8 @@
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore } from 'redux-persist';
 import { configureStore } from '@reduxjs/toolkit';
 import authenticationReducer from './slice/authentication';
-import { apiSlice } from './slice/api';
 import folderReducer from './slice/folders/slice';
+import { apiSlice } from './slice/api/slice';
 
 export const store = configureStore({
   reducer: {
@@ -9,10 +10,13 @@ export const store = configureStore({
     folders: folderReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
-  middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(apiSlice.middleware);
-  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      },
+    }).concat(apiSlice.middleware),
 });
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export const persistor = persistStore(store);
+

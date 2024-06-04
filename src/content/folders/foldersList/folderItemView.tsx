@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import {
   Text,
   View,
-  Image,
   StyleSheet,
   ImageSourcePropType,
+  Image,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ellipses, Folders } from "../../../assets/svgs/svgIcons";
@@ -15,59 +15,56 @@ import { COLORS } from "../../../common/theme/colors";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { SecondryFont, NormalFont } from "../../../common/theme/typography";
 import { styles } from "../../../common/theme/styles";
-import CustomModal from "../../../common/components/modal/modal";
 
 type Props = {
   folder: Folder;
-  isOpen?: boolean;
-  toggleDropdown: VoidFunction;
-  updateFolder: (index: number, newName: string) => void;
-  handleDelete: () => void;
+  onRenamePress?: VoidFunction;
+  onDeletePress?: VoidFunction;
+  showDropdown?: boolean;
+  onEllipsesPress?: VoidFunction;
 };
 
-const FolderItemView: React.FC<Props> = ({
+const FolderItemView = ({
   folder,
-  isOpen,
-  toggleDropdown,
-  handleDelete,
-  updateFolder,
-}) => {
+  onRenamePress,
+  onDeletePress,
+  onEllipsesPress,
+  showDropdown,
+}: Props) => {
+  const { images = [] } = folder || {};
   const { t } = useTranslation();
-  const [showModal, setShowModal] = useState(false);
+  const [showMoreOptions, setShowMoreOptions] = useState(false);
+
+  const numImages = images.length || 0;
+  const imageStyle =
+    numImages === 1
+      ? [style.singleImage]
+      : [style.multiImage, { flex: 1 / numImages }];
+
   const options = [
     { label: t("dropDown.rename"), value: "rename" },
     { label: t("dropDown.delete"), value: "delete" },
   ];
 
-  const handleClose = () => {
-    setShowModal(false);
+  const handleOptionSelect = async (option: string) => {
+    if (option === "delete") onDeletePress?.();
+    else if (option === "rename") onRenamePress?.();
+    setShowMoreOptions(false);
   };
-
-  const handleOptionSelect = (option: string) => {
-    if (option === "delete") {
-      handleDelete();
-    }
-    if (option === "rename") {
-      setShowModal(true);
-    }
-    toggleDropdown();
-  };
-
-  const numImages = folder.images.length;
-  const imageStyle =
-    numImages === 1
-      ? [style.singleImage]
-      : [style.multiImage, { flex: 1 / numImages }];
 
   return (
     <View style={style.container}>
       <View
         style={[
           style.imageContainer,
-          { flexDirection: numImages > 1 ? "row" : "column" },
+          {
+            flexDirection: numImages > 1 ? "row" : "column",
+            backgroundColor:
+              images.length === 0 ? COLORS.primary : "transparent",
+          },
         ]}
       >
-        {folder.images.map((image, index) => (
+        {images.map((image, index) => (
           <Image
             key={index}
             source={image as ImageSourcePropType}
@@ -78,25 +75,17 @@ const FolderItemView: React.FC<Props> = ({
       <View style={style.folderBottom}>
         <View style={style.dentist}>
           <Folders />
-          <Text style={style.folderText}>{folder.name}</Text>
+          <Text style={style.folderText}>{folder.folder_name}</Text>
         </View>
-        <TouchableOpacity onPress={toggleDropdown}>
+        <TouchableOpacity onPress={onEllipsesPress}>
           <Ellipses />
         </TouchableOpacity>
       </View>
-      {isOpen && (
+      {showDropdown && (
         <Dropdown
           options={options}
-          onClose={toggleDropdown}
+          onClose={() => setShowMoreOptions(false)}
           onSelect={handleOptionSelect}
-        />
-      )}
-      {showModal && (
-        <CustomModal
-          title={"Update Folder Name"}
-          showInput
-          onClose={handleClose}
-          onPressOk={updateFolder}
         />
       )}
     </View>

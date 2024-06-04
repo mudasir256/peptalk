@@ -4,7 +4,6 @@ import { Ionicons } from "@expo/vector-icons";
 
 export const PasswordInput = (props: TextInputFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
-  console.log(showPassword);
 
   return (
     <TextInputField

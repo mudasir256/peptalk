@@ -1,9 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { ReactNode, useState } from "react";
 import {
   View,
   Text,
   TouchableOpacity,
-  ImageRequireSource,
   TouchableWithoutFeedback,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -12,10 +11,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { style } from "./styles";
 import { HomeStackRoutes } from "../navigation/routes";
 import { AddFolder } from "../../assets/svgs/svgIcons";
-import CustomModal from "../components/modal/modal";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { addFolders } from "../store/slice/folders/slice";
+import CustomModal from "../components/modal/modal";
+import { useAddFolderMutationMutation } from "../store/slice/api/slice";
+import Toast from "react-native-toast-message";
 
 const items = [
   { label: "Title: A-Z", value: "Title: A-Z" },
@@ -26,47 +25,27 @@ const items = [
 
 type Props = {
   title: string;
-  iconRight?: ImageRequireSource;
+  iconRight?: ReactNode;
+  onIconRightPress?: VoidFunction;
 };
 
-const Header = ({ title, iconRight }: Props) => {
+const Header = ({ title, iconRight, onIconRightPress }: Props) => {
   const { t } = useTranslation();
-  const items = [
-    { label: t("header.title1"), value: t("header.title1") },
-    { label: t("header.title2"), value: t("header.title2") },
-    { label: t("header.date1"), value: t("header.date1") },
-    { label: t("header.date2"), value: t("header.date2") },
-  ];
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [folderName, setFolderName] = useState("");
 
-  const dispatch = useDispatch();
+  const { navigate } = useNavigation();
 
-  const handleSelect = (item) => {
+  const handleSelect = (item: { label?: string; value: any }) => {
     setValue(item.value);
     setOpen(false);
   };
 
-  const { navigate } = useNavigation();
-
   const onSearchPress = () => navigate(HomeStackRoutes.Search);
 
   const closeDropdown = () => setOpen(false);
-
-  const handleAdd = useCallback(
-    (folderName: string) => {
-      const folderData = {
-        name: folderName,
-        images: [],
-      };
-      dispatch(addFolders([folderData]));
-      setModalVisible(false);
-      setFolderName("");
-    },
-    [dispatch, folderName]
-  );
+  const closeModal = () => setModalVisible(false);
 
   return (
     <TouchableWithoutFeedback onPress={closeDropdown}>
@@ -82,10 +61,10 @@ const Header = ({ title, iconRight }: Props) => {
           </TouchableOpacity>
           {iconRight && (
             <TouchableOpacity
-              onPress={() => setModalVisible(true)}
+              onPress={onIconRightPress}
               style={style.addFolder}
             >
-              <AddFolder />
+              {iconRight}
             </TouchableOpacity>
           )}
           {open && (
@@ -109,15 +88,6 @@ const Header = ({ title, iconRight }: Props) => {
           searchIcon={true}
           rightIcon={<Ionicons name="mic" size={20} color={"gray"} />}
         />
-        <TouchableOpacity>
-          <CustomModal
-            visible={modalVisible}
-            onClose={() => setModalVisible(false)}
-            title={t("modal.titleModal")}
-            showInput
-            dispatchAddFolder={handleAdd}
-          />
-        </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
   );

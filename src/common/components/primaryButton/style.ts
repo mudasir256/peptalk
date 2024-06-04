@@ -21,4 +21,7 @@ export const style = StyleSheet.create({
     ...styles.flex,
    ...styles.alignCenter,
   },
+  disabled: {
+    opacity: 0.9,
+  },
 });

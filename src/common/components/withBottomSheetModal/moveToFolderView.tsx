@@ -1,12 +1,13 @@
 import React, { useRef } from "react";
 import { View, Text, FlatList, TouchableOpacity } from "react-native";
-import HomeFolder from "../../../common/components/homeFolder/homeFolder";
-import PrimaryButton from "../../../common/components/primaryButton";
+import HomeFolder from "../homeFolder/homeFolder";
+import PrimaryButton from "../primaryButton";
 import { style } from "./style";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import { CrossIcon } from "../../../assets/svgs/svgIcons";
 import bottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet";
 
+//TODO 4: Change with folders list
 const foldersData = [
   "Dentist",
   "Doctor",
@@ -16,7 +17,7 @@ const foldersData = [
   "Birthday Party",
 ];
 
-const WithBottomSheetModal = ({ handleClosePress }) => {
+const MoveToFolderView = ({ handleClosePress }) => {
   return (
     <>
       <View style={style.container}>
@@ -45,4 +46,4 @@ const WithBottomSheetModal = ({ handleClosePress }) => {
   );
 };
 
-export default WithBottomSheetModal;
+export default MoveToFolderView;

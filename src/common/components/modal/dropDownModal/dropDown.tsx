@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from "react-native";
 import { COLORS } from "../../../theme/colors";
 import { NormalFont } from "../../../theme/typography";
@@ -18,7 +19,7 @@ type Option = {
 type DropdownProps = {
   options: Option[];
   onSelect: (value: any) => void;
-  onClose?: () => void; // New prop for closing the dropdown
+  onClose?: () => void;
 };
 
 const Dropdown: React.FC<DropdownProps> = ({ options, onSelect, onClose }) => {

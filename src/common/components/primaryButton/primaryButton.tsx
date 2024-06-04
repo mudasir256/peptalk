@@ -6,8 +6,8 @@ import {
   View,
   ImageRequireSource,
   ViewStyle,
-  ViewProps,
   TouchableOpacityProps,
+  ActivityIndicator,
 } from "react-native";
 import { style } from "./style";
 
@@ -16,6 +16,7 @@ type Props = TouchableOpacityProps & {
   icon?: ImageRequireSource;
   onPress?: VoidFunction;
   containerStyle?: ViewStyle;
+  loading?: boolean;
 };
 
 export const PrimaryButton = ({
@@ -23,16 +24,22 @@ export const PrimaryButton = ({
   icon = undefined,
   onPress = undefined,
   containerStyle = undefined,
+  loading = false,
   ...rest
 }: Props) => (
   <TouchableOpacity
-    style={[style.buttonContainer, containerStyle]}
+    style={[style.buttonContainer, containerStyle, loading && style.disabled]}
     {...rest}
-    onPress={onPress}
+    onPress={loading ? undefined : onPress}
+    disabled={loading}
   >
     {icon && <Image source={icon} />}
     <View style={[style.textContainer, { marginEnd: icon ? 24 : 0 }]}>
-      <Text style={style.buttonText}>{title}</Text>
+      {loading ? (
+        <ActivityIndicator color="white" />
+      ) : (
+        <Text style={style.buttonText}>{title}</Text>
+      )}
     </View>
   </TouchableOpacity>
 );

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Text,
+  TextInputProps,
 } from "react-native";
 import { COLORS } from "../../theme/colors";
 import { SPACINGS } from "../../theme/spacing";
@@ -12,7 +13,7 @@ import { SearchIcon } from "../../../assets/svgs/svgIcons";
 import { styles } from "../../theme/styles";
 import { Radius } from "../../theme/typography";
 
-export type TextInputFieldProps = {
+export type TextInputFieldProps = TextInputProps & {
   containerStyle?: any;
   inputStyle?: any;
   placeholder: string;
@@ -90,6 +91,7 @@ export const TextInputField = ({
 const style = StyleSheet.create({
   input: {
     ...styles.flex,
+    height: 50,
     paddingHorizontal: 10,
   },
   iconButton: {

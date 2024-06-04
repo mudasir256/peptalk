@@ -1,28 +1,29 @@
 import React, { useRef, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView,
-} from "react-native";
+import { View, Text } from "react-native";
 import { style } from "./style";
 import PrimaryButton from "../../../common/components/primaryButton";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { COLORS } from "../../../common/theme/colors";
 import { useAppDispatch } from "../../../common/store";
-import { setAuthenticated } from "../../../common/store/slice/authentication/slice";
+import {
+  setAuthenticated,
+  setToken,
+} from "../../../common/store/slice/authentication/slice";
 import { AuthState } from "../../../common/store/slice/authentication/types";
 import { TextInputField } from "../../../common/components/input/input";
 import { PasswordInput } from "../../../common/components/passwordInput/passwordInput";
 import { KeyboardAvoidingViewWrapper } from "../../../common/components/keyboardAvoidingViewWrapper/keyboardAvoidingViewWrapper";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { useTranslation } from "react-i18next";
+import Toast from "react-native-toast-message";
+import { ApiResponse } from "../../../../common/types";
+import { useRegisterMutation } from "../../../common/store/slice/api/slice";
 
 export const SignUpWithEmail = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [formValid, setFormValid] = useState<boolean>(false);
+  const [register, { isLoading }] = useRegisterMutation();
 
   const termsOfServiceSelection = useRef(false);
   const firstName = useRef<string>(undefined);
@@ -34,6 +35,36 @@ export const SignUpWithEmail = () => {
   const [lastNameError, setLastNameError] = useState<string>(undefined);
   const [emailError, setEmailError] = useState<string>(undefined);
   const [passwordError, setPasswordError] = useState<string>(undefined);
+
+  const handleCreateAccount = async () => {
+    try {
+      const user = {
+        first_name: firstName.current,
+        last_name: lastName.current,
+        email: email.current,
+        password1: password.current,
+        password2: password.current,
+      };
+      const response: ApiResponse = await register(user).unwrap();
+      if ("access" in response) {
+        Toast.show({
+          type: "success",
+          text1: "Successfully Signed up",
+        });
+        const access: string = response.access;
+        dispatch(setToken({ accessToken: access }));
+        dispatch(setAuthenticated({ authState: AuthState.Authenticated }));
+      } else {
+        console.error("Unexpected response format");
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      Toast.show({
+        type: "error",
+        text1: error.data.password1 || "An Error Occurred Please try again",
+      });
+    }
+  };
 
   const toggleCheckbox = (isChecked: boolean) => {
     termsOfServiceSelection.current = isChecked;
@@ -90,9 +121,6 @@ export const SignUpWithEmail = () => {
     setFormValid(isFormValid);
   };
 
-  const onCreateAccountPress = () =>
-    dispatch(setAuthenticated({ authState: AuthState.Authenticated }));
-
   return (
     <KeyboardAvoidingViewWrapper>
       <View style={{ ...style.innerContainer }}>
@@ -144,7 +172,7 @@ export const SignUpWithEmail = () => {
             opacity: formValid ? 1 : 0.5,
             alignSelf: "center",
           }}
-          onPress={onCreateAccountPress}
+          onPress={handleCreateAccount}
           disabled={!formValid}
         />
       </View>

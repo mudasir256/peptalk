@@ -13,7 +13,8 @@ export type AuthUser = {
 export type AuthenticationState = {
   authState: AuthState
   user: AuthUser
-  token: string
+  accessToken: string
+  refreshToken?:string
 }
 
 export type AuthenticationPayload = {

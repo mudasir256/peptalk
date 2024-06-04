@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   Modal,
   View,
@@ -11,19 +11,19 @@ import { COLORS } from "../../theme/colors";
 import PrimaryButton from "../primaryButton";
 import { style } from "./style";
 import { useTranslation } from "react-i18next";
-import { UseDispatch } from "react-redux";
+import { Folder } from "../../../content/folders/foldersList/types";
 
 type Props = {
   title: string;
   visible?: boolean;
   onClose?: () => void;
-  onAdd?: (value: string) => void;
   showInput?: boolean;
   showText?: boolean;
   description?: string;
-  value?: string;
-  dispatchAddFolder?: (folderName: string) => void;
-  onPressOk?: (index: number, newName: string) => void;
+  onPressOk?: (folderName: string) => void;
+  id?: number;
+  loading?: boolean;
+  selectedFolder?: Folder;
 };
 
 const CustomModal = ({
@@ -33,72 +33,80 @@ const CustomModal = ({
   showInput,
   showText,
   description,
-  dispatchAddFolder,
   onPressOk,
+  id,
+  loading,
+  selectedFolder,
 }: Props) => {
   const { t } = useTranslation();
-  const [folderName, setFolderName] = useState("");
+  const [nameError, setNameError] = useState(false);
+  const inputName = useRef(selectedFolder?.folder_name);
+  console.log("namez", selectedFolder);
+
   const handleCancel = () => {
-    setFolderName("");
-    onClose();
+    inputName.current = "";
+    onClose?.();
   };
 
-  const handleAdd = () => {
-    if (folderName.trim() !== "") {
-      if (dispatchAddFolder) {
-        dispatchAddFolder(folderName);
-      }
-      setFolderName("");
-      onClose();
-    }
-    console.log("rename", folderName);
-    // onPressOk();
+  const handleOKPress = () => {
+    if (inputName.current) onPressOk?.(inputName.current);
+    else setNameError(true);
+    inputName.current = "";
   };
 
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={visible}
-      onRequestClose={handleCancel}
-    >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
+    <>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={visible}
+        onRequestClose={handleCancel}
       >
-        <View style={style.centeredView}>
-          <View style={style.modalView}>
-            <Text style={style.addNew}>{title}</Text>
-            {showText && <Text style={style.description}>{description}</Text>}
-            {showInput && (
-              <>
-                <Text style={style.modalTitle}>{t("modal.folderName")}</Text>
-                <View>
-                  <TextInputField
-                    placeholder={t("modal.addFolder")}
-                    containerStyle={{ backgroundColor: COLORS.inputbg }}
-                    value={folderName}
-                    onChangeText={setFolderName}
-                  />
-                </View>
-              </>
-            )}
-            <View style={style.buttonContainer}>
-              <PrimaryButton
-                title={t("modal.cancel")}
-                containerStyle={style.cancel}
-                onPress={handleCancel}
-              />
-              <PrimaryButton
-                title={t("modal.ok")}
-                containerStyle={style.ok}
-                onPress={handleAdd}
-              />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1 }}
+        >
+          <View style={style.centeredView}>
+            <View style={style.modalView}>
+              <Text style={style.addNew}>{title}</Text>
+              {showText && <Text style={style.description}>{description}</Text>}
+              {showInput && (
+                <>
+                  <Text style={style.modalTitle}>{t("modal.folderName")}</Text>
+                  <View>
+                    <TextInputField
+                      placeholder={t("modal.addFolder")}
+                      containerStyle={{ backgroundColor: COLORS.inputbg }}
+                      onChangeText={(e) => (inputName.current = e)}
+                      defaultValue={inputName.current}
+                    />
+                  </View>
+                  <View style={style.errorContainer}>
+                    {nameError && (
+                      <Text style={style.error}>Please enter a name</Text>
+                    )}
+                  </View>
+                </>
+              )}
+              <View style={style.buttonContainer}>
+                <PrimaryButton
+                  title={t("modal.cancel")}
+                  containerStyle={style.cancel}
+                  onPress={handleCancel}
+                />
+                <PrimaryButton
+                  loading={loading}
+                  title={t("modal.ok")}
+                  disabled={nameError}
+                  containerStyle={style.ok}
+                  onPress={handleOKPress}
+                />
+              </View>
             </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </Modal>
+        </KeyboardAvoidingView>
+      </Modal>
+    </>
   );
 };
 

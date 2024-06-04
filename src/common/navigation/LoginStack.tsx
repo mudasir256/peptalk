@@ -7,6 +7,7 @@ import { LandingScreen } from "../../content/onboarding/landing/landing";
 import { LoginStackRoutes } from "./routes";
 import Footer from "../components/footer/footer";
 import { useTranslation } from "react-i18next";
+import Login from "../../content/onboarding/login/login";
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,11 @@ const LoginStack = () => {
           name={LoginStackRoutes.SignUpWithEmail}
           component={SignUpWithEmail}
           options={{ title: t("loginStack.createAccount") }}
+        />
+        <Stack.Screen
+          name={LoginStackRoutes.Login}
+          component={Login}
+          options={{ title: t("loginStack.loginAccount") }}
         />
       </Stack.Navigator>
     </Footer>

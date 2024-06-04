@@ -15,6 +15,7 @@ type Props = {
 };
 
 export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
+  console.log("ITEM IMAGE:: ", item.image);
   return (
     <View style={style.container}>
       <View style={style.imageContainer}>

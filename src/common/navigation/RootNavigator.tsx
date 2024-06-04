@@ -9,7 +9,7 @@ export const RootNavigator = () => {
   const authStatus = useAppSelector(selectAuthState);
   return (
     <NavigationContainer>
-      {authStatus === AuthState.Authenticated ? <HomeStack /> : <HomeStack />}
+      {authStatus === AuthState.Authenticated ? <HomeStack /> : <LoginStack />}
     </NavigationContainer>
   );
 };

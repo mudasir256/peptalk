@@ -20,5 +20,6 @@ export const COLORS = {
   inputbg: "#7676801F",
   buttonbg: "#FFF2EF",
   dropDownBorder: "#E6EFEF",
-  imageBorder: "#E0E0E0"
+  imageBorder: "#E0E0E0",
+  error:"#FF0000"
 }

@@ -21,7 +21,19 @@
       "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {
         "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera.",
-        "NSMicrophoneUsageDescription": "$(PRODUCT_NAME) needs access to your Microphone."
+        "NSMicrophoneUsageDescription": "$(PRODUCT_NAME) needs access to your Microphone.",
+        "NSAppTransportSecurity": {
+          "NSExceptionDomains": {
+            "209.38.145.138": {
+              "NSExceptionAllowsInsecureHTTPLoads": true
+            }
+          }
+        },
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLSchemes": ["com.googleusercontent.apps.761974158882-mc925asj9779rbl11blbpadgbgpuak53"]
+          }
+        ]
       }
     },
     "android": {
@@ -41,10 +53,20 @@
     "extra": {
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "f6c22c11-85fc-4e5b-921c-48493a928bb9"
       }
     },
     "plugins": [
-      "react-native-vision-camera"
+      "react-native-vision-camera",
+      "expo-font",
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.761974158882-mc925asj9779rbl11blbpadgbgpuak53"
+        }
+      ]
     ]
   }
 }

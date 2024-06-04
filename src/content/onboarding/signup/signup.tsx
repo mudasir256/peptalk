@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, ImageBackground, Alert, SafeAreaView } from "react-native";
 import { useAppleIdSignin } from "./useAppleIdSignin";
 import { IMAGES } from "../../../assets/images";
@@ -12,6 +12,8 @@ import { setAuthenticated } from "../../../common/store/slice/authentication/sli
 import { AuthState } from "../../../common/store/slice/authentication/types";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { useTranslation } from "react-i18next";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useGoogleSignin } from "./useGoogleSignin";
 
 export const SignupScreen = () => {
   const { t } = useTranslation();
@@ -19,6 +21,7 @@ export const SignupScreen = () => {
   const dispatch = useAppDispatch();
 
   const { signInWithAppleId } = useAppleIdSignin();
+  const { onGoogleButtonPress } = useGoogleSignin();
 
   const onAppldIdPress = () => {
     Alert.alert(t("signUpScreen.termsAlert1"), t("signUpScreen.termsAlert2"), [
@@ -29,19 +32,13 @@ export const SignupScreen = () => {
       },
       {
         text: t("signUpScreen.ok"),
-        onPress: async () => {
-          try {
-            const credential = await signInWithAppleId();
-            dispatch(setAuthenticated({ authState: AuthState.Authenticated }));
-          } catch (error) {
-            console.error("Apple ID Sign-In Error:", error);
-          }
-        },
+        onPress: signInWithAppleId,
       },
     ]);
   };
 
   const SignupWithEmail = () => navigate(LoginStackRoutes.SignUpWithEmail);
+  const handleLogin = () => navigate(LoginStackRoutes.Login);
 
   return (
     <SafeAreaView style={[styles.flex, style.container]}>
@@ -64,7 +61,7 @@ export const SignupScreen = () => {
           containerStyle={{ marginBottom: SPACINGS.md }}
           title={t("signUpScreen.gmailSignUp")}
           icon={IMAGES.googleIcon}
-          onPress={() => {}}
+          onPress={onGoogleButtonPress}
         />
         <PrimaryButton
           containerStyle={{ alignSelf: "center" }}
@@ -74,7 +71,9 @@ export const SignupScreen = () => {
         />
         <View style={style.loginContainer}>
           <Text style={style.alreadyAccount}>{t("signUpScreen.already")}</Text>
-          <Text style={style.loginButton}>{t("landingScreen.login")}</Text>
+          <TouchableOpacity onPress={handleLogin}>
+            <Text style={style.loginButton}>{t("landingScreen.login")}</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

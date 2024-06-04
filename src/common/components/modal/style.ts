@@ -47,5 +47,11 @@ export const style = StyleSheet.create({
   description:{
     ...SecondaryText,
     paddingVertical:SPACINGS.md
+  },
+  error:{
+    color:COLORS.error,
+  },
+  errorContainer:{
+    height:30
   }
 });

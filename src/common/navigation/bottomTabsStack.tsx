@@ -8,7 +8,6 @@ import { COLORS } from "../theme/colors";
 import { WelcomeScreen } from "../../content/welcome/welcome";
 import { noHeader } from "../../content/options";
 import CameraScreen from "../../content/camera/camera";
-import FoldersScreen from "../../content/folders/folders";
 import SettingsScreen from "../../content/settings/settings";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Logo } from "../../assets/svgs/svgIcons";
@@ -17,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import About from "../../content/settings/settingScreens/about";
 import Contact from "../../content/settings/settingScreens/contact";
 import TermsOfUse from "../../content/settings/settingScreens/termsOfUse";
+import FoldersScreen from "../../content/folders/folders";
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
