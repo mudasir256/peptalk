@@ -68,5 +68,6 @@ export const useFoldersData = () => {
     foldersList,
     handleDeleteFolder,
     isLoadingUpdate,
+    data,
   };
 };

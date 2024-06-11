@@ -5,19 +5,19 @@ import PrimaryButton from "../primaryButton";
 import { style } from "./style";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
 import { CrossIcon } from "../../../assets/svgs/svgIcons";
-import bottomSheet from "@gorhom/bottom-sheet/lib/typescript/components/bottomSheet";
+import { Folder } from "../../../content/folders/foldersList/types";
+import { useFoldersData } from "../../../content/folders/foldersList/useFolderListData";
 
-//TODO 4: Change with folders list
-const foldersData = [
-  "Dentist",
-  "Doctor",
-  "Haircuts",
-  "Sports",
-  "Outdoors",
-  "Birthday Party",
-];
+type Props = {
+  handleClosePress: VoidFunction;
+};
+const MoveToFolderView = ({ handleClosePress }: Props) => {
+  const { data } = useFoldersData();
+  console.log("addingfolder", data);
 
-const MoveToFolderView = ({ handleClosePress }) => {
+  if (!data) {
+    return null;
+  }
   return (
     <>
       <View style={style.container}>
@@ -32,9 +32,9 @@ const MoveToFolderView = ({ handleClosePress }) => {
             </TouchableOpacity>
           </View>
           <FlatList
-            data={foldersData}
-            renderItem={({ item }) => <HomeFolder name={item} />}
-            keyExtractor={(index) => index.toString()}
+            data={data.results}
+            renderItem={({ item }) => <HomeFolder name={item.folder_name} />}
+            keyExtractor={(item) => item.id.toString()}
             contentContainerStyle={style.folder}
           />
         </BottomSheetView>

@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import About from "../../content/settings/settingScreens/about";
 import Contact from "../../content/settings/settingScreens/contact";
 import TermsOfUse from "../../content/settings/settingScreens/termsOfUse";
-import FoldersScreen from "../../content/folders/folders";
+import FolderStack from "./folderStack";
 import CameraStack from "./cameraStack";
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -51,7 +51,7 @@ const BottomTabNavigator = () => {
           })}
         />
         <BottomTab.Screen
-          name={CameraStackRoutes.Camera}
+          name={HomeStackRoutes.Camera}
           component={CameraStack}
           options={() => ({
             tabBarLabel: t("bottomTab.camera"),
@@ -67,8 +67,8 @@ const BottomTabNavigator = () => {
           })}
         />
         <BottomTab.Screen
-          name={"FoldersScreen"}
-          component={FoldersScreen}
+          name={"    "}
+          component={FolderStack}
           options={() => ({
             tabBarLabel: t("bottomTab.folders"),
             headerTitle: "",

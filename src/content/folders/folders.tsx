@@ -4,7 +4,7 @@ import Header from "../../common/header/header";
 import { styles } from "../../common/theme/styles";
 import FoldersList from "./foldersList/foldersList";
 import { useTranslation } from "react-i18next";
-import { AddFolder, Folders } from "../../assets/svgs/svgIcons";
+import { AddFolder } from "../../assets/svgs/svgIcons";
 import CustomModal from "../../common/components/modal/modal";
 import { useFoldersData } from "./useFoldersData";
 

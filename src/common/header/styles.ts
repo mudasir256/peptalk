@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { COLORS } from '../theme/colors';
 import { styles } from '../theme/styles';
-import { CommonFont, NormalFont, TextAlign, mainTitle } from '../theme/typography';
+import { ButtonTextPrimary, CommonFont, NormalFont, TextAlign, mainTitle } from '../theme/typography';
 import { SPACINGS } from '../theme/spacing';
 
 export const style = StyleSheet.create({
@@ -69,5 +69,5 @@ export const style = StyleSheet.create({
   },
   dropdownLabel: {
     ...CommonFont
-  }
+  },
 });

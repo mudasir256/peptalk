@@ -11,9 +11,13 @@ import { useTranslation } from "react-i18next";
 
 export const WelcomeScreen = () => {
   const { t } = useTranslation();
-  const { navigate } = useNavigation();
+  const navigation = useNavigation();
 
-  const onSkipPress = () => navigate(HomeStackRoutes.Home);
+  const onSkipPress = () =>
+    navigation.reset({
+      index: 0,
+      routes: [{ name: HomeStackRoutes.Home }],
+    });
 
   return (
     <View style={[styles.flex, style.mainContainer]}>

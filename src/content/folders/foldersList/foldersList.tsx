@@ -44,10 +44,6 @@ const FoldersList = () => {
   };
   const handleClose = () => setShowModal(false);
 
-  const handleCloseDropdown = () => {
-    setDropdownIndex(undefined);
-  };
-
   const renderItem = ({ item, index }) => (
     <View style={style.itemContainer}>
       <TouchableWithoutFeedback onPress={() => setDropdownIndex(undefined)}>

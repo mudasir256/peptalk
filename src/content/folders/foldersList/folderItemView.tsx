@@ -15,6 +15,8 @@ import { COLORS } from "../../../common/theme/colors";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { SecondryFont, NormalFont } from "../../../common/theme/typography";
 import { styles } from "../../../common/theme/styles";
+import { useNavigation } from "@react-navigation/native";
+import { FolderStackRoutes } from "../../../common/navigation/routes";
 
 type Props = {
   folder: Folder;
@@ -33,6 +35,7 @@ const FolderItemView = ({
 }: Props) => {
   const { images = [] } = folder || {};
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
   const [showMoreOptions, setShowMoreOptions] = useState(false);
 
   const numImages = images.length || 0;
@@ -51,9 +54,11 @@ const FolderItemView = ({
     else if (option === "rename") onRenamePress?.();
     setShowMoreOptions(false);
   };
-
+  const handleFolderPress = () => {
+    navigate(FolderStackRoutes.FolderItems, { foldername: folder.folder_name });
+  };
   return (
-    <View style={style.container}>
+    <TouchableOpacity onPress={handleFolderPress} style={style.container}>
       <View
         style={[
           style.imageContainer,
@@ -88,7 +93,7 @@ const FolderItemView = ({
           onSelect={handleOptionSelect}
         />
       )}
-    </View>
+    </TouchableOpacity>
   );
 };
 

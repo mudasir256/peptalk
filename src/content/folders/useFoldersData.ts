@@ -26,6 +26,7 @@ export const useFoldersData = () => {
 
   return {
     addingFolder,
-    handleAddFolder
+    handleAddFolder,
+    data,
   }
 }
