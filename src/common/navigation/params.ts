@@ -1,5 +1,4 @@
-import { TakePhotoOptions } from './../../../node_modules/react-native-vision-camera/lib/typescript/types/PhotoFile.d';
-import { LoginStackRoutes, HomeStackRoutes } from "./routes";
+import { LoginStackRoutes, HomeStackRoutes, CameraStackRoutes,  FolderStackRoutes } from "./routes";
 
 export type LoginStackParamsList = {
   [LoginStackRoutes.Splash]: undefined;
@@ -14,6 +13,11 @@ export type HomeStackParamsList = {
   [HomeStackRoutes.TermsOfUse]: undefined;
   [HomeStackRoutes.About]: undefined;
   [HomeStackRoutes.Contact]: undefined;
+  [CameraStackRoutes.VideoScreen]: { video: string };
+  [CameraStackRoutes.EditVideo]: { video: string };
+  [FolderStackRoutes.Folder]: undefined
+  [FolderStackRoutes.FolderItems]:{ foldername: string };
+
 };
 export type AppStackParamsList = LoginStackParamsList &
   HomeStackParamsList;

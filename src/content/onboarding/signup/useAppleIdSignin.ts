@@ -20,7 +20,9 @@ export const useAppleIdSignin = () => {
       const dataToSubmit = {
         id_token: credential.authorizationCode,
       };
-      const res = await apple(dataToSubmit).unwrap()
+      console.log(credential)
+      return
+      const res = await apple(dataToSubmit).unwrap() 
       console.log(res)
       dispatch(setToken({ accessToken: res.data.access }));
       dispatch(setAuthenticated({ authState: AuthState.Authenticated }));

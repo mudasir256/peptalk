@@ -1,8 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { HomeStackRoutes } from "./routes";
-import SearchScreen from "../../content/searchScreen";
 import HomeScreen from "../../content/home/home";
 import { noHeader } from "../../content/options";
+import SearchScreen from "../../content/searchScreen";
 
 const Home_Stack = createStackNavigator();
 

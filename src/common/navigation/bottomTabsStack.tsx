@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native";
-import { HomeStackRoutes } from "./routes";
+import { CameraStackRoutes, HomeStackRoutes } from "./routes";
 import { COLORS } from "../theme/colors";
 import { WelcomeScreen } from "../../content/welcome/welcome";
 import { noHeader } from "../../content/options";
@@ -17,6 +17,7 @@ import About from "../../content/settings/settingScreens/about";
 import Contact from "../../content/settings/settingScreens/contact";
 import TermsOfUse from "../../content/settings/settingScreens/termsOfUse";
 import FoldersScreen from "../../content/folders/folders";
+import CameraStack from "./cameraStack";
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
@@ -34,10 +35,11 @@ const BottomTabNavigator = () => {
         })}
       >
         <BottomTab.Screen
-          name=" "
+          name="HomeTab"
           component={HomeStack}
           options={() => ({
             tabBarLabel: t("bottomTab.home"),
+            headerTitle: "",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="home" size={size} color={color} />
             ),
@@ -49,10 +51,11 @@ const BottomTabNavigator = () => {
           })}
         />
         <BottomTab.Screen
-          name={HomeStackRoutes.Camera}
-          component={CameraScreen}
+          name={CameraStackRoutes.Camera}
+          component={CameraStack}
           options={() => ({
             tabBarLabel: t("bottomTab.camera"),
+            headerTitle: "",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="camera" size={size} color={color} />
             ),
@@ -64,10 +67,11 @@ const BottomTabNavigator = () => {
           })}
         />
         <BottomTab.Screen
-          name={"    "}
+          name={"FoldersScreen"}
           component={FoldersScreen}
           options={() => ({
             tabBarLabel: t("bottomTab.folders"),
+            headerTitle: "",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="folder" size={size} color={color} />
             ),
@@ -83,6 +87,7 @@ const BottomTabNavigator = () => {
           component={SettingsScreen}
           options={() => ({
             tabBarLabel: t("bottomTab.settings"),
+            headerTitle: "",
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="settings" size={size} color={color} />
             ),

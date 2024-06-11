@@ -14,7 +14,6 @@ export const apiSlice = emptySplitApi.injectEndpoints({
     }),
     login: builder.mutation({
       query: (user) => {
-        console.log("USER:: ", user)
         return({
         url: '/login/',
         method: 'POST',
@@ -90,7 +89,21 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         method: 'POST',
       }),
     }),
+    getMediaList: builder.query({
+      query: () => ({
+        url: `/child-encouragement/media/list`,
+        method: 'GET',
+      }),
+    }),
+    addVideo: builder.mutation({
+      query: (data) => {
+        return({
+        url: '/child-encouragement/media/',
+        method: 'POST',
+        body: data,
+      })}
+    }),
   })
 })
 
-export const {useRegisterMutation, useLoginMutation, useUserQuery, useFoldersListQuery, useAddFolderMutationMutation, useUpdateFolderMutation, useDeleteFolderMutation, useLogoutMutation,useGoogleLoginMutation,useAppleLoginMutation} = apiSlice;
+export const {useRegisterMutation, useLoginMutation, useUserQuery, useFoldersListQuery, useAddFolderMutationMutation, useUpdateFolderMutation, useDeleteFolderMutation, useLogoutMutation,useGoogleLoginMutation,useAppleLoginMutation,useGetMediaListQuery, useAddVideoMutation} = apiSlice;

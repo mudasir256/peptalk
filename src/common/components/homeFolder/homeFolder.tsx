@@ -1,38 +1,47 @@
-import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
-import { styles } from "../../theme/styles";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { Folders } from "../../../assets/svgs/svgIcons";
 import { COLORS } from "../../theme/colors";
 import { SPACINGS } from "../../theme/spacing";
-import BouncyCheckbox from "react-native-bouncy-checkbox/build/dist/BouncyCheckbox";
-import { Folders } from "../../../assets/svgs/svgIcons";
+import { Ionicons } from "@expo/vector-icons";
 
 const HomeFolder = ({ name }) => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const toggleCheckbox = () => {
+    setIsChecked(!isChecked);
+  };
+
   return (
-    <View style={style.head}>
-      <View style={style.folder}>
+    <View style={styles.head}>
+      <View style={styles.folder}>
         <Folders />
-        <Text style={style.move}>{name}</Text>
+        <Text style={styles.move}>{name}</Text>
       </View>
-      <BouncyCheckbox
-        size={24}
-        fillColor={"black"}
-        iconStyle={{ borderColor: COLORS.text }}
-        innerIconStyle={style.checkbox}
-        textStyle={{}}
-      />
+      <TouchableOpacity onPress={toggleCheckbox}>
+        <View
+          style={[
+            styles.checkboxContainer,
+            { borderColor: isChecked ? "black" : "#B3AFAF" },
+          ]}
+        >
+          {isChecked && <Ionicons name="checkmark" size={22} color="black" />}
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default HomeFolder;
-
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   head: {
-    ...styles.flexRow,
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: SPACINGS.md,
   },
   folder: {
-    ...styles.rowCenter,
+    flexDirection: "row",
+    alignItems: "center",
+    flex: 1,
   },
   move: {
     marginLeft: 5,
@@ -41,11 +50,15 @@ const style = StyleSheet.create({
     lineHeight: 22,
     color: COLORS.text,
   },
-  checkbox: {
-    borderRadius: 4,
-    borderColor: COLORS.text,
+  checkboxContainer: {
+    width: 24,
+    height: 24,
     borderWidth: 2,
-    backgroundColor: "white",
-    marginLeft: SPACINGS.lg,
+    borderRadius: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: SPACINGS.sm,
   },
 });
+
+export default HomeFolder;

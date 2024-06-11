@@ -40,6 +40,7 @@ const authenticationSlice = createSlice({
       state.user = undefined
       state.authState = AuthState.NotAuthenticated,
       state.accessToken = undefined
+      state.refreshToken = undefined
     }
   }
 })

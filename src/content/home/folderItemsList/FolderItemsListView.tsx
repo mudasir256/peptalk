@@ -1,6 +1,3 @@
-import { FlatList, ListRenderItem } from "react-native";
-import { SPACINGS } from "../../../common/theme/spacing";
-import { FolderListItem } from "../../../common/components/folderListItem/folderListItem";
 import React, { useCallback, useMemo, useRef } from "react";
 import { View } from "react-native";
 import { style } from "./style";
@@ -12,49 +9,12 @@ import {
 import { FolderItem } from "./type";
 import MoveToFolderView from "../../../common/components/withBottomSheetModal/moveToFolderView";
 import { FolderItemsList } from "./folderItemsList";
-
-const data: FolderItem[] = [
-  {
-    title: "Doctor",
-    name: "Doctor",
-    date: "10/15/2024",
-    image: "https://picsum.photos/375/450",
-  },
-  {
-    title: "Trip to the Dentist",
-    name: "Dentist",
-    date: "10/15/2024",
-    image: "https://picsum.photos/375/450",
-  },
-  {
-    title: "Soccer Game",
-    name: "Sports",
-    date: "10/15/2024",
-    image: "https://picsum.photos/375/450",
-  },
-  {
-    title: "Doctor",
-    name: "Doctor",
-    date: "10/15/2024",
-    image: "https://picsum.photos/375/450",
-  },
-  {
-    title: "Trip to the Dentist",
-    name: "Dentist",
-    date: "10/15/2024",
-    image: "https://picsum.photos/375/450",
-  },
-  {
-    title: "Soccer Game",
-    name: "Sports",
-    date: "10/15/2024",
-    image: "https://picsum.photos/375/450",
-  },
-];
+import { useGetMediaListQuery } from "../../../common/store/slice/api/slice";
 
 const FolderItemsListView = () => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["1", "74%"], []);
+  const { data, isLoading } = useGetMediaListQuery({});
 
   const onMoveToFolderPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
@@ -81,7 +41,11 @@ const FolderItemsListView = () => {
 
   return (
     <View style={style.container}>
-      <FolderItemsList data={data} onMoveToFolderPress={onMoveToFolderPress} />
+      <FolderItemsList
+        data={data?.results}
+        loading={isLoading}
+        onMoveToFolderPress={onMoveToFolderPress}
+      />
       <BottomSheetModal
         ref={bottomSheetModalRef}
         index={1}
