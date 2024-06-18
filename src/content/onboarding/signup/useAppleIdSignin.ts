@@ -4,10 +4,13 @@ import { useDispatch } from 'react-redux';
 import { setAuthenticated, setToken } from '../../../common/store/slice/authentication/slice';
 import { AuthState } from '../../../common/store/slice/authentication/types';
 import Toast from 'react-native-toast-message';
+import { useTranslation } from "react-i18next";
 
 export const useAppleIdSignin = () => {
   const [apple] = useAppleLoginMutation();
   const dispatch = useDispatch()
+  const { t } = useTranslation();
+
   const signInWithAppleId = async () => {
     try {
       const credential = await AppleAuthentication.signInAsync({
@@ -27,15 +30,15 @@ export const useAppleIdSignin = () => {
       dispatch(setToken({ accessToken: res.data.access }));
       dispatch(setAuthenticated({ authState: AuthState.Authenticated }));
         Toast.show({
-          type: "success",
-          text1: "Signed in Successfully",
+          type: t("mediaList.success"),
+          text1: t("mediaList.signedinsuccessfully"),
         });
       }
     } catch (e) {
       console.log(e) 
       Toast.show({
-        type: "error",
-        text1: "Failed to sign up",
+        type: t("mediaList.error"),
+        text1: t("mediaList.failedsignup"),
       });
     }
   };

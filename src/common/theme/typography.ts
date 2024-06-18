@@ -25,6 +25,13 @@ export const SecondaryText: TextStyle = {
   lineHeight: 20,
   color: COLORS.text,
 }
+export const Label: TextStyle = {
+  color: COLORS.text,
+  fontFamily: "SF-Pro-Text-Medium",
+  fontSize: 15,
+  fontWeight: 400,
+  lineHeight: 23,
+}
 export const TextWeight: TextStyle = {
   fontWeight: "500",
 }

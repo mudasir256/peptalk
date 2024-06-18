@@ -7,16 +7,12 @@ import { SectionedData } from "./types";
 
 import { HomeStackRoutes } from "../../common/navigation/routes";
 import { useNavigation } from "@react-navigation/native";
-import { useUserQuery } from "../../common/store/slice/api/slice";
+import { apiSlice, useUserQuery } from "../../common/store/slice/api/slice";
 import CustomModal from "../../common/components/modal/modal";
 import { useSettingsData } from "./useSettingData";
-import { AuthState } from "../../common/store/slice/authentication/types";
 import { useAppSelector } from "../../common/store/hooks";
 import { selectAuthState } from "../../common/store/selectors";
-import {
-  logoutAction,
-  setAuthenticated,
-} from "../../common/store/slice/authentication/slice";
+import { logoutAction } from "../../common/store/slice/authentication/slice";
 import { useDispatch } from "react-redux";
 const SettingsScreen = () => {
   const { navigate } = useNavigation();
@@ -26,7 +22,8 @@ const SettingsScreen = () => {
   const [selectedValue, setSelectedValue] = useState(null);
   const { handleLogout, isLoadingLogout } = useSettingsData();
   const { data } = useUserQuery({});
-  const { profile: { first_name = "" } = {} } = data || {};
+  const { profile } = data || {};
+  const { first_name = "" } = profile || {};
   let authStatus = useAppSelector(selectAuthState);
   const dispatch = useDispatch();
   const DATA: SectionedData[] = useMemo(
@@ -39,6 +36,7 @@ const SettingsScreen = () => {
             title: t("settingsScreen.loggedin") + first_name,
           },
           { title: t("settingsScreen.deleteAccount") },
+          { title: t("settingsScreen.password"), showRevealIcon: true },
           { title: t("settingsScreen.logout") },
         ],
       },
@@ -65,6 +63,7 @@ const SettingsScreen = () => {
 
   const handleLogoutpress = () => {
     // authStatus === AuthState.Authenticated;
+    dispatch(apiSlice.util.resetApiState());
     dispatch(logoutAction());
     // setModalVisible(true);
   };
@@ -74,21 +73,24 @@ const SettingsScreen = () => {
   };
 
   const handlePress = (item: { title: string }) => {
-    if (item.title === "Logout") {
+    if (item.title === t("settingsScreen.logout")) {
       setSelectedValue(item.title);
       handleLogoutpress();
     }
-    if (item.title === "Delete Account") {
+    if (item.title === t("settingsScreen.deleteAccount")) {
       setSelectedValue(item.title);
     }
-    if (item.title === "Terms of Use") {
+    if (item.title === t("settingsScreen.terms")) {
       navigate(HomeStackRoutes.TermsOfUse);
     }
-    if (item.title === "About Mom Brain") {
+    if (item.title === t("settingsScreen.aboutMomBrain")) {
       navigate(HomeStackRoutes.About);
     }
-    if (item.title === "Contact") {
+    if (item.title === t("settingsScreen.contact")) {
       navigate(HomeStackRoutes.Contact);
+    }
+    if (item.title === t("settingsScreen.password")) {
+      navigate(HomeStackRoutes.Password);
     }
   };
 
@@ -104,7 +106,9 @@ const SettingsScreen = () => {
         {item.showRevealIcon && (
           <Image source={IMAGES.rectangle5} style={style.icon} />
         )}
-        {item.isVersion && <Text style={style.version}>v.1.0</Text>}
+        {item.isVersion && (
+          <Text style={style.version}>{t("settingsScreen.versions")}</Text>
+        )}
       </View>
     );
   };

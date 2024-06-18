@@ -13,8 +13,6 @@ const FontProvider = ({ children }) => {
 
   useEffect(() => {
     if (fontsLoaded || fontError) {
-      console.log(fontsLoaded, "font is loaded");
-      console.log(fontError, "error in loading fonts");
     }
   }, [fontsLoaded, fontError]);
 

@@ -10,18 +10,7 @@ import { TextInputField } from "../components/input/input";
 import { Ionicons } from "@expo/vector-icons";
 import { style } from "./styles";
 import { HomeStackRoutes } from "../navigation/routes";
-import { AddFolder } from "../../assets/svgs/svgIcons";
 import { useTranslation } from "react-i18next";
-import CustomModal from "../components/modal/modal";
-import { useAddFolderMutationMutation } from "../store/slice/api/slice";
-import Toast from "react-native-toast-message";
-
-const items = [
-  { label: "Title: A-Z", value: "Title: A-Z" },
-  { label: "Title: Z-A", value: "Title: Z-A" },
-  { label: "Date: Ascending", value: "Date: Ascending" },
-  { label: "Date: Descending", value: "Date: Descending" },
-];
 
 type Props = {
   title: string;
@@ -41,7 +30,18 @@ const Header = ({ title, iconRight, onIconRightPress }: Props) => {
     setValue(item.value);
     setOpen(false);
   };
-
+  const items = [
+    { label: t("mediaList.titleA-Z"), value: t("mediaList.titleA-Z") },
+    { label: t("mediaList.titleZ-A"), value: t("mediaList.titleZ-A") },
+    {
+      label: t("mediaList.dateascending"),
+      value: t("mediaList.dateascending"),
+    },
+    {
+      label: t("mediaList.datedescending"),
+      value: t("mediaList.datedescending"),
+    },
+  ];
   const onSearchPress = () => navigate(HomeStackRoutes.Search);
 
   const closeDropdown = () => setOpen(false);

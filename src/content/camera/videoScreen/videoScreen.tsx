@@ -13,6 +13,8 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { CameraStackRoutes } from "../../../common/navigation/routes";
 import { style } from "./style";
+import { useTranslation } from "react-i18next";
+
 const VideoScreen = ({ route, navigation: { goBack } }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["1", "74%"], []);
@@ -20,6 +22,7 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
   const { navigate } = useNavigation();
   const [isPaused, setIsPaused] = useState(true);
   const videoRef = useRef(null);
+  const { t } = useTranslation();
 
   const togglePause = () => {
     setIsPaused(!isPaused);
@@ -54,7 +57,7 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
     <>
       <TouchableOpacity style={style.back} onPress={() => goBack()}>
         <Ionicons name="chevron-back" size={24} color="black" />
-        <Text style={style.backbtn}>Back</Text>
+        <Text style={style.backbtn}>{t("common.back")}</Text>
       </TouchableOpacity>
       <View style={style.container}>
         <View style={style.btnContainer}>
@@ -82,9 +85,12 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
         />
       </View>
       <View style={style.buttonContainer}>
-        <PrimaryButton title={"Discard"} containerStyle={style.discard} />
         <PrimaryButton
-          title={"Save"}
+          title={t("common.discard")}
+          containerStyle={style.discard}
+        />
+        <PrimaryButton
+          title={t("common.save")}
           containerStyle={style.save}
           onPress={onMoveToFolderPress}
         />

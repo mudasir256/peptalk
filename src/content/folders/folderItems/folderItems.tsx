@@ -9,18 +9,24 @@ import { SPACINGS } from "../../../common/theme/spacing";
 import { ButtonTextPrimary } from "../../../common/theme/typography";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../../../common/theme/colors";
+import { useTranslation } from "react-i18next";
+import { useGetFoldersListByIdQuery } from "../../../common/store/slice/api/slice";
 
 const FolderItems = ({ route, navigation: { goBack } }) => {
+  const { t } = useTranslation();
+
   const foldername = route.params?.foldername;
+  const folderId = route.params.folderId;
+  const { data: foldersData, isLoading } = useGetFoldersListByIdQuery(folderId);
   return (
     <>
       <TouchableOpacity style={style.back} onPress={() => goBack()}>
         <Ionicons name="chevron-back" size={24} color="black" />
-        <Text style={style.backbtn}>Back</Text>
+        <Text style={style.backbtn}>{t("common.back")}</Text>
       </TouchableOpacity>
       <View style={styles.flex}>
         <Header title={foldername} iconRight={<ImportIcon />} />
-        <FolderItemsListView />
+        <FolderItemsListView data={foldersData} loadings={isLoading} />
       </View>
     </>
   );

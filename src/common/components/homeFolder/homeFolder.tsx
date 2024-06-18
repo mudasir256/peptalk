@@ -1,24 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Folders } from "../../../assets/svgs/svgIcons";
 import { COLORS } from "../../theme/colors";
 import { SPACINGS } from "../../theme/spacing";
 import { Ionicons } from "@expo/vector-icons";
 
-const HomeFolder = ({ name }) => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const toggleCheckbox = () => {
-    setIsChecked(!isChecked);
-  };
-
+const HomeFolder = ({ name, isChecked, onCheckboxToggle, id }) => {
   return (
     <View style={styles.head}>
       <View style={styles.folder}>
         <Folders />
         <Text style={styles.move}>{name}</Text>
       </View>
-      <TouchableOpacity onPress={toggleCheckbox}>
+      <TouchableOpacity onPress={() => onCheckboxToggle(id)}>
         <View
           style={[
             styles.checkboxContainer,

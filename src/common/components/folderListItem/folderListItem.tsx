@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { style } from "./style";
 import { FolderItem } from "../../../content/home/folderItemsList/type";
@@ -9,17 +9,22 @@ import {
   PlayIcon,
 } from "../../../assets/svgs/svgIcons";
 import Video, { VideoRef } from "react-native-video";
+import { useMediaList } from "./useMediaList";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   item: FolderItem;
-  onMoveToFolderPress: VoidFunction;
+  onMoveToFolderPress: (id: string) => void;
 };
 
 export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
+  const id = item.id;
   const videoRef = useRef<VideoRef>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadings, setIsLoading] = useState(true);
   const [isPlayIcon, setIsPlayIcon] = useState(false);
+  const { t } = useTranslation();
+  const { handleRenameMedia, handleDeletemedia, loading } = useMediaList();
 
   const handleLoadStart = () => {
     setIsLoading(true);
@@ -39,19 +44,20 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
   };
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
+
     const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      t("months.January"),
+      t("months.february"),
+      t("months.march"),
+      t("months.april"),
+      t("months.may"),
+      t("months.june"),
+      t("months.july"),
+      t("months.august"),
+      t("months.september"),
+      t("months.october"),
+      t("months.november"),
+      t("months.december"),
     ];
     return `${
       monthNames[date.getMonth()]
@@ -61,7 +67,7 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
   return (
     <View style={style.container}>
       <View style={style.imageContainer}>
-        {isLoading && (
+        {isLoadings && (
           <View style={style.imageIconContainer}>
             <ActivityIndicator size="large" />
           </View>
@@ -87,22 +93,32 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
       <View style={style.details}>
         <View>
           <Text style={style.title}>{item.media_name}</Text>
-          <Text style={style.date}>Folders: {item.folder.folder_name}</Text>
           <Text style={style.date}>
-            Date: {formatDate(item.folder.created_at)}
+            {t("header.folder")}: {item.folder.folder_name}
+          </Text>
+          <Text style={style.date}>
+            {t("common.date")}: {formatDate(item.folder.created_at)}
           </Text>
         </View>
         <View style={style.iconsContainer}>
-          <TouchableOpacity style={style.iconContainer}>
+          <TouchableOpacity
+            onPress={() => handleRenameMedia({ id: id })}
+            style={style.iconContainer}
+          >
             <Edit />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={onMoveToFolderPress}
+            onPress={() => onMoveToFolderPress(id)}
             style={style.iconContainer}
           >
             <MoveFolder />
           </TouchableOpacity>
-          <TouchableOpacity style={style.iconContainer}>
+          <TouchableOpacity
+            style={style.iconContainer}
+            onPress={() =>
+              handleDeletemedia({ id: item.id, media_name: item.media_name })
+            }
+          >
             <Delete />
           </TouchableOpacity>
         </View>

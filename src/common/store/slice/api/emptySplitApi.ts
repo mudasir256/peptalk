@@ -5,5 +5,5 @@ export const emptySplitApi = createApi({
   reducerPath: 'serverApis',
   baseQuery: baseQueryWithReauth,
   endpoints: () => ({}),
-  tagTypes: ['folders'],
+  tagTypes: ['folders',"FoldersByID","Media"],
 });

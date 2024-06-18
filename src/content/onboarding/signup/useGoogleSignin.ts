@@ -5,10 +5,13 @@ import Toast from "react-native-toast-message";
 import { useDispatch } from "react-redux";
 import { setAuthenticated, setToken } from "../../../common/store/slice/authentication/slice";
 import { AuthState } from "../../../common/store/slice/authentication/types";
+import { useTranslation } from "react-i18next";
 
 export const useGoogleSignin = () => {
   const [google] = useGoogleLoginMutation();
   const dispatch = useDispatch()
+  const { t } = useTranslation();
+
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -32,16 +35,15 @@ export const useGoogleSignin = () => {
         dispatch(setToken({ accessToken: res.access , refreshToken:res.refresh }));
         dispatch(setAuthenticated({ authState: AuthState.Authenticated }));
           Toast.show({
-            type: "success",
-            text1: "Signed in Successfully",
+            type: t("mediaList.success"),
+            text1: t("mediaList.signedinsuccessfully"),
           });
         }
     } catch (error) {
       Toast.show({
-        type: "error",
-        text1: "Failed in Signin",
+        type: t("mediaList.error"),
+        text1: t("mediaList.failedsignin"),
       });
-      console.error("Google Sign-In Error:", error);
     }
   };
   return { onGoogleButtonPress };

@@ -32,7 +32,6 @@ export const style = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    // Adjust as needed to position the icon
   },
   details: {
     ...styles.rowBetween,
@@ -67,5 +66,11 @@ export const style = StyleSheet.create({
     padding: 6,
     marginLeft: SPACINGS.xs,
     height: 32
+  },
+  input: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+    marginBottom: 10,
+    paddingHorizontal: 5,
   },
 });

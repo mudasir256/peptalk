@@ -41,7 +41,6 @@ const CustomModal = ({
   const { t } = useTranslation();
   const [nameError, setNameError] = useState(false);
   const inputName = useRef(selectedFolder?.folder_name);
-  console.log("namez", selectedFolder);
 
   const handleCancel = () => {
     inputName.current = "";

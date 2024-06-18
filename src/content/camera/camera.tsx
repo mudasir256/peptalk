@@ -10,6 +10,7 @@ import TimerDisplay from "./timerDisplay";
 import CameraControls from "./cameraControls";
 import { useNavigation } from "@react-navigation/native";
 import { CameraStackRoutes } from "../../common/navigation/routes";
+import { useTranslation } from "react-i18next";
 
 const CameraScreen = () => {
   const [deviceState, setDeviceState] = useState("back");
@@ -18,6 +19,7 @@ const CameraScreen = () => {
   const { hasPermission } = useCameraPermission();
   const [isRecording, setIsRecording] = useState(false);
   const deviceStatus = useCameraDevice("back");
+  const { t } = useTranslation();
 
   useEffect(() => {
     const requestPermissions = async () => {
@@ -37,8 +39,6 @@ const CameraScreen = () => {
             const path = video.path;
             setIsRecording(false);
             navigate(CameraStackRoutes.VideoScreen, { video: video.path });
-
-            console.log("videopath", video);
           },
           onRecordingError: (error) => {
             console.error(error);
@@ -71,13 +71,13 @@ const CameraScreen = () => {
   if (!hasPermission)
     return (
       <View>
-        <Text>No access to camera</Text>
+        <Text>{t("camera.nocamera")}</Text>
       </View>
     );
   if (deviceStatus == null)
     return (
       <View style={style.container}>
-        <Text>No camera device</Text>
+        <Text>{t("camera.nodevice")}</Text>
       </View>
     );
 

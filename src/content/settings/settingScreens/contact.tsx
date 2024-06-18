@@ -28,7 +28,7 @@ const Contact = () => {
         </TouchableOpacity>
         <Text style={style.title}>{t("settingsScreen.contact")}</Text>
       </View>
-      <Text style={style.description}>email</Text>
+      <Text style={style.description}>www.fake-email@mombrain.com</Text>
     </>
   );
 };

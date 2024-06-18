@@ -7,17 +7,13 @@ import { CameraStackRoutes, HomeStackRoutes } from "./routes";
 import { COLORS } from "../theme/colors";
 import { WelcomeScreen } from "../../content/welcome/welcome";
 import { noHeader } from "../../content/options";
-import CameraScreen from "../../content/camera/camera";
-import SettingsScreen from "../../content/settings/settings";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Logo } from "../../assets/svgs/svgIcons";
 import HomeStack from "./HomeStack";
 import { useTranslation } from "react-i18next";
-import About from "../../content/settings/settingScreens/about";
-import Contact from "../../content/settings/settingScreens/contact";
-import TermsOfUse from "../../content/settings/settingScreens/termsOfUse";
 import FolderStack from "./folderStack";
 import CameraStack from "./cameraStack";
+import SettingStack from "./SettingStack";
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
@@ -84,7 +80,7 @@ const BottomTabNavigator = () => {
         />
         <BottomTab.Screen
           name={"  "}
-          component={SettingsScreen}
+          component={SettingStack}
           options={() => ({
             tabBarLabel: t("bottomTab.settings"),
             headerTitle: "",
@@ -113,21 +109,6 @@ const mainStack = () => (
     <Stack.Screen
       name={HomeStackRoutes.Home}
       component={BottomTabNavigator}
-      options={noHeader}
-    />
-    <Stack.Screen
-      name={HomeStackRoutes.TermsOfUse}
-      component={TermsOfUse}
-      options={noHeader}
-    />
-    <Stack.Screen
-      name={HomeStackRoutes.About}
-      component={About}
-      options={noHeader}
-    />
-    <Stack.Screen
-      name={HomeStackRoutes.Contact}
-      component={Contact}
       options={noHeader}
     />
   </Stack.Navigator>

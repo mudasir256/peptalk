@@ -12,6 +12,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import { StickerSmile } from "../../../assets/svgs/svgIcons";
 import { style } from "./style";
+import { useTranslation } from "react-i18next";
 
 const EditVideo = ({ route, navigation: { goBack } }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -19,6 +20,7 @@ const EditVideo = ({ route, navigation: { goBack } }) => {
   const videoUrl = route.params?.video;
   const [isPaused, setIsPaused] = useState(true);
   const videoRef = useRef(null);
+  const { t } = useTranslation();
 
   const togglePause = () => {
     setIsPaused(!isPaused);
@@ -83,14 +85,17 @@ const EditVideo = ({ route, navigation: { goBack } }) => {
         />
       </View>
       <View style={style.buttonContainer}>
-        <PrimaryButton title={"Discard"} containerStyle={style.discard} />
         <PrimaryButton
-          title={"Save"}
+          title={t("common.discard")}
+          containerStyle={style.discard}
+        />
+        <PrimaryButton
+          title={t("common.save")}
           containerStyle={style.save}
           onPress={onMoveToFolderPress}
         />
         <PrimaryButton
-          title={"Trim"}
+          title={t("common.trim")}
           containerStyle={style.trim}
           onPress={trimVideo}
         />

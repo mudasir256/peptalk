@@ -55,37 +55,42 @@ const FolderItemView = ({
     setShowMoreOptions(false);
   };
   const handleFolderPress = () => {
-    navigate(FolderStackRoutes.FolderItems, { foldername: folder.folder_name });
+    navigate(FolderStackRoutes.FolderItems, {
+      foldername: folder.folder_name,
+      folderId: folder.id,
+    });
   };
   return (
-    <TouchableOpacity onPress={handleFolderPress} style={style.container}>
-      <View
-        style={[
-          style.imageContainer,
-          {
-            flexDirection: numImages > 1 ? "row" : "column",
-            backgroundColor:
-              images.length === 0 ? COLORS.primary : "transparent",
-          },
-        ]}
-      >
-        {images.map((image, index) => (
-          <Image
-            key={index}
-            source={image as ImageSourcePropType}
-            style={[imageStyle, index > 0 && { ...style.imageOverlap }]}
-          />
-        ))}
-      </View>
-      <View style={style.folderBottom}>
-        <View style={style.dentist}>
-          <Folders />
-          <Text style={style.folderText}>{folder.folder_name}</Text>
+    <>
+      <TouchableOpacity onPress={handleFolderPress} style={style.container}>
+        <View
+          style={[
+            style.imageContainer,
+            {
+              flexDirection: numImages > 1 ? "row" : "column",
+              backgroundColor:
+                images.length === 0 ? COLORS.primary : "transparent",
+            },
+          ]}
+        >
+          {images.map((image, index) => (
+            <Image
+              key={index}
+              source={image as ImageSourcePropType}
+              style={[imageStyle, index > 0 && { ...style.imageOverlap }]}
+            />
+          ))}
         </View>
-        <TouchableOpacity onPress={onEllipsesPress}>
-          <Ellipses />
-        </TouchableOpacity>
-      </View>
+        <View style={style.folderBottom}>
+          <View style={style.dentist}>
+            <Folders />
+            <Text style={style.folderText}>{folder.folder_name}</Text>
+          </View>
+          <TouchableOpacity onPress={onEllipsesPress}>
+            <Ellipses />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
       {showDropdown && (
         <Dropdown
           options={options}
@@ -93,7 +98,7 @@ const FolderItemView = ({
           onSelect={handleOptionSelect}
         />
       )}
-    </TouchableOpacity>
+    </>
   );
 };
 

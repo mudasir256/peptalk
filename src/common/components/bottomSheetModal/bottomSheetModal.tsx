@@ -19,7 +19,6 @@ const BottomModal = forwardRef<BottomSheetModal, Props>(
     { index = 1, backdropComponent, snapPoints, onChange, handleClosePress },
     ref
   ) => {
-    console.log("ref", ref);
     return (
       <View>
         <BottomSheetModal

@@ -363,7 +363,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peptalk/peptalk.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FD28J9WFZ6;
+				DEVELOPMENT_TEAM = AR8N57P488;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
@@ -382,7 +382,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mombrain.peptalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mb.peptalk;
 				PRODUCT_NAME = peptalk;
 				SWIFT_OBJC_BRIDGING_HEADER = "peptalk/peptalk-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -400,7 +400,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = peptalk/peptalk.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FD28J9WFZ6;
+				DEVELOPMENT_TEAM = AR8N57P488;
 				INFOPLIST_FILE = peptalk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -414,7 +414,7 @@
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mombrain.peptalk;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mb.peptalk;
 				PRODUCT_NAME = peptalk;
 				SWIFT_OBJC_BRIDGING_HEADER = "peptalk/peptalk-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

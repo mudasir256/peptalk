@@ -55,7 +55,7 @@ const SearchScreen = ({ navigation: { goBack } }) => {
       <View style={style.headerContainer}>
         <TouchableOpacity style={style.back} onPress={() => goBack()}>
           <Ionicons name="chevron-back" size={24} color="black" />
-          <Text style={style.backbtn}>Back</Text>
+          <Text style={style.backbtn}>{t("common.back")}</Text>
         </TouchableOpacity>
         <TextInputField
           focusBorderColor="black"

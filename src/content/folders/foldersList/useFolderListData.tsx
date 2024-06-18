@@ -8,7 +8,7 @@ import { Folder } from "./types";
 import { useState } from "react";
 
 export const useFoldersData = () => {
-  const { data, isLoading, error } = useFoldersListQuery({});
+  const { data, isLoading } = useFoldersListQuery({});
   const { results: foldersList = [] } = data || {};
   const [folderToUpdate, setFolderToUpdate] = useState(null);
   const [deleteFolder, { isLoading: deleting, isError, isSuccess }] =

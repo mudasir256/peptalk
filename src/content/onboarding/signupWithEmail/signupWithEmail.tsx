@@ -48,8 +48,8 @@ export const SignUpWithEmail = () => {
       const response: ApiResponse = await register(user).unwrap();
       if ("access" in response) {
         Toast.show({
-          type: "success",
-          text1: "Successfully Signed up",
+          type: t("mediaList.success"),
+          text1: t("mediaList.successfullysignedup"),
         });
         const access: string = response.access;
         dispatch(setToken({ accessToken: access }));
@@ -61,7 +61,7 @@ export const SignUpWithEmail = () => {
       console.error("Error logging in:", error);
       Toast.show({
         type: "error",
-        text1: error.data.password1 || "An Error Occurred Please try again",
+        text1: error.data.password1 || t("mediaList.erroraccor"),
       });
     }
   };
@@ -159,7 +159,6 @@ export const SignUpWithEmail = () => {
           <View style={style.labelContainer}>
             <Text style={style.label}>{t("signUpWithEmail.checkbox")}</Text>
             <Text style={style.labellink}>
-              {" "}
               {t("signUpWithEmail.checkboxLink")}
             </Text>
           </View>

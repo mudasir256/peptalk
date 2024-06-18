@@ -12,11 +12,13 @@ export type HomeStackParamsList = {
   [HomeStackRoutes.Search]: undefined;
   [HomeStackRoutes.TermsOfUse]: undefined;
   [HomeStackRoutes.About]: undefined;
+  [HomeStackRoutes.Password]: undefined;
+  [HomeStackRoutes.ResetPasswordWithEmail]: undefined;
   [HomeStackRoutes.Contact]: undefined;
   [CameraStackRoutes.VideoScreen]: { video: string };
   [CameraStackRoutes.EditVideo]: { video: string };
   [FolderStackRoutes.Folder]: undefined
-  [FolderStackRoutes.FolderItems]:{ foldername: string };
+  [FolderStackRoutes.FolderItems]:{ foldername: string, folderId?: number };
 
 };
 export type AppStackParamsList = LoginStackParamsList &

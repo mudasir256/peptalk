@@ -9,4 +9,5 @@ export const SPACINGS = {
   lg: 20,
   xl: 32,
  Radius: 25,
+ max:50
 }

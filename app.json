@@ -16,7 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mombrain.peptalk",
+      "bundleIdentifier": "com.mb.peptalk",
       "usesAppleSignIn": true,
       "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {
@@ -41,7 +41,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mombrain.peptalk",
+      "package": "com.mb.peptalk",
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"

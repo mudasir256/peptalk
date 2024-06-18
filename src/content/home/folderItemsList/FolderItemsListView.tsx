@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { View } from "react-native";
 import { style } from "./style";
 import {
@@ -6,19 +6,24 @@ import {
   BottomSheetBackdropProps,
   BottomSheetBackdrop,
 } from "@gorhom/bottom-sheet";
-import { FolderItem } from "./type";
 import MoveToFolderView from "../../../common/components/withBottomSheetModal/moveToFolderView";
 import { FolderItemsList } from "./folderItemsList";
-import { useGetMediaListQuery } from "../../../common/store/slice/api/slice";
 
-const FolderItemsListView = () => {
+type Props = {
+  id?: string;
+  data?: any;
+  loadings?: boolean;
+};
+const FolderItemsListView = ({ loadings, data }: Props) => {
+  const [mediaId, setMediaId] = useState("");
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["1", "74%"], []);
-  const { data, isLoading } = useGetMediaListQuery({});
 
-  const onMoveToFolderPress = useCallback(() => {
+  const onMoveToFolderPress = useCallback((id: string) => {
     bottomSheetModalRef.current?.present();
+    setMediaId(id);
   }, []);
+
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
@@ -42,8 +47,8 @@ const FolderItemsListView = () => {
   return (
     <View style={style.container}>
       <FolderItemsList
-        data={data?.results}
-        loading={isLoading}
+        data={data?.results || data?.media}
+        loading={loadings}
         onMoveToFolderPress={onMoveToFolderPress}
       />
       <BottomSheetModal
@@ -53,7 +58,7 @@ const FolderItemsListView = () => {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
       >
-        <MoveToFolderView handleClosePress={handleClosePress} />
+        <MoveToFolderView id={mediaId} handleClosePress={handleClosePress} />
       </BottomSheetModal>
     </View>
   );

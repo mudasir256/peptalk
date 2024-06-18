@@ -94,6 +94,7 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         url: `/child-encouragement/media/list`,
         method: 'GET',
       }),
+      providesTags: ["Media"],
     }),
     addVideo: builder.mutation({
       query: (data) => {
@@ -103,7 +104,54 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         body: data,
       })}
     }),
+    getFoldersListById: builder.query({
+      query: (id) => {
+          return {
+              url: `/child-encouragement/folder/${id}/`,
+              method: 'GET',
+          };
+      },
+      providesTags:["FoldersByID"]
+  }),
+    deleteMedia: builder.mutation({
+      query: ( id ) => ({
+        url: `/child-encouragement/media/${id}/delete/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ["FoldersByID","Media"],
+    }),
+    moveFolder: builder.mutation({
+      query: ({id,data}) => {
+        return {
+          url: `/child-encouragement/media/${id}/update/`,
+          method: 'PATCH',
+          body:data
+        };
+      },
+      invalidatesTags:["FoldersByID","Media","folders"]
+    }),
+    updateMedia: builder.mutation({
+      query: ({id,data}) => {
+        return {
+          url: `/child-encouragement/media/${id}/update/`,
+          method: 'PATCH',
+          body:data
+        };
+      },
+      invalidatesTags:["FoldersByID","Media","folders"]
+    }),
+    resetPassword: builder.mutation({
+      query: (data) => {
+        console.log("datyata", data)
+        return({
+        url: '/password/change/',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: data,
+      })}
+    }),
   })
 })
-
-export const {useRegisterMutation, useLoginMutation, useUserQuery, useFoldersListQuery, useAddFolderMutationMutation, useUpdateFolderMutation, useDeleteFolderMutation, useLogoutMutation,useGoogleLoginMutation,useAppleLoginMutation,useGetMediaListQuery, useAddVideoMutation} = apiSlice;
+export const {useRegisterMutation, useLoginMutation, useUserQuery, useFoldersListQuery, useAddFolderMutationMutation, useUpdateFolderMutation, useDeleteFolderMutation, useLogoutMutation,useGoogleLoginMutation,useAppleLoginMutation,useGetMediaListQuery, useAddVideoMutation,useGetFoldersListByIdQuery, useDeleteMediaMutation, useMoveFolderMutation, useUpdateMediaMutation, useResetPasswordMutation} = apiSlice;

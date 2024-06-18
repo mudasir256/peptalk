@@ -1,11 +1,33 @@
 {
   "common": {
     "back": "Back",
-    "login": "Login"
+    "login": "Login",
+    "moveFolder": "Move Folder",
+    "move": "Move",
+    "date": "Date",
+    "discard":"Discard",
+    "save":"Save",
+    "trim":"Trim",
+    "nodata":"No Data Found"
+  },
+  "months": {
+    "january":"January",
+    "february":"February",
+    "march":"March",
+    "april":"April",
+    "may":"May",
+    "june":"June",
+    "july":"July",
+    "august":"August",
+    "september":"September",
+    "october":"October",
+    "november":"November",
+    "december":"December"
   },
   "header": {
     "recent": "Recent",
     "folders": "Folders",
+    "folder": "Folder",
     "sort": "Sort",
     "search": "Search",
     "title1": "Title: A-Z",
@@ -81,7 +103,9 @@
     "leaveReview": "Leave a Review",
     "version": "Version",
     "contact": "Contact",
-    "terms": "Terms of Use"
+    "terms": "Terms of Use",
+    "versions":"v.1.0",
+    "password": "Password"
   },
   "modal": {
     "addFolder": "Add Folder",
@@ -108,5 +132,50 @@
     "description1": "Are you sure you want to delete your account? You will loose access to your stored videos and folders",
     "deleteAccount": "Delete Account",
     "loginAccount": "Login"
+  },
+  "mediaList": {
+    "deleteitem":"Delete Item",
+    "delete":"Are you sure you want to delete?",
+    "cancel":"Cancel",
+    "error":"error",
+    "faileddelete":"Failed to delete",
+    "success":"success",
+    "deletedsuccessfully":"Deleted Successfully",
+    "errordeleting":"Error deleting folder:",
+    "renamedsuccessfully":"renamed successfully",
+    "failedrename":"Failed to rename",
+    "renamemedia":"Rename Media",
+    "enternewname":"Renamed Successfully",
+    "movedsuccessfully":"Moved successfully",
+    "erroradding":"Error Adding Folder",
+    "titleA-Z":"Title: A-Z",
+    "titleZ-A":"Title: Z-A",
+    "dateascending":"Date: Ascending",
+    "datedescending":"Date: Descending",
+    "addedsuccessfully":"added successfully",
+    "addingerror":"Error Adding Folder",
+    "successfullyloggedin":"successfully logged in",
+    "signedinsuccessfully":"Signed in Successfully",
+    "failedsignup":"Failed to sign up",
+    "failedsignin":"failed sign in",
+    "successfullysignedup":"Successfully Signed up",
+    "erroraccor":"An Error Occurred Please try again",
+    "errorupdatngpassword":"error updatng password",
+    "passwordchangesuccessfully":"Password Change Successfully"
+  },
+  "camera": {
+    "nocamera": "No access to camera",
+    "nodevice":"No camera device"
+  },
+  "password": {
+    "password": "Password",
+    "oldpassword":"Old Password",
+    "forgotpassword":"Forgot Password?",
+    "newpassword":"New Password",
+    "confirmpassword":"Confirm Password",
+    "changepassword":"Change Password",
+    "resetpassword":"Reset Password",
+    "email":"Email",
+    "description":"You will receive an email with instructions on how to reset your password in a few minutes."
   }
 }

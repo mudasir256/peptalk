@@ -26,7 +26,7 @@ const TermsOfUse = () => {
           <Ionicons name="chevron-back" size={24} color="black" />
           <Text style={style.backbtn}>{t("common.back")}</Text>
         </TouchableOpacity>
-        <Text style={style.title}>Terms of Use</Text>
+        <Text style={style.title}>{t("settingsScreen.terms")}</Text>
       </View>
       <Text style={style.description}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur

@@ -9,11 +9,12 @@ import { FolderItem } from "./type";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { FolderListItem } from "../../../common/components/folderListItem/folderListItem";
 import { styles } from "../../../common/theme/styles";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   data: FolderItem[];
   loading: boolean;
-  onMoveToFolderPress?: VoidFunction;
+  onMoveToFolderPress: (id: string) => void;
 };
 
 export const FolderItemsList = ({
@@ -21,10 +22,12 @@ export const FolderItemsList = ({
   onMoveToFolderPress,
   loading,
 }: Props) => {
-  const renderFolderListItem: ListRenderItem<FolderItem> = ({ item }) => (
-    <FolderListItem item={item} onMoveToFolderPress={onMoveToFolderPress} />
-  );
-
+  const { t } = useTranslation();
+  const renderFolderListItem: ListRenderItem<FolderItem> = ({ item }) => {
+    return (
+      <FolderListItem item={item} onMoveToFolderPress={onMoveToFolderPress} />
+    );
+  };
   return (
     <>
       {loading ? (
@@ -39,7 +42,7 @@ export const FolderItemsList = ({
           ListEmptyComponent={() => {
             return (
               <View style={[styles.center, styles.flex]}>
-                <Text>No Data Found</Text>
+                <Text>{t("common.nodata")}</Text>
               </View>
             );
           }}
