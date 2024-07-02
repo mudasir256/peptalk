@@ -23,17 +23,6 @@ export enum FolderStackRoutes {
   Folder = "FoldersTab",
   FolderItems = "FolderItems",
 }
-export enum CameraStackRoutes {
-  Camera = "CameraTab",
-  CameraScreen = "CameraScreen",
-  VideoScreen = "VideoScreen",
-  EditVideo = "EditVideo",
-}
-
-export enum FolderStackRoutes {
-  Folder = "FoldersTab",
-  FolderItems = "FolderItems",
-}
 
 export enum DetailStackRoutes {
   Detail = "Detail",

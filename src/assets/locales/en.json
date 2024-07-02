@@ -177,5 +177,9 @@
     "resetpassword":"Reset Password",
     "email":"Email",
     "description":"You will receive an email with instructions on how to reset your password in a few minutes."
+  },
+  "permission":{
+    "permission":"Permission",
+    "permissionmessage":"PepTalk requires camera and microphone access to function properly. Please grant the necessary permissions in your device settings."
   }
 }

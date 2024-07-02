@@ -88,6 +88,7 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
         <PrimaryButton
           title={t("common.discard")}
           containerStyle={style.discard}
+          onPress={() => goBack()}
         />
         <PrimaryButton
           title={t("common.save")}

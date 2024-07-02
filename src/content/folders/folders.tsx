@@ -17,10 +17,22 @@ const FoldersScreen = () => {
     await handleAddFolder(folder);
     setShowAddFolderPopup(false);
   };
-
+  const items = [
+    { label: t("mediaList.titleA-Z"), value: t("mediaList.titleA-Z") },
+    { label: t("mediaList.titleZ-A"), value: t("mediaList.titleZ-A") },
+    {
+      label: t("mediaList.dateascending"),
+      value: t("mediaList.dateascending"),
+    },
+    {
+      label: t("mediaList.datedescending"),
+      value: t("mediaList.datedescending"),
+    },
+  ];
   return (
     <View style={styles.flex}>
       <Header
+        items={items}
         title={t("Folders")}
         iconRight={<AddFolder />}
         onIconRightPress={() => setShowAddFolderPopup(true)}

@@ -90,8 +90,8 @@ export const apiSlice = emptySplitApi.injectEndpoints({
       }),
     }),
     getMediaList: builder.query({
-      query: () => ({
-        url: `/child-encouragement/media/list`,
+      query: (data) => ({
+        url: `/child-encouragement/media/list?ordering${data}`,
         method: 'GET',
       }),
       providesTags: ["Media"],
@@ -152,6 +152,22 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         body: data,
       })}
     }),
+    uploadMedia: builder.mutation({
+      query: (formData) => ({
+        url: '/child-encouragement/upload/',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: formData,
+      }),
+    }),  
+    getSearch: builder.query({
+      query: (data) => ({
+        url: `/child-encouragement/media/list?search=${data}`,
+        method: 'GET',
+      }),
+    }), 
   })
 })
-export const {useRegisterMutation, useLoginMutation, useUserQuery, useFoldersListQuery, useAddFolderMutationMutation, useUpdateFolderMutation, useDeleteFolderMutation, useLogoutMutation,useGoogleLoginMutation,useAppleLoginMutation,useGetMediaListQuery, useAddVideoMutation,useGetFoldersListByIdQuery, useDeleteMediaMutation, useMoveFolderMutation, useUpdateMediaMutation, useResetPasswordMutation} = apiSlice;
+export const {useRegisterMutation, useLoginMutation, useUserQuery, useFoldersListQuery, useAddFolderMutationMutation, useUpdateFolderMutation, useDeleteFolderMutation, useLogoutMutation,useGoogleLoginMutation,useAppleLoginMutation,useGetMediaListQuery, useAddVideoMutation,useGetFoldersListByIdQuery, useDeleteMediaMutation, useMoveFolderMutation, useUpdateMediaMutation, useResetPasswordMutation,useUploadMediaMutation,useGetSearchQuery } = apiSlice;

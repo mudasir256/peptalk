@@ -63,7 +63,6 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
       monthNames[date.getMonth()]
     } ${date.getDate()}, ${date.getFullYear()}`;
   };
-
   return (
     <View style={style.container}>
       <View style={style.imageContainer}>
@@ -97,7 +96,7 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
             {t("header.folder")}: {item.folder.folder_name}
           </Text>
           <Text style={style.date}>
-            {t("common.date")}: {formatDate(item.folder.created_at)}
+            {t("common.date")}: {formatDate(item.created_at)}
           </Text>
         </View>
         <View style={style.iconsContainer}>

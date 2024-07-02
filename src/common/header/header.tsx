@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -13,40 +13,31 @@ import { HomeStackRoutes } from "../navigation/routes";
 import { useTranslation } from "react-i18next";
 
 type Props = {
+  items?: { label: string; value: string }[];
   title: string;
-  iconRight?: ReactNode;
-  onIconRightPress?: VoidFunction;
+  iconRight?: React.ReactNode;
+  onIconRightPress?: () => void;
+  handleSelect?: (selectedOption: string) => void;
 };
 
-const Header = ({ title, iconRight, onIconRightPress }: Props) => {
+const Header = ({
+  items,
+  title,
+  iconRight,
+  onIconRightPress,
+  handleSelect,
+}: Props) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
-
   const { navigate } = useNavigation();
 
-  const handleSelect = (item: { label?: string; value: any }) => {
-    setValue(item.value);
-    setOpen(false);
-  };
-  const items = [
-    { label: t("mediaList.titleA-Z"), value: t("mediaList.titleA-Z") },
-    { label: t("mediaList.titleZ-A"), value: t("mediaList.titleZ-A") },
-    {
-      label: t("mediaList.dateascending"),
-      value: t("mediaList.dateascending"),
-    },
-    {
-      label: t("mediaList.datedescending"),
-      value: t("mediaList.datedescending"),
-    },
-  ];
   const onSearchPress = () => navigate(HomeStackRoutes.Search);
-
   const closeDropdown = () => setOpen(false);
-  const closeModal = () => setModalVisible(false);
-
+  const handleSelectOption = (selectedOption: string) => {
+    handleSelect(selectedOption);
+    closeDropdown();
+  };
   return (
     <TouchableWithoutFeedback onPress={closeDropdown}>
       <View style={style.container}>
@@ -72,8 +63,8 @@ const Header = ({ title, iconRight, onIconRightPress }: Props) => {
               {items.map((item) => (
                 <TouchableOpacity
                   key={item.value}
-                  style={[style.item]}
-                  onPress={() => handleSelect(item)}
+                  style={style.item}
+                  onPress={() => handleSelectOption(item.value)}
                 >
                   <Text style={style.dropdownLabel}>{item.label}</Text>
                 </TouchableOpacity>
