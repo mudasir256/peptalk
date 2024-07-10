@@ -14,6 +14,8 @@ import { useTranslation } from "react-i18next";
 import FolderStack from "./folderStack";
 import CameraStack from "./cameraStack";
 import SettingStack from "./SettingStack";
+import { useSelector } from "react-redux";
+import { RootState } from "@reduxjs/toolkit/query";
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
@@ -31,7 +33,7 @@ const BottomTabNavigator = () => {
         })}
       >
         <BottomTab.Screen
-          name="HomeTab"
+          name={HomeStackRoutes.HomeTab}
           component={HomeStack}
           options={() => ({
             tabBarLabel: t("bottomTab.home"),
@@ -63,7 +65,7 @@ const BottomTabNavigator = () => {
           })}
         />
         <BottomTab.Screen
-          name={"    "}
+          name={HomeStackRoutes.Folder}
           component={FolderStack}
           options={() => ({
             tabBarLabel: t("bottomTab.folders"),
@@ -99,19 +101,28 @@ const BottomTabNavigator = () => {
   );
 };
 
-const mainStack = () => (
-  <Stack.Navigator initialRouteName={HomeStackRoutes.Welcome}>
-    <Stack.Screen
-      name={HomeStackRoutes.Welcome}
-      component={WelcomeScreen}
-      options={noHeader}
-    />
-    <Stack.Screen
-      name={HomeStackRoutes.Home}
-      component={BottomTabNavigator}
-      options={noHeader}
-    />
-  </Stack.Navigator>
-);
+const mainStack = () => {
+  const onboarding = useSelector(
+    (state: any) => state.authentication.onboarding
+  );
+  return (
+    <Stack.Navigator
+      initialRouteName={
+        onboarding ? HomeStackRoutes.Home : HomeStackRoutes.Welcome
+      }
+    >
+      <Stack.Screen
+        name={HomeStackRoutes.Welcome}
+        component={WelcomeScreen}
+        options={noHeader}
+      />
+      <Stack.Screen
+        name={HomeStackRoutes.Home}
+        component={BottomTabNavigator}
+        options={noHeader}
+      />
+    </Stack.Navigator>
+  );
+};
 
 export default mainStack;

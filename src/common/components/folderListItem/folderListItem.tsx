@@ -1,5 +1,11 @@
-import React, { useRef, useState } from "react";
-import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import React, { useRef, useState, useCallback, useEffect } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  ActivityIndicator,
+  Image,
+} from "react-native";
 import { style } from "./style";
 import { FolderItem } from "../../../content/home/folderItemsList/type";
 import {
@@ -20,9 +26,8 @@ type Props = {
 export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
   const id = item.id;
   const videoRef = useRef<VideoRef>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [isLoadings, setIsLoading] = useState(true);
-  const [isPlayIcon, setIsPlayIcon] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
   const { handleRenameMedia, handleDeletemedia, loading } = useMediaList();
 
@@ -32,19 +37,34 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
 
   const handleLoad = () => {
     setIsLoading(false);
-    setIsPlayIcon(true);
   };
 
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-    videoRef.current.presentFullscreenPlayer();
+  const handleImageLoad = () => {
+    setIsLoading(false);
   };
+
+  const toggleFullscreen = useCallback(() => {
+    setIsLoading(true);
+    setIsFullscreen((prevFullscreen) => !prevFullscreen);
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current && isFullscreen) {
+      videoRef.current.presentFullscreenPlayer();
+      setIsLoading(false);
+    }
+  }, [isFullscreen]);
+
   const handleDismissVideo = () => {
-    videoRef.current.dismissFullscreenPlayer();
+    setIsFullscreen(false);
+    setIsLoading(false);
+    if (videoRef.current) {
+      videoRef.current.dismissFullscreenPlayer();
+    }
   };
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-
     const monthNames = [
       t("months.January"),
       t("months.february"),
@@ -63,6 +83,10 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
       monthNames[date.getMonth()]
     } ${date.getDate()}, ${date.getFullYear()}`;
   };
+
+  const handleDeleteMedia = () => {
+    handleDeletemedia({ id: item.id, media_name: item.media_name });
+  };
   return (
     <View style={style.container}>
       <View style={style.imageContainer}>
@@ -71,33 +95,38 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
             <ActivityIndicator size="large" />
           </View>
         )}
-        <Video
-          ref={videoRef}
-          source={{ uri: item?.media }}
-          style={style.image}
-          paused={!isPlaying}
-          onLoadStart={handleLoadStart}
-          onLoad={handleLoad}
-          onFullscreenPlayerDidDismiss={handleDismissVideo}
-        />
-        {isPlayIcon && (
+        {!isFullscreen && (
+          <Image
+            source={{ uri: item.thumbnail }}
+            style={style.image}
+            onLoad={handleImageLoad}
+          />
+        )}
+        {!isFullscreen && !isLoadings && (
           <TouchableOpacity
             style={style.imageIconContainer}
-            onPress={togglePlay}
+            onPress={toggleFullscreen}
           >
             <PlayIcon />
           </TouchableOpacity>
+        )}
+        {isFullscreen && (
+          <Video
+            ref={videoRef}
+            source={{ uri: item?.media }}
+            style={style.image}
+            paused={false}
+            onLoadStart={handleLoadStart}
+            onLoad={handleLoad}
+            onFullscreenPlayerDidDismiss={handleDismissVideo}
+          />
         )}
       </View>
       <View style={style.details}>
         <View>
           <Text style={style.title}>{item.media_name}</Text>
-          <Text style={style.date}>
-            {t("header.folder")}: {item.folder.folder_name}
-          </Text>
-          <Text style={style.date}>
-            {t("common.date")}: {formatDate(item.created_at)}
-          </Text>
+          <Text style={style.date}>Folder: {item.folder.folder_name}</Text>
+          <Text style={style.date}>Date: {formatDate(item.created_at)}</Text>
         </View>
         <View style={style.iconsContainer}>
           <TouchableOpacity
@@ -114,9 +143,7 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={style.iconContainer}
-            onPress={() =>
-              handleDeletemedia({ id: item.id, media_name: item.media_name })
-            }
+            onPress={handleDeleteMedia}
           >
             <Delete />
           </TouchableOpacity>

@@ -18,7 +18,7 @@ export const useLoginData = () => {
       };
       const {access,refresh} = await login(user).unwrap();
       dispatch(setToken({ accessToken: access, refreshToken: refresh }));
-      dispatch(setAuthenticated({ authState: AuthState.Authenticated }));
+      dispatch(setAuthenticated({ authState: AuthState.Authenticated }));      
       Toast.show({
         type: t("mediaList.success"),
         text1: t("mediaList.successfullyloggedin"),

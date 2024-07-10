@@ -1,5 +1,13 @@
 import React, { useMemo, useState } from "react";
-import { View, Text, TouchableOpacity, Image, SectionList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  SectionList,
+  Linking,
+  Alert,
+} from "react-native";
 import { style } from "./style";
 import { IMAGES } from "../../assets/images";
 import { useTranslation } from "react-i18next";
@@ -12,7 +20,10 @@ import CustomModal from "../../common/components/modal/modal";
 import { useSettingsData } from "./useSettingData";
 import { useAppSelector } from "../../common/store/hooks";
 import { selectAuthState } from "../../common/store/selectors";
-import { logoutAction } from "../../common/store/slice/authentication/slice";
+import {
+  logoutAction,
+  setOnboarding,
+} from "../../common/store/slice/authentication/slice";
 import { useDispatch } from "react-redux";
 const SettingsScreen = () => {
   const { navigate } = useNavigation();
@@ -54,7 +65,7 @@ const SettingsScreen = () => {
         data: [{ title: t("settingsScreen.contact") }],
       },
       {
-        title: t("settingsScreen.legel"),
+        title: t("settingsScreen.legal"),
         data: [{ title: t("settingsScreen.terms") }],
       },
     ],
@@ -65,6 +76,7 @@ const SettingsScreen = () => {
     // authStatus === AuthState.Authenticated;
     dispatch(apiSlice.util.resetApiState());
     dispatch(logoutAction());
+    dispatch(setOnboarding(false));
     // setModalVisible(true);
   };
 
@@ -86,11 +98,13 @@ const SettingsScreen = () => {
     if (item.title === t("settingsScreen.aboutMomBrain")) {
       navigate(HomeStackRoutes.About);
     }
-    if (item.title === t("settingsScreen.contact")) {
-      navigate(HomeStackRoutes.Contact);
-    }
     if (item.title === t("settingsScreen.password")) {
       navigate(HomeStackRoutes.Password);
+    }
+    if (item.title === t("settingsScreen.contact")) {
+      Linking.openURL("mailto:contact@mombrain.net").catch((err) => {
+        Alert.alert(t("settingsScreen.SigninMessage"));
+      });
     }
   };
 

@@ -47,8 +47,8 @@ export const apiSlice = emptySplitApi.injectEndpoints({
       })},
     }),
     foldersList: builder.query({
-      query: () => ({
-        url: '/child-encouragement/folder/list/',
+      query: (data) => ({
+        url: `/child-encouragement/folder/list/?ordering${data}`,
         method: 'GET',
     }),
     providesTags:["folders"]
@@ -94,7 +94,10 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         url: `/child-encouragement/media/list?ordering${data}`,
         method: 'GET',
       }),
-      providesTags: ["Media"],
+      providesTags: (result) =>
+        result ? result.results.map(({id}) => ({type: "Media", id})) :
+      [{type:"Media",id:'LIST'}]
+
     }),
     addVideo: builder.mutation({
       query: (data) => {
@@ -105,21 +108,26 @@ export const apiSlice = emptySplitApi.injectEndpoints({
       })}
     }),
     getFoldersListById: builder.query({
-      query: (id) => {
-          return {
-              url: `/child-encouragement/folder/${id}/`,
-              method: 'GET',
-          };
-      },
+      query: ({id,data}) => {
+        return({
+        url: `/child-encouragement/folder/${id}/?ordering_media${data}`,
+        method: 'GET',
+      })},
       providesTags:["FoldersByID"]
-  }),
+    }),
     deleteMedia: builder.mutation({
-      query: ( id ) => ({
+      query: (id) => ({
         url: `/child-encouragement/media/${id}/delete/`,
         method: 'DELETE',
       }),
-      invalidatesTags: ["FoldersByID","Media"],
+      invalidatesTags: (_, __, id) => {
+        return [
+          { type: 'Media', id },
+          { type: 'FoldersByID' },
+        ];
+      },
     }),
+    
     moveFolder: builder.mutation({
       query: ({id,data}) => {
         return {
@@ -152,6 +160,16 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         body: data,
       })}
     }),
+    uploadMediaInit: builder.mutation({
+      query: (formData) => ({
+        url: '/child-encouragement/upload/',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        body: formData,
+      }),
+    }),
     uploadMedia: builder.mutation({
       query: (formData) => ({
         url: '/child-encouragement/upload/',
@@ -162,12 +180,27 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         body: formData,
       }),
     }),  
+    uploadMediaComplete: builder.mutation({
+      query: (formData) => ({
+        url: '/child-encouragement/upload/',
+        method: 'POST',
+        body: formData,
+      }),
+      invalidatesTags:["Media","folders","FoldersByID"]
+    }),    
     getSearch: builder.query({
       query: (data) => ({
         url: `/child-encouragement/media/list?search=${data}`,
         method: 'GET',
       }),
     }), 
+    forgotPassword: builder.mutation({
+      query: (data) => ({
+        url: '/password/reset/',
+        method: 'POST',
+        body: data,
+    })
+    }),  
   })
 })
-export const {useRegisterMutation, useLoginMutation, useUserQuery, useFoldersListQuery, useAddFolderMutationMutation, useUpdateFolderMutation, useDeleteFolderMutation, useLogoutMutation,useGoogleLoginMutation,useAppleLoginMutation,useGetMediaListQuery, useAddVideoMutation,useGetFoldersListByIdQuery, useDeleteMediaMutation, useMoveFolderMutation, useUpdateMediaMutation, useResetPasswordMutation,useUploadMediaMutation,useGetSearchQuery } = apiSlice;
+export const {useRegisterMutation, useLoginMutation, useUserQuery, useFoldersListQuery, useAddFolderMutationMutation, useUpdateFolderMutation, useDeleteFolderMutation, useLogoutMutation,useGoogleLoginMutation,useAppleLoginMutation,useGetMediaListQuery, useAddVideoMutation,useGetFoldersListByIdQuery, useDeleteMediaMutation, useMoveFolderMutation, useUpdateMediaMutation, useResetPasswordMutation,useUploadMediaMutation,useGetSearchQuery,useUploadMediaCompleteMutation,useUploadMediaInitMutation,useForgotPasswordMutation } = apiSlice;

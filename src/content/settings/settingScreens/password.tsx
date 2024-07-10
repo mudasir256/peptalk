@@ -1,4 +1,12 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -62,57 +70,59 @@ const Password = () => {
   }, [newPassword, confirmPassword]);
   return (
     <>
-      <View style={style.container}>
-        <View style={style.head}>
-          <TouchableOpacity style={style.back} onPress={goBack}>
-            <Ionicons name="chevron-back" size={24} color="black" />
-            <Text style={style.backbtn}>{t("common.back")}</Text>
-          </TouchableOpacity>
-          <Text style={style.title}>{t("password.password")}</Text>
+      <ScrollView>
+        <View style={style.container}>
+          <View style={style.head}>
+            <TouchableOpacity style={style.back} onPress={goBack}>
+              <Ionicons name="chevron-back" size={24} color="black" />
+              <Text style={style.backbtn}>{t("common.back")}</Text>
+            </TouchableOpacity>
+            <Text style={style.title}>{t("password.password")}</Text>
+          </View>
         </View>
-      </View>
-      <View style={style.content}>
-        <View style={style.inputContainer}>
-          <Text style={style.label}>{t("password.oldpassword")}</Text>
-          <PasswordInput
-            placeholder={t("password.oldpassword")}
-            onChangeText={(text) => setOldPassword(text)}
-          />
-          <TouchableOpacity onPress={handleForgotPress}>
-            <Text style={style.forgotlabel}>
-              {t("password.forgotpassword")}
-            </Text>
-          </TouchableOpacity>
-        </View>
+        <View style={style.content}>
+          <View style={style.inputContainer}>
+            <Text style={style.label}>{t("password.oldpassword")}</Text>
+            <PasswordInput
+              placeholder={t("password.oldpassword")}
+              onChangeText={(text) => setOldPassword(text)}
+            />
+            <TouchableOpacity onPress={handleForgotPress}>
+              <Text style={style.forgotlabel}>
+                {t("password.forgotpassword")}
+              </Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={style.inputContainer}>
-          <Text style={style.label}>{t("password.newpassword")}</Text>
-          <PasswordInput
-            placeholder={t("password.newpassword")}
-            onChangeText={(text) => setNewPassword(text)}
-          />
-        </View>
+          <View style={style.inputContainer}>
+            <Text style={style.label}>{t("password.newpassword")}</Text>
+            <PasswordInput
+              placeholder={t("password.newpassword")}
+              onChangeText={(text) => setNewPassword(text)}
+            />
+          </View>
 
-        <View style={style.inputContainer}>
-          <Text style={style.label}>{t("password.confirmpassword")}</Text>
-          <PasswordInput
-            placeholder={t("password.confirmpassword")}
-            onChangeText={(text) => setConfirmPassword(text)}
+          <View style={style.inputContainer}>
+            <Text style={style.label}>{t("password.confirmpassword")}</Text>
+            <PasswordInput
+              placeholder={t("password.confirmpassword")}
+              onChangeText={(text) => setConfirmPassword(text)}
+            />
+          </View>
+        </View>
+        <View style={style.buttonContainer}>
+          <PrimaryButton
+            title={t("password.changepassword")}
+            containerStyle={{
+              ...style.button,
+              opacity: formValid ? 1 : 0.5,
+            }}
+            disabled={!formValid}
+            onPress={handleResetPassword}
+            loading={isLoading}
           />
         </View>
-      </View>
-      <View style={style.buttonContainer}>
-        <PrimaryButton
-          title={t("password.changepassword")}
-          containerStyle={{
-            ...style.button,
-            opacity: formValid ? 1 : 0.5,
-          }}
-          disabled={!formValid}
-          onPress={handleResetPassword}
-          loading={isLoading}
-        />
-      </View>
+      </ScrollView>
     </>
   );
 };

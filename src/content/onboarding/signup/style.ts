@@ -29,6 +29,6 @@ export const style = StyleSheet.create({
   loginContainer: {
     ...styles.rowCenter,
     marginBottom: SPACINGS.md,
-    marginTop: 40
+    marginTop: 20
   }
 });

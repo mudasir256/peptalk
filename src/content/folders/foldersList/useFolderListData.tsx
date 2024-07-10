@@ -1,14 +1,22 @@
 import Toast from "react-native-toast-message";
 import {
+  useAddFolderMutationMutation,
   useDeleteFolderMutation,
   useFoldersListQuery,
   useUpdateFolderMutation,
 } from "../../../common/store/slice/api/slice";
 import { Folder } from "./types";
 import { useState } from "react";
-
+import { useTranslation } from "react-i18next";
 export const useFoldersData = () => {
-  const { data, isLoading } = useFoldersListQuery({});
+  const { data, isLoading, isFetching } = useFoldersListQuery("", {
+    refetchOnMountOrArgChange: true,
+  });
+  const { t } = useTranslation();
+  const [
+    addFolder,
+    { isLoading: addingFolder, data: addingFolderData, error: addFolderError },
+  ] = useAddFolderMutationMutation({});
   const { results: foldersList = [] } = data || {};
   const [folderToUpdate, setFolderToUpdate] = useState(null);
   const [deleteFolder, { isLoading: deleting, isError, isSuccess }] =
@@ -18,18 +26,38 @@ export const useFoldersData = () => {
     { isLoading: isLoadingUpdate, isError: isUpdatingError },
   ] = useUpdateFolderMutation();
 
+  const handleAddFolder = async (folderName: string) => {
+    if (folderName.trim() !== "") {
+      const data = {
+        folder_name: folderName,
+      };
+      try {
+        await addFolder(data).unwrap();
+        Toast.show({
+          type: t("mediaList.success"),
+          text1: `${folderName} ${t("mediaList.addedsuccessfully")}`,
+        });
+      } catch (err) {
+        Toast.show({
+          type: t("mediaList.error"),
+          text1: t("mediaList.addingerror"),
+        });
+      }
+    }
+  };
+
   const handleDeleteFolder = async ({ id, folder_name }: Folder) => {
     try {
       const res = await deleteFolder(id);
       if (isError) {
         Toast.show({
-          type: "error",
-          text1: "Failed to delete",
+          type: t("toast.error"),
+          text1: t("toast.failed"),
         });
       } else {
         Toast.show({
-          type: "success",
-          text1: `${folder_name} Deleted Successfully`,
+          type: t("toast.success"),
+          text1: `${folder_name} ${t("toast.deletedsuccessfully")}`,
           position: "bottom",
         });
       }
@@ -47,13 +75,13 @@ export const useFoldersData = () => {
       console.log(res, "console pof update");
       if (isUpdatingError) {
         Toast.show({
-          type: "error",
-          text1: "Error Updating Folder",
+          type: t("toast.error"),
+          text1: t("toast.errorupdating"),
         });
       } else {
         Toast.show({
-          type: "success",
-          text1: `${updatedName} Updated successfully`,
+          type: t("toast.success"),
+          text1: `${updatedName} ${t("toast.updatedsuccessfully")}`,
         });
       }
     } catch (error) {
@@ -69,5 +97,9 @@ export const useFoldersData = () => {
     handleDeleteFolder,
     isLoadingUpdate,
     data,
+    addingFolder,
+    handleAddFolder,
+    addingFolderData,
+    isFetching,
   };
 };

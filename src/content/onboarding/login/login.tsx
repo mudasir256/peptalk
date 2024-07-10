@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { View } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import { style } from "./style";
 import PrimaryButton from "../../../common/components/primaryButton";
 import { TextInputField } from "../../../common/components/input/input";
@@ -8,10 +8,13 @@ import { KeyboardAvoidingViewWrapper } from "../../../common/components/keyboard
 import { SPACINGS } from "../../../common/theme/spacing";
 import { useTranslation } from "react-i18next";
 import { styles } from "../../../common/theme/styles";
+import { useNavigation } from "@react-navigation/native";
 import { useLoginData } from "./useLoginData";
+import { LoginStackRoutes } from "../../../common/navigation/routes";
 
 const Login = () => {
   const { t } = useTranslation();
+  const { navigate } = useNavigation();
   const { handleLogin, loading } = useLoginData();
   const email = useRef<string>(undefined);
   const password = useRef<string>(undefined);
@@ -26,6 +29,9 @@ const Login = () => {
 
   const setPassword = (value: string) => {
     password.current = value;
+  };
+  const handleForgotPress = () => {
+    navigate(LoginStackRoutes.ForgotPassword);
   };
 
   return (
@@ -48,6 +54,11 @@ const Login = () => {
             placeholder={t("signUpWithEmail.password")}
             onChangeText={(text) => setPassword(text)}
           />
+          <TouchableOpacity onPress={handleForgotPress}>
+            <Text style={style.forgotlabel}>
+              {t("password.forgotpassword")}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <View style={style.spacer}></View>

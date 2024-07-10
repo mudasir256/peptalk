@@ -4,12 +4,15 @@ import {
   View,
   Text,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import { FolderItem } from "./type";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { FolderListItem } from "../../../common/components/folderListItem/folderListItem";
 import { styles } from "../../../common/theme/styles";
 import { useTranslation } from "react-i18next";
+import { useCallback, useState } from "react";
+import { COLORS } from "../../../common/theme/colors";
 
 type Props = {
   data: FolderItem[];
@@ -23,6 +26,15 @@ export const FolderItemsList = ({
   loading,
 }: Props) => {
   const { t } = useTranslation();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   const renderFolderListItem: ListRenderItem<FolderItem> = ({ item }) => {
     return (
       <FolderListItem item={item} onMoveToFolderPress={onMoveToFolderPress} />
@@ -46,6 +58,15 @@ export const FolderItemsList = ({
               </View>
             );
           }}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              colors={[COLORS.shadow, COLORS.shadow]}
+              tintColor={COLORS.shadow}
+              titleColor={COLORS.shadow}
+            />
+          }
         />
       )}
     </>

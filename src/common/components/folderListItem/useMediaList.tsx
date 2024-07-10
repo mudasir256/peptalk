@@ -29,14 +29,14 @@ export const useMediaList = () => {
             try {
               await deleteMedia(id).unwrap();
               Toast.show({
-                type: t("mediaList.error"),
-                text1: t("mediaList.faileddelete"),
+                type: t("mediaList.success"),
+                text1: `${media_name} ${t("mediaList.deleted")}`,
+                position: "bottom",
               });
             } catch (error) {
               Toast.show({
-                type: t("mediaList.success"),
-                text1: `${media_name} ${t("mediaList.delete")}`,
-                position: "bottom",
+                type: t("mediaList.error"),
+                text1: t("mediaList.faileddelete"),
               });
             }
           },

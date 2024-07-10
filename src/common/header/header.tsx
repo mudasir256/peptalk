@@ -43,34 +43,38 @@ const Header = ({
       <View style={style.container}>
         <View style={style.head}>
           <Text style={style.title}>{title}</Text>
-          <TouchableOpacity
-            style={style.dropdown}
-            onPress={() => setOpen(!open)}
-          >
-            <Text style={style.selectedValue}>{value || t("header.sort")}</Text>
-            <Ionicons name="caret-down" size={15} color="black" />
-          </TouchableOpacity>
-          {iconRight && (
+          <View style={style.btn}>
             <TouchableOpacity
-              onPress={onIconRightPress}
-              style={style.addFolder}
+              style={style.dropdown}
+              onPress={() => setOpen(!open)}
             >
-              {iconRight}
+              <Text style={style.selectedValue}>
+                {value || t("header.sort")}
+              </Text>
+              <Ionicons name="caret-down" size={15} color="black" />
             </TouchableOpacity>
-          )}
-          {open && (
-            <View style={style.dropdownContent}>
-              {items.map((item) => (
-                <TouchableOpacity
-                  key={item.value}
-                  style={style.item}
-                  onPress={() => handleSelectOption(item.value)}
-                >
-                  <Text style={style.dropdownLabel}>{item.label}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          )}
+            {iconRight && (
+              <TouchableOpacity
+                onPress={onIconRightPress}
+                style={style.addFolder}
+              >
+                {iconRight}
+              </TouchableOpacity>
+            )}
+            {open && (
+              <View style={style.dropdownContent}>
+                {items?.map((item) => (
+                  <TouchableOpacity
+                    key={item.value}
+                    style={style.item}
+                    onPress={() => handleSelectOption(item.value)}
+                  >
+                    <Text style={style.dropdownLabel}>{item.label}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
+          </View>
         </View>
         <TextInputField
           onPress={onSearchPress}

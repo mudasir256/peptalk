@@ -4,7 +4,7 @@ import { styles } from "../../../common/theme/styles";
 import { IMAGES } from "../../../assets/images";
 
 export const WelcomePage = () => (
-  <View style={[style.container, styles.flexCenter]}>
+  <View>
     <Image
       source={IMAGES.pageOneBg}
       resizeMode="contain"
@@ -24,7 +24,7 @@ const style = StyleSheet.create({
   },
   title: {
     position: "absolute",
-    top: 20,
+    top: 8,
     width: 170,
     aspectRatio: 1,
     alignSelf: "center",

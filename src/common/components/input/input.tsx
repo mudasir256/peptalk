@@ -83,7 +83,11 @@ export const TextInputField = ({
           </TouchableOpacity>
         )}
       </View>
-      <Text style={style.errorText}>{validationError}</Text>
+      <View style={style.errorContainer}>
+        {validationError && !focus && (
+          <Text style={style.errorText}>{validationError}</Text>
+        )}
+      </View>
     </>
   );
 };
@@ -114,5 +118,8 @@ const style = StyleSheet.create({
     ...styles.rowCenter,
     borderColor: "transparent",
     height: 50,
+  },
+  errorContainer: {
+    minHeight: 20,
   },
 });

@@ -1,10 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   View,
+  Text,
+  Alert,
   FlatList,
   StyleSheet,
   ActivityIndicator,
   TouchableWithoutFeedback,
+  RefreshControl,
 } from "react-native";
 import { Folder } from "./types";
 import { SPACINGS } from "../../../common/theme/spacing";
@@ -12,11 +15,17 @@ import { styles } from "../../../common/theme/styles";
 import FolderItemView from "./folderItemView";
 import CustomModal from "../../../common/components/modal/modal";
 import { useFoldersData } from "./useFolderListData";
-
-const FoldersList = () => {
+import { useTranslation } from "react-i18next";
+import { COLORS } from "../../../common/theme/colors";
+type Props = {
+  data?: string;
+};
+const FoldersList = ({ data }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const selectedFolder = useRef<Folder>(undefined);
+  const { t } = useTranslation();
   const [dropDownIndex, setDropdownIndex] = useState<number>();
+  const [refreshing, setRefreshing] = useState(false);
 
   const {
     handleRenameFolder,
@@ -24,8 +33,14 @@ const FoldersList = () => {
     deleting,
     isLoadingUpdate,
     isLoading,
-    foldersList,
   } = useFoldersData();
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   const onFolderNameUpdated = async (folderName: string) => {
     await handleRenameFolder(selectedFolder.current, folderName);
@@ -39,9 +54,27 @@ const FoldersList = () => {
   };
 
   const handleDelete = (folder: Folder) => {
-    handleDeleteFolder(folder);
+    Alert.alert(
+      t("alert.deletefolder"),
+      `${t("alert.areyousure")} "${folder.folder_name}"?`,
+      [
+        {
+          text: t("signUpScreen.cancel"),
+          style: "cancel",
+        },
+        {
+          text: t("dropDown.delete"),
+          style: "destructive",
+          onPress: () => {
+            handleDeleteFolder(folder);
+          },
+        },
+      ],
+      { cancelable: false }
+    );
     setDropdownIndex(undefined);
   };
+
   const handleClose = () => setShowModal(false);
 
   const renderItem = ({ item, index }) => (
@@ -69,18 +102,35 @@ const FoldersList = () => {
       ) : (
         <>
           <FlatList
-            data={foldersList}
+            data={data}
             renderItem={renderItem}
             keyExtractor={keyExtractor}
             numColumns={2}
             contentContainerStyle={style.container}
             showsHorizontalScrollIndicator={false}
+            ListEmptyComponent={() => {
+              return (
+                <View style={[styles.center, styles.flex]}>
+                  <Text>{t("common.nodata")}</Text>
+                </View>
+              );
+            }}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                colors={[COLORS.shadow, COLORS.shadow]}
+                tintColor={COLORS.shadow}
+                titleColor={COLORS.shadow}
+              />
+            }
           />
+
           {showModal && (
             <CustomModal
               showInput
               visible={showModal}
-              title={"Update Folder Name"}
+              title={t("modal.updatefoldername")}
               onClose={handleClose}
               onPressOk={onFolderNameUpdated}
               loading={isLoadingUpdate}
@@ -99,6 +149,7 @@ const FoldersList = () => {
 const style = StyleSheet.create({
   container: {
     paddingBottom: SPACINGS.sm,
+    flexGrow: 1,
   },
   itemContainer: {
     marginBottom: SPACINGS.sm,

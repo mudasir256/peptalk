@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import MainNavigator from "../common/navigation/mainNavigator";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const SplashScreen = ({ navigation }) => {
-
   return (
     <SafeAreaProvider>
-      <MainNavigator/>
+      <MainNavigator />
     </SafeAreaProvider>
   );
 };

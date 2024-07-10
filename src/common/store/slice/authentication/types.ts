@@ -15,6 +15,7 @@ export type AuthenticationState = {
   user: AuthUser
   accessToken: string
   refreshToken?:string
+  onboarding?: boolean;
 }
 
 export type AuthenticationPayload = {

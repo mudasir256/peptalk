@@ -51,7 +51,4 @@ export const style = StyleSheet.create({
   error:{
     color:COLORS.error,
   },
-  errorContainer:{
-    height:30
-  }
 });

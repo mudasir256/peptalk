@@ -2,7 +2,7 @@ import { COLORS } from "../../../common/theme/colors";
 import { StyleSheet } from 'react-native'
 import { styles } from "../../../common/theme/styles";
 import { SPACINGS } from "../../../common/theme/spacing";
-import { Radius, SecondaryWeight, rare } from "../../../common/theme/typography";
+import { Label, Radius, SecondaryWeight, rare } from "../../../common/theme/typography";
 
 export const style = StyleSheet.create({
   innerContainer: {
@@ -53,6 +53,11 @@ export const style = StyleSheet.create({
     padding: SPACINGS.sm,
     backgroundColor: COLORS.white,
     borderRadius: SPACINGS.sm,
+  },
+  forgotlabel: {
+    ...Label,
+    color: COLORS.link,
+    alignSelf: "flex-end",
   },
 
 });

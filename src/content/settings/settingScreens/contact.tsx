@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Linking,
+} from "react-native";
 import React from "react";
 import { COLORS } from "../../../common/theme/colors";
 import { SPACINGS } from "../../../common/theme/spacing";
@@ -19,6 +25,8 @@ const Contact = () => {
     navigation.goBack();
   };
 
+  const handleEmailPress = () => {};
+
   return (
     <>
       <View style={style.head}>
@@ -28,7 +36,9 @@ const Contact = () => {
         </TouchableOpacity>
         <Text style={style.title}>{t("settingsScreen.contact")}</Text>
       </View>
-      <Text style={style.description}>contact@mombrain.net</Text>
+      <TouchableOpacity onPress={handleEmailPress}>
+        <Text style={style.description}>contact@mombrain.net</Text>
+      </TouchableOpacity>
     </>
   );
 };

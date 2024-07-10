@@ -25,32 +25,35 @@ export const OnboardingPager = () => {
           key="1"
           image={IMAGES.illustration0}
           detail={t("landingScreen.detail1")}
+          imageStyle={{ width: "100%", height: "90%" }}
         />
         <HighlightPage
           key="2"
           title={t("landingScreen.step1")}
           image={IMAGES.illustration1}
           detail={t("landingScreen.detail2")}
-          imageStyle={{ width: "60%" }}
+          imageStyle={{ width: "100%", height: "60%" }}
         />
         <HighlightPage
           key="3"
           title={t("landingScreen.step2")}
           image={IMAGES.illustration2}
           detail={t("landingScreen.detail3")}
+          imageStyle={{ width: "100%", height: "75%" }}
         />
         <HighlightPage
           key="4"
           title={t("landingScreen.step3")}
           image={IMAGES.illustration3}
           detail={t("landingScreen.detail4")}
-          imageStyle={{ width: "60%" }}
+          imageStyle={{ width: "100%", height: "60%" }}
         />
         <HighlightPage
           key="5"
           image={IMAGES.illustration4}
           detail={t("landingScreen.detail5")}
           detailStyle={style.detailStyle}
+          imageStyle={{ width: "100%" }}
         />
       </PagerView>
       <DotIndicator

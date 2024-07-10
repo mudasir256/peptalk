@@ -8,6 +8,7 @@ import { LoginStackRoutes } from "./routes";
 import Footer from "../components/footer/footer";
 import { useTranslation } from "react-i18next";
 import Login from "../../content/onboarding/login/login";
+import Forgotpassword from "../../content/onboarding/forgotPassword/forgotPassword";
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,11 @@ const LoginStack = () => {
           name={LoginStackRoutes.Login}
           component={Login}
           options={{ title: t("loginStack.loginAccount") }}
+        />
+        <Stack.Screen
+          name={LoginStackRoutes.ForgotPassword}
+          component={Forgotpassword}
+          options={{ title: t("common.resetpassword") }}
         />
       </Stack.Navigator>
     </Footer>

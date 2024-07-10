@@ -6,18 +6,41 @@ import FoldersList from "./foldersList/foldersList";
 import { useTranslation } from "react-i18next";
 import { AddFolder } from "../../assets/svgs/svgIcons";
 import CustomModal from "../../common/components/modal/modal";
-import { useFoldersData } from "./useFoldersData";
+import { useFoldersData } from "./foldersList/useFolderListData";
+import { useFoldersListQuery } from "../../common/store/slice/api/slice";
 
 const FoldersScreen = () => {
   const { t } = useTranslation();
+  const [selectedData, setSelectedData] = useState("");
   const { addingFolder, handleAddFolder } = useFoldersData();
+  const { data, isLoading } = useFoldersListQuery(selectedData);
+  const { results: foldersList = [] } = data || {};
   const [showAddFolderPopup, setShowAddFolderPopup] = useState(false);
-
   const onAddFolderPress = async (folder: string) => {
     await handleAddFolder(folder);
     setShowAddFolderPopup(false);
   };
-  const items = [
+
+  const handleSelect = async (selectedOption: string) => {
+    switch (selectedOption) {
+      case t("mediaList.titleA-Z"):
+        setSelectedData("=folder_name");
+        break;
+      case t("mediaList.titleZ-A"):
+        setSelectedData("=-folder_name");
+        break;
+      case t("mediaList.dateascending"):
+        setSelectedData("=created_at");
+        break;
+      case t("mediaList.datedescending"):
+        setSelectedData("=-created_at");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const options = [
     { label: t("mediaList.titleA-Z"), value: t("mediaList.titleA-Z") },
     { label: t("mediaList.titleZ-A"), value: t("mediaList.titleZ-A") },
     {
@@ -32,12 +55,13 @@ const FoldersScreen = () => {
   return (
     <View style={styles.flex}>
       <Header
-        items={items}
+        items={options}
         title={t("Folders")}
         iconRight={<AddFolder />}
+        handleSelect={handleSelect}
         onIconRightPress={() => setShowAddFolderPopup(true)}
       />
-      <FoldersList />
+      <FoldersList data={foldersList} />
       <CustomModal
         visible={showAddFolderPopup}
         onClose={() => setShowAddFolderPopup(false)}

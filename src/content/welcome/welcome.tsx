@@ -8,16 +8,21 @@ import { WelcomePager } from "./welcomePager";
 import { HomeStackRoutes } from "../../common/navigation/routes";
 import { TextAlign, TextWeight } from "../../common/theme/typography";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { setOnboarding } from "../../common/store/slice/authentication/slice";
 
 export const WelcomeScreen = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const onSkipPress = () =>
+  const onSkipPress = () => {
+    dispatch(setOnboarding(true));
     navigation.reset({
       index: 0,
       routes: [{ name: HomeStackRoutes.Home }],
     });
+  };
 
   return (
     <View style={[styles.flex, style.mainContainer]}>

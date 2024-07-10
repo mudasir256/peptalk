@@ -10,4 +10,5 @@ export type FolderItem = {
   date: string
   image: string
   created_at:string
+  thumbnail:string
 }

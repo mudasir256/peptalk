@@ -61,7 +61,8 @@ export const SignUpWithEmail = () => {
       console.error("Error logging in:", error);
       Toast.show({
         type: "error",
-        text1: error.data.password1 || t("mediaList.erroraccor"),
+        text1:
+          error.data.password1 || error.data.email || t("mediaList.erroraccor"),
       });
     }
   };
@@ -120,7 +121,6 @@ export const SignUpWithEmail = () => {
       validatePassword(password.current);
     setFormValid(isFormValid);
   };
-
   return (
     <KeyboardAvoidingViewWrapper>
       <View style={{ ...style.innerContainer }}>
@@ -173,6 +173,7 @@ export const SignUpWithEmail = () => {
           }}
           onPress={handleCreateAccount}
           disabled={!formValid}
+          loading={isLoading}
         />
       </View>
     </KeyboardAvoidingViewWrapper>

@@ -24,6 +24,7 @@ type Props = {
   id?: number;
   loading?: boolean;
   selectedFolder?: Folder;
+  showCancel?: boolean;
 };
 
 const CustomModal = ({
@@ -37,20 +38,34 @@ const CustomModal = ({
   id,
   loading,
   selectedFolder,
+  showCancel = true,
 }: Props) => {
   const { t } = useTranslation();
   const [nameError, setNameError] = useState(false);
+  const [lengthError, setLengthError] = useState(false);
   const inputName = useRef(selectedFolder?.folder_name);
 
   const handleCancel = () => {
     inputName.current = "";
+    setNameError(false);
+    setLengthError(false);
     onClose?.();
   };
-
   const handleOKPress = () => {
-    if (inputName.current) onPressOk?.(inputName.current);
-    else setNameError(true);
+    if (!inputName.current) {
+      setNameError(true);
+      return;
+    }
+
+    if (inputName.current.length > 15) {
+      setLengthError(true);
+      return;
+    }
+
+    onPressOk?.(inputName.current);
     inputName.current = "";
+    setNameError(false);
+    setLengthError(false);
   };
 
   return (
@@ -76,27 +91,40 @@ const CustomModal = ({
                     <TextInputField
                       placeholder={t("modal.addFolder")}
                       containerStyle={{ backgroundColor: COLORS.inputbg }}
-                      onChangeText={(e) => (inputName.current = e)}
+                      onChangeText={(text) => {
+                        inputName.current = text;
+                        if (text.length <= 15) {
+                          setLengthError(false);
+                        }
+                        if (text.trim().length > 0) {
+                          setNameError(false);
+                        }
+                      }}
                       defaultValue={inputName.current}
                     />
                   </View>
-                  <View style={style.errorContainer}>
+                  <View>
                     {nameError && (
-                      <Text style={style.error}>Please enter a name</Text>
+                      <Text style={style.error}>{t("alert.entername")}</Text>
+                    )}
+                    {lengthError && (
+                      <Text style={style.error}>{t("alert.nameLength")}</Text>
                     )}
                   </View>
                 </>
               )}
               <View style={style.buttonContainer}>
-                <PrimaryButton
-                  title={t("modal.cancel")}
-                  containerStyle={style.cancel}
-                  onPress={handleCancel}
-                />
+                {showCancel && (
+                  <PrimaryButton
+                    title={t("modal.cancel")}
+                    containerStyle={style.cancel}
+                    onPress={handleCancel}
+                  />
+                )}
                 <PrimaryButton
                   loading={loading}
                   title={t("modal.ok")}
-                  disabled={nameError}
+                  disabled={nameError || lengthError}
                   containerStyle={style.ok}
                   onPress={handleOKPress}
                 />

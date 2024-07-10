@@ -11,17 +11,7 @@ export enum HomeStackRoutes {
   Contact = "Contact",
   Password = "Password",
   ResetPasswordWithEmail = "ResetPasswordWithEmail",
-}
-export enum CameraStackRoutes {
-  Camera = "CameraTab",
-  CameraScreen = "CameraScreen",
-  VideoScreen = "VideoScreen",
-  EditVideo = "EditVideo",
-}
-
-export enum FolderStackRoutes {
-  Folder = "FoldersTab",
-  FolderItems = "FolderItems",
+  MediaScreen = "MediaScreen",
 }
 
 export enum DetailStackRoutes {
@@ -34,4 +24,17 @@ export enum LoginStackRoutes {
   Login = "Login",
   Signup = "Signup",
   SignUpWithEmail = "SignUpWithEmail",
+  ForgotPassword = "ForgotPassword",
+}
+
+export enum CameraStackRoutes {
+  Camera = "CameraTab",
+  CameraScreen = "CameraScreen",
+  VideoScreen = "VideoScreen",
+  EditVideo = "EditVideo",
+}
+
+export enum FolderStackRoutes {
+  Folder = "FoldersTab",
+  FolderItems = "FolderItems",
 }

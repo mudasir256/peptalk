@@ -14,31 +14,29 @@ import { useGetSearchQuery } from "../../common/store/slice/api/slice";
 import { IMAGES } from "../../assets/images";
 import { style } from "./style";
 import { styles } from "../../common/theme/styles";
-import { useNavigation } from "@react-navigation/native";
 import {
-  CameraStackRoutes,
   FolderStackRoutes,
+  HomeStackRoutes,
 } from "../../common/navigation/routes";
 
 const SearchScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
   const { t } = useTranslation();
   const { data, isLoading } = useGetSearchQuery(search);
-  const { navigate } = useNavigation();
 
   useEffect(() => {}, [search]);
 
-  const handleVideoPress = (videoUrl: string) => {
-    navigation.navigate(CameraStackRoutes.VideoScreen, { video: videoUrl });
+  const handleVideoPress = (videoUrl) => {
+    navigation.navigate(HomeStackRoutes.MediaScreen, { video: videoUrl });
   };
-  const handleFolderPress = (folderId: number, folderName: string) => {
-    navigate(FolderStackRoutes.FolderItems, {
+  const handleFolderPress = (folderId, folderName) => {
+    navigation.navigate(FolderStackRoutes.FolderItems, {
       foldername: folderName,
       folderId: folderId,
     });
   };
-  const renderItem = ({ item, section }) => {
-    if (section.title === "Video Suggestions") {
+  const renderItem = ({ item, section, index }) => {
+    if (section.index === 0) {
       return (
         <TouchableOpacity
           style={style.itemContainer}
@@ -48,7 +46,7 @@ const SearchScreen = ({ navigation }) => {
           <Text style={style.title}>{item.media_name}</Text>
         </TouchableOpacity>
       );
-    } else if (section.title === "Folder Suggestions") {
+    } else {
       return (
         <TouchableOpacity
           style={style.itemContainer}
@@ -65,7 +63,7 @@ const SearchScreen = ({ navigation }) => {
 
   if (isLoading) {
     return (
-      <View style={styles.flex}>
+      <View style={styles.flexCenter}>
         <ActivityIndicator size="large" />
       </View>
     );
@@ -73,22 +71,24 @@ const SearchScreen = ({ navigation }) => {
 
   if (!data) {
     return (
-      <View style={styles.flex}>
-        <Text>No data found</Text>
+      <View style={styles.flexCenter}>
+        <Text>{t("search.nodata")}</Text>
       </View>
     );
   }
 
   const filteredData = [
     {
-      title: "Video Suggestions",
-      data: data.results.filter((item) => item.media_name),
+      title: t("search.videosuggestions"),
+      data: data.results.filter((item) => item.media_name).slice(0, 3),
+      index: 0,
     },
     {
-      title: "Folder Suggestions",
-      data: data.results.filter(
-        (item) => item.folder && item.folder.folder_name
-      ),
+      title: t("search.foldersuggestions"),
+      data: data.results
+        .filter((item) => item.folder && item.folder.folder_name)
+        .slice(0, 3),
+      index: 1,
     },
   ];
 
@@ -114,7 +114,7 @@ const SearchScreen = ({ navigation }) => {
       </View>
       <SectionList
         sections={filteredData}
-        keyExtractor={(item, index) => item.id || index.toString()} // Ensure each item has a unique key
+        keyExtractor={(item, index) => item.id || index.toString()}
         renderItem={renderItem}
         renderSectionHeader={({ section: { title } }) => (
           <Text style={style.heading}>{title}</Text>

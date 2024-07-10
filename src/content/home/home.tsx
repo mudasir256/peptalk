@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import Header from "../../common/header/header";
 import { styles } from "../../common/theme/styles";
 import FolderItemsListView from "./folderItemsList/FolderItemsListView";
 import { useTranslation } from "react-i18next";
-import { Camera } from "react-native-vision-camera";
 import { useGetMediaListQuery } from "../../common/store/slice/api/slice";
 
 const HomeScreen = () => {
@@ -12,18 +11,6 @@ const HomeScreen = () => {
   const [selectedData, setSelectedData] = useState("");
   const { data: defaultData, isLoading: mediaListLoading } =
     useGetMediaListQuery(selectedData);
-  console.log(selectedData, "console of selected");
-  useEffect(() => {
-    const requestPermissions = async () => {
-      try {
-        await Camera.requestCameraPermission();
-        await Camera.requestMicrophonePermission();
-      } catch (error) {
-        console.error("Error requesting permissions:", error);
-      }
-    };
-    requestPermissions();
-  }, []);
 
   const handleSelect = async (selectedOption) => {
     switch (selectedOption) {

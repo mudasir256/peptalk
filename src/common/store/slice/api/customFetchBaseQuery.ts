@@ -6,16 +6,15 @@ import { setToken } from '../authentication/slice';
 interface RefreshTokenResponse {
     access: string;
   }
-
 const mutex = new Mutex();
 
 const customFetchBaseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
-  prepareHeaders: (headers, { getState }) => {
+  prepareHeaders: async (headers, { getState, endpoint }) => {
     const authState = (getState() as any)?.authentication;
     const { accessToken } = authState;
     console.log(accessToken)
-    if (accessToken) {
+    if (accessToken && endpoint !== '/token/refresh/') {
       headers.set('authorization', `Bearer ${accessToken}`);
     }
     return headers;

@@ -8,7 +8,8 @@
     "discard":"Discard",
     "save":"Save",
     "trim":"Trim",
-    "nodata":"No Data Found"
+    "nodata":"No Data Found",
+    "resetpassword":"Reset Password"
   },
   "months": {
     "january":"January",
@@ -93,7 +94,7 @@
     "account": "Account",
     "about": "About",
     "support": "Support",
-    "legel": "Legel",
+    "legal": "Legal",
     "user": "User",
     "loggedin" : "Logged in as ",
     "deleteAccount" : "Delete Account",
@@ -105,7 +106,8 @@
     "contact": "Contact",
     "terms": "Terms of Use",
     "versions":"v.1.0",
-    "password": "Password"
+    "password": "Password",
+    "SigninMessage":"Please sign in with gmail"
   },
   "modal": {
     "addFolder": "Add Folder",
@@ -115,11 +117,15 @@
     "titleModal": "Add New Folder",
     "deleteAccount": "Delete Account",
     "description": "Are you sure you want to logout? ",
-    "description1": "Are you sure you want to delete your account? You will loose access to your stored videos and folders."
-
+    "description1": "Are you sure you want to delete your account? You will loose access to your stored videos and folders.",
+    "updatefoldername":"Update Folder Name"
+    
   },
   "search": {
-    "search": "Search"
+    "search": "Search",
+    "nodata":"No data found",
+    "videosuggestions":"Video Suggestions",
+    "foldersuggestions":"Folder Suggestions"
   },
   "dropDown": {
     "rename": "Rename",
@@ -135,6 +141,7 @@
   },
   "mediaList": {
     "deleteitem":"Delete Item",
+    "deleted":"Deleted successfully",
     "delete":"Are you sure you want to delete?",
     "cancel":"Cancel",
     "error":"error",
@@ -147,7 +154,9 @@
     "renamemedia":"Rename Media",
     "enternewname":"Renamed Successfully",
     "movedsuccessfully":"Moved successfully",
+    "uploaded":"Uploaded successfully",
     "erroradding":"Error Adding Folder",
+    "erroruploading":"Error Uploading",
     "titleA-Z":"Title: A-Z",
     "titleZ-A":"Title: Z-A",
     "dateascending":"Date: Ascending",
@@ -161,7 +170,9 @@
     "successfullysignedup":"Successfully Signed up",
     "erroraccor":"An Error Occurred Please try again",
     "errorupdatngpassword":"error updatng password",
-    "passwordchangesuccessfully":"Password Change Successfully"
+    "passwordchangesuccessfully":"Password Changed Successfully",
+    "successfully":"Email sent Successfully",
+    "failedtosent":"Failed To Send An Email"
   },
   "camera": {
     "nocamera": "No access to camera",
@@ -181,5 +192,25 @@
   "permission":{
     "permission":"Permission",
     "permissionmessage":"PepTalk requires camera and microphone access to function properly. Please grant the necessary permissions in your device settings."
+  },
+  "alert":{
+    "deletefolder":"Delete Folder",
+    "areyousure":"Are you sure you want to delete the folder",
+    "name":"Please Enter name of media",
+    "videosize":"Video size exceeded 200 MB limit.",
+    "microphone":"Camera or microphone permission not granted.",
+    "permissionrequired":"Permission Required",
+    "camerapermission":"Please grant camera and microphone permissions to use PepTalk.",
+    "entername":"Please enter a name",
+    "accesscameraroll":"Permission to access camera roll is required!",
+    "nameLength":"Folder name must have 15 alphabets"
+  },
+  "toast":{
+    "error":"error",
+    "failed":"Failed to delete",
+    "success":"success",
+    "deletedsuccessfully":"Deleted Successfully",
+    "errorupdating":"Error Updating Folder",
+    "updatedsuccessfully":"Updated Successfully"
   }
 }

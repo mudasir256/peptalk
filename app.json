@@ -19,6 +19,9 @@
       "bundleIdentifier": "com.mb.peptalk",
       "usesAppleSignIn": true,
       "googleServicesFile": "./GoogleService-Info.plist",
+      "ios": {
+        "permissions": ["CAMERA_ROLL", "CAMERA"]
+      },
       "infoPlist": {
         "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera.",
         "NSMicrophoneUsageDescription": "$(PRODUCT_NAME) needs access to your Microphone.",

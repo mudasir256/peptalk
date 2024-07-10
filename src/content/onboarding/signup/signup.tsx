@@ -49,8 +49,8 @@ export const SignupScreen = () => {
       >
         <Text style={style.getStartedText}>{t("signUpScreen.title")}</Text>
       </ImageBackground>
-      <View style={styles.flex} />
-      <View style={style.buttonsContainer}>
+
+      <View style={[style.buttonsContainer, styles.flex]}>
         <PrimaryButton
           containerStyle={{ marginBottom: SPACINGS.md }}
           title={t("signUpScreen.appleSignUp")}

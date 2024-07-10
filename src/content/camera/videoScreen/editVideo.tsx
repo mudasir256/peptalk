@@ -28,9 +28,7 @@ const EditVideo = ({ route, navigation: { goBack } }) => {
   const onMoveToFolderPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+  const handleSheetChanges = useCallback((index: number) => {}, []);
 
   const handleClosePress = useCallback(() => {
     bottomSheetModalRef.current?.dismiss();
@@ -101,6 +99,7 @@ const EditVideo = ({ route, navigation: { goBack } }) => {
         />
       </View>
       <BottomModal
+        title={t("common.save")}
         ref={bottomSheetModalRef}
         backdropComponent={backdropComponent}
         snapPoints={snapPoints}

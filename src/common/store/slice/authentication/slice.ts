@@ -7,7 +7,8 @@ const initialState: AuthenticationState = {
   user: undefined,
   authState: AuthState.NotAuthenticated,
   accessToken: undefined,
-  refreshToken:undefined
+  refreshToken:undefined,
+  onboarding:undefined
 }
 const persistConfig = {
   key: 'root',
@@ -41,7 +42,10 @@ const authenticationSlice = createSlice({
       state.authState = AuthState.NotAuthenticated,
       state.accessToken = undefined
       state.refreshToken = undefined
-    }
+    },
+    setOnboarding(state, action: PayloadAction<boolean>) {
+      state.onboarding = action.payload;
+    },
   }
 })
 
@@ -50,5 +54,6 @@ export const {
   setAuthenticated,
   setToken,
   logoutAction,
+  setOnboarding
 } = actions
 export const authReducer = persistReducer(persistConfig, authenticationSlice.reducer);

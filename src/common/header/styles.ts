@@ -15,10 +15,16 @@ export const style = StyleSheet.create({
   head: {
     ...styles.row,
     ...TextAlign,
+    ...styles.rowBetween
   },
   title: {
     ...mainTitle,
-    ...styles.flex,
+    height: 40,
+    width:190
+  },
+  btn:{
+...styles.row,
+...styles.alignCenter
   },
   dropdown: {
     backgroundColor: COLORS.dropdownbg,

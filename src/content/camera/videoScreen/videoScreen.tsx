@@ -1,6 +1,18 @@
 import BottomModal from "../../../common/components/bottomSheetModal/bottomSheetModal";
-import { Text, TouchableOpacity, View } from "react-native";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import {
+  NativeEventEmitter,
+  NativeModules,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Video from "react-native-video";
 import { Ionicons } from "@expo/vector-icons";
 import { Edit, StickerSmile } from "../../../assets/svgs/svgIcons";
@@ -11,25 +23,44 @@ import {
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
 import { useNavigation } from "@react-navigation/native";
-import { CameraStackRoutes } from "../../../common/navigation/routes";
 import { style } from "./style";
 import { useTranslation } from "react-i18next";
+import { showEditor } from "react-native-video-trim";
 
 const VideoScreen = ({ route, navigation: { goBack } }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["1", "74%"], []);
-  const videoUrl = route.params?.video;
-  const { navigate } = useNavigation();
+  const initialVideoUrl = route.params?.video;
   const [isPaused, setIsPaused] = useState(true);
+  const [videoUrl, setVideoUrl] = useState(initialVideoUrl);
   const videoRef = useRef(null);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    const eventEmitter = new NativeEventEmitter(NativeModules.VideoTrim);
+    const subscription = eventEmitter.addListener("VideoTrim", (event) => {
+      switch (event.name) {
+        case "onFinishTrimming": {
+          console.log("onFinishTrimming", event);
+          const trimmedVideoPath = event.outputPath;
+          setVideoUrl(trimmedVideoPath);
+          break;
+        }
+      }
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   const togglePause = () => {
     setIsPaused(!isPaused);
   };
+
   const onMoveToFolderPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
+
   const handleSheetChanges = useCallback((index: number) => {
     console.log("handleSheetChanges", index);
   }, []);
@@ -49,8 +80,16 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
     ),
     []
   );
-  const handlePressEdit = () => {
-    navigate(CameraStackRoutes.EditVideo, { video: videoUrl });
+
+  const trimVideo = async () => {
+    try {
+      const result = await showEditor(videoUrl, {
+        fullScreenModalIOS: true,
+      });
+      console.log("Trimmed video path:", result);
+    } catch (error) {
+      console.error("Error trimming video:", error);
+    }
   };
 
   return (
@@ -61,10 +100,7 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
       </TouchableOpacity>
       <View style={style.container}>
         <View style={style.btnContainer}>
-          <TouchableOpacity
-            style={style.iconContainer}
-            onPress={handlePressEdit}
-          >
+          <TouchableOpacity style={style.iconContainer} onPress={trimVideo}>
             <Edit />
           </TouchableOpacity>
           <TouchableOpacity style={style.iconContainer}>
@@ -97,6 +133,8 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
         />
       </View>
       <BottomModal
+        title={t("common.save")}
+        fileUri={videoUrl}
         ref={bottomSheetModalRef}
         backdropComponent={backdropComponent}
         snapPoints={snapPoints}

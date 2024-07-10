@@ -370,6 +370,7 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = peptalk/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Pep Talk by Mom Brain";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -402,6 +403,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AR8N57P488;
 				INFOPLIST_FILE = peptalk/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Pep Talk by Mom Brain";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

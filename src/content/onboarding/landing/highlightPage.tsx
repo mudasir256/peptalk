@@ -44,30 +44,26 @@ export const HighlightPage = ({
 
 const style = StyleSheet.create({
   container: {
-    ...styles.center,
-    overflow: "hidden",
+    ...styles.flexCenter,
   },
   title: {
-    color: COLORS.text,
     ...PrimaryFont,
-    marginTop: 20,
-    marginBottom: 12,
+    color: COLORS.text,
+    marginTop: 25,
   },
   detail: {
-    ...TextAlign,
     ...PrimaryText,
+    ...TextAlign,
     color: COLORS.text,
     marginHorizontal: 32,
+    marginBottom: 42,
+    textAlign: "center",
   },
   imageContainer: {
     width: "100%",
-    marginHorizontal: 30,
-    ...styles.aspectRatio,
     ...styles.center,
   },
   image: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
+    // backgroundColor: "red",
   },
 });

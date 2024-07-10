@@ -17,6 +17,7 @@ type Props = TouchableOpacityProps & {
   onPress?: VoidFunction;
   containerStyle?: ViewStyle;
   loading?: boolean;
+  disabled?: boolean;
 };
 
 export const PrimaryButton = ({
@@ -25,13 +26,14 @@ export const PrimaryButton = ({
   onPress = undefined,
   containerStyle = undefined,
   loading = false,
+  disabled,
   ...rest
 }: Props) => (
   <TouchableOpacity
     style={[style.buttonContainer, containerStyle, loading && style.disabled]}
     {...rest}
     onPress={loading ? undefined : onPress}
-    disabled={loading}
+    disabled={loading || disabled}
   >
     {icon && <Image source={icon} />}
     <View style={[style.textContainer, { marginEnd: icon ? 24 : 0 }]}>

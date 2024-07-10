@@ -24,26 +24,28 @@ export const WelcomePager = () => {
           key="1"
           image={IMAGES.illustration5}
           detail={t("welcomeScreen.detail1")}
+          imageStyle={{ width: "100%" }}
         />
         <HighlightPage
           key="2"
           title={t("welcomeScreen.step1")}
           image={IMAGES.illustration1}
           detail={t("welcomeScreen.detail2")}
-          imageStyle={{ width: "60%" }}
+          imageStyle={{ width: "100%", height: "65%" }}
         />
         <HighlightPage
           key="3"
           title={t("welcomeScreen.step2")}
           image={IMAGES.illustration2}
           detail={t("welcomeScreen.detail3")}
+          imageStyle={{ width: "100%" }}
         />
         <HighlightPage
           key="4"
           title={t("welcomeScreen.step3")}
           image={IMAGES.illustration3}
           detail={t("welcomeScreen.detail4")}
-          imageStyle={{ width: "60%" }}
+          imageStyle={{ width: "100%", height: "65%" }}
         />
       </PagerView>
       <DotIndicator
