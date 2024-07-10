@@ -1,5 +1,5 @@
 export type Folder = {
-  media: string[],
+  media: { thumbnail: string }[];
   folder_name: string
   id: number,
   length?: number

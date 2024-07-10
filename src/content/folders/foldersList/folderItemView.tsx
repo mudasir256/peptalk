@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  ImageSourcePropType,
-  Image,
-} from "react-native";
+import { Text, View, StyleSheet, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ellipses, Folders } from "../../../assets/svgs/svgIcons";
 import Dropdown from "../../../common/components/modal/dropDownModal/dropDown";
@@ -37,8 +31,7 @@ const FolderItemView = ({
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const [showMoreOptions, setShowMoreOptions] = useState(false);
-
-  const numImages = images.length || 0;
+  const numImages = folder.media.length || 0;
   const imageStyle =
     numImages === 1
       ? [style.singleImage]
@@ -69,15 +62,15 @@ const FolderItemView = ({
             {
               flexDirection: numImages > 1 ? "row" : "column",
               backgroundColor:
-                images.length === 0 ? COLORS.primary : "transparent",
+                folder.media.length === 0 ? COLORS.primary : "transparent",
             },
           ]}
         >
-          {images.map((image, index) => (
+          {folder.media.map((image, index) => (
             <Image
               key={index}
-              source={image as ImageSourcePropType}
-              style={[imageStyle, index > 0 && { ...style.imageOverlap }]}
+              source={{ uri: image.thumbnail }}
+              style={[imageStyle, index >= 0 && { ...style.imageOverlap }]}
             />
           ))}
         </View>
