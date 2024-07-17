@@ -5,25 +5,27 @@
     "moveFolder": "Move Folder",
     "move": "Move",
     "date": "Date",
-    "discard":"Discard",
-    "save":"Save",
-    "trim":"Trim",
-    "nodata":"No Data Found",
-    "resetpassword":"Reset Password"
+    "discard": "Discard",
+    "save": "Save",
+    "trim": "Trim",
+    "nodata": "No Data Found",
+    "resetpassword": "Reset Password",
+    "or": "Or",
+    "required": "Required"
   },
   "months": {
-    "january":"January",
-    "february":"February",
-    "march":"March",
-    "april":"April",
-    "may":"May",
-    "june":"June",
-    "july":"July",
-    "august":"August",
-    "september":"September",
-    "october":"October",
-    "november":"November",
-    "december":"December"
+    "january": "January",
+    "february": "February",
+    "march": "March",
+    "april": "April",
+    "may": "May",
+    "june": "June",
+    "july": "July",
+    "august": "August",
+    "september": "September",
+    "october": "October",
+    "november": "November",
+    "december": "December"
   },
   "header": {
     "recent": "Recent",
@@ -47,17 +49,20 @@
     "step1": "Step 1",
     "step2": "Step 2",
     "step3": "Step 3"
-  }, 
+  },
   "signUpScreen": {
     "title": "Let's Get Started!",
     "appleSignUp": "Sign Up With Apple",
     "gmailSignUp": "Sign Up With Google",
     "emailSignUp": "Sign Up With Email",
+    "appleLogIn": "Log In With Apple",
+    "gmailLogIn": "Log In With Google",
+    "emailLogIn": "Log In With Email",
     "already": "Already have an account",
-    "termsAlert1":"Terms Of Service",
-    "termsAlert2":"By continuing you agree to Mom Brain's Terms Of Service.",
-    "cancel":"Cancel",
-    "ok":"Ok"
+    "termsAlert1": "Terms Of Service",
+    "termsAlert2": "By continuing you agree to Mom Brain's Terms Of Service.",
+    "cancel": "Cancel",
+    "ok": "Ok"
   },
   "signUpWithEmail": {
     "firstName": "First Name",
@@ -65,15 +70,15 @@
     "email": "Email",
     "password": "Password (8+ Characters)",
     "checkbox": "By continuing you agree to our",
-    "checkboxLink": " terms of service", 
+    "checkboxLink": " terms of service",
     "createAccount": "Create Account",
-    "errorMessageFirstName":"Please enter first name",
-    "errorMessageLastName":"Please enter last name",
-    "errorMessageValidEmail":"Please enter a valid email address",
-    "errorMessageEmail":"Please enter email address",
-    "errorMessagePassword":"Password must be at least 8 characters long"
+    "errorMessageFirstName": "Please enter first name",
+    "errorMessageLastName": "Please enter last name",
+    "errorMessageValidEmail": "Please enter a valid email address",
+    "errorMessageEmail": "Please enter email address",
+    "errorMessagePassword": "Password must be at least 8 characters long"
   },
-  "welcomeScreen":{
+  "welcomeScreen": {
     "skip": "SKIP",
     "detail1": "Show your child they can do it, with a pep talk from themselves!",
     "detail2": "Use the app camera or import video from your phone.",
@@ -83,31 +88,32 @@
     "step2": "Step 2",
     "step3": "Step 3"
   },
-  "bottomTab":{
+  "bottomTab": {
     "home": "Home",
     "camera": "Camera",
     "folders": "Folders",
     "settings": "Settings"
   },
-  "settingsScreen":{
+  "settingsScreen": {
     "title": "Settings",
     "account": "Account",
     "about": "About",
     "support": "Support",
     "legal": "Legal",
     "user": "User",
-    "loggedin" : "Logged in as ",
-    "deleteAccount" : "Delete Account",
-    "logout" : "Logout",
+    "loggedin": "Logged in as ",
+    "deleteAccount": "Delete Account",
+    "logout": "Logout",
     "aboutMomBrain": "About Mom Brain",
     "feedback": "Feedback",
     "leaveReview": "Leave a Review",
+    "leaveReviewError": "Couldn't redirect to this link. Please, try again later.",
     "version": "Version",
     "contact": "Contact",
     "terms": "Terms of Use",
-    "versions":"v.1.0",
+    "versions": "v.1.0",
     "password": "Password",
-    "SigninMessage":"Please sign in with gmail"
+    "SigninMessage": "Please sign in with gmail"
   },
   "modal": {
     "addFolder": "Add Folder",
@@ -118,14 +124,13 @@
     "deleteAccount": "Delete Account",
     "description": "Are you sure you want to logout? ",
     "description1": "Are you sure you want to delete your account? You will loose access to your stored videos and folders.",
-    "updatefoldername":"Update Folder Name"
-    
+    "updatefoldername": "Update Folder Name"
   },
   "search": {
     "search": "Search",
-    "nodata":"No data found",
-    "videosuggestions":"Video Suggestions",
-    "foldersuggestions":"Folder Suggestions"
+    "nodata": "No data found",
+    "videosuggestions": "Video Suggestions",
+    "foldersuggestions": "Folder Suggestions"
   },
   "dropDown": {
     "rename": "Rename",
@@ -140,77 +145,82 @@
     "loginAccount": "Login"
   },
   "mediaList": {
-    "deleteitem":"Delete Item",
-    "deleted":"Deleted successfully",
-    "delete":"Are you sure you want to delete?",
-    "cancel":"Cancel",
-    "error":"error",
-    "faileddelete":"Failed to delete",
-    "success":"success",
-    "deletedsuccessfully":"Deleted Successfully",
-    "errordeleting":"Error deleting folder:",
-    "renamedsuccessfully":"renamed successfully",
-    "failedrename":"Failed to rename",
-    "renamemedia":"Rename Media",
-    "enternewname":"Renamed Successfully",
-    "movedsuccessfully":"Moved successfully",
-    "uploaded":"Uploaded successfully",
-    "erroradding":"Error Adding Folder",
-    "erroruploading":"Error Uploading",
-    "titleA-Z":"Title: A-Z",
-    "titleZ-A":"Title: Z-A",
-    "dateascending":"Date: Ascending",
-    "datedescending":"Date: Descending",
-    "addedsuccessfully":"added successfully",
-    "addingerror":"Error Adding Folder",
-    "successfullyloggedin":"successfully logged in",
-    "signedinsuccessfully":"Signed in Successfully",
-    "failedsignup":"Failed to sign up",
-    "failedsignin":"failed sign in",
-    "successfullysignedup":"Successfully Signed up",
-    "erroraccor":"An Error Occurred Please try again",
-    "errorupdatngpassword":"error updatng password",
-    "passwordchangesuccessfully":"Password Changed Successfully",
-    "successfully":"Email sent Successfully",
-    "failedtosent":"Failed To Send An Email"
+    "deleteitem": "Delete Item",
+    "deleted": "Deleted successfully",
+    "delete": "Are you sure you want to delete?",
+    "cancel": "Cancel",
+    "error": "error",
+    "faileddelete": "Failed to delete",
+    "success": "success",
+    "deletedsuccessfully": "Deleted Successfully",
+    "errordeleting": "Error deleting folder:",
+    "renamedsuccessfully": "renamed successfully",
+    "failedrename": "Failed to rename",
+    "renamemedia": "Rename Media",
+    "enternewname": "Renamed Successfully",
+    "movedsuccessfully": "Moved successfully",
+    "uploaded": "Uploaded successfully",
+    "erroradding": "Error Adding Folder",
+    "erroruploading": "Error Uploading",
+    "titleA-Z": "Title: A-Z",
+    "titleZ-A": "Title: Z-A",
+    "dateascending": "Date: Ascending",
+    "datedescending": "Date: Descending",
+    "addedsuccessfully": "added successfully",
+    "addingerror": "Error Adding Folder",
+    "successfullyloggedin": "successfully logged in",
+    "signedinsuccessfully": "Signed in Successfully",
+    "failedsignup": "Failed to sign up",
+    "failedsignin": "failed sign in",
+    "successfullysignedup": "Successfully Signed up",
+    "erroraccor": "An Error Occurred Please try again",
+    "errorupdatngpassword": "error updatng password",
+    "passwordchangesuccessfully": "Password Changed Successfully",
+    "successfully": "Email sent Successfully",
+    "failedtosent": "Failed To Send An Email",
+    "successDeleteAccount": "Account deleted successfully"
   },
   "camera": {
     "nocamera": "No access to camera",
-    "nodevice":"No camera device"
+    "nodevice": "No camera device"
   },
   "password": {
     "password": "Password",
-    "oldpassword":"Old Password",
-    "forgotpassword":"Forgot Password?",
-    "newpassword":"New Password",
-    "confirmpassword":"Confirm Password",
-    "changepassword":"Change Password",
-    "resetpassword":"Reset Password",
-    "email":"Email",
-    "description":"You will receive an email with instructions on how to reset your password in a few minutes."
+    "oldpassword": "Old Password",
+    "forgotpassword": "Forgot Password?",
+    "newpassword": "New Password",
+    "confirmpassword": "Confirm Password",
+    "confirmnewpassword": "Confirm New Password",
+    "changepassword": "Change Password",
+    "resetpassword": "Reset Password",
+    "email": "Email",
+    "description": "You will receive an email with instructions on how to reset your password in a few minutes.",
+    "minLengthError": "New password must be at least 8 characters",
+    "maxLengthError": "New password must be at most 30 characters",
+    "passwordsMustMatch": "Passwords must match"
   },
-  "permission":{
-    "permission":"Permission",
-    "permissionmessage":"PepTalk requires camera and microphone access to function properly. Please grant the necessary permissions in your device settings."
+  "permission": {
+    "permission": "Permission",
+    "permissionmessage": "PepTalk requires camera and microphone access to function properly. Please grant the necessary permissions in your device settings."
   },
-  "alert":{
-    "deletefolder":"Delete Folder",
-    "areyousure":"Are you sure you want to delete the folder",
-    "name":"Please Enter name of media",
-    "videosize":"Video size exceeded 200 MB limit.",
-    "microphone":"Camera or microphone permission not granted.",
-    "permissionrequired":"Permission Required",
-    "camerapermission":"Please grant camera and microphone permissions to use PepTalk.",
-    "entername":"Please enter a name",
-    "accesscameraroll":"Permission to access camera roll is required!",
-    "nameLength":"Folder name must have 15 alphabets"
+  "alert": {
+    "deletefolder": "Delete Folder",
+    "areyousure": "Are you sure you want to delete the folder",
+    "name": "Please Enter name of media",
+    "videosize": "Video size exceeded 200 MB limit.",
+    "microphone": "Camera or microphone permission not granted.",
+    "permissionrequired": "Permission Required",
+    "camerapermission": "Please grant camera and microphone permissions to use PepTalk.",
+    "entername": "Please enter a name",
+    "accesscameraroll": "Permission to access camera roll is required!",
+    "nameLength": "Folder name must have 15 alphabets"
   },
-  "toast":{
-    "error":"error",
-    "failed":"Failed to delete",
-    "success":"success",
-    "deletedsuccessfully":"Deleted Successfully",
-    "errorupdating":"Error Updating Folder",
-    "updatedsuccessfully":"Updated Successfully"
+  "toast": {
+    "error": "error",
+    "failed": "Failed to delete",
+    "success": "success",
+    "deletedsuccessfully": "Deleted Successfully",
+    "errorupdating": "Error Updating Folder",
+    "updatedsuccessfully": "Updated Successfully"
   }
 }

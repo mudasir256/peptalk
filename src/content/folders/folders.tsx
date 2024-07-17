@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import Header from "../../common/header/header";
 import { styles } from "../../common/theme/styles";
@@ -8,18 +8,28 @@ import { AddFolder } from "../../assets/svgs/svgIcons";
 import CustomModal from "../../common/components/modal/modal";
 import { useFoldersData } from "./foldersList/useFolderListData";
 import { useFoldersListQuery } from "../../common/store/slice/api/slice";
+import { useIsFocused } from "@react-navigation/native";
 
 const FoldersScreen = () => {
   const { t } = useTranslation();
   const [selectedData, setSelectedData] = useState("");
   const { addingFolder, handleAddFolder } = useFoldersData();
-  const { data, isLoading } = useFoldersListQuery(selectedData);
+  const { data, isFetching, refetch } = useFoldersListQuery(selectedData);
   const { results: foldersList = [] } = data || {};
   const [showAddFolderPopup, setShowAddFolderPopup] = useState(false);
   const onAddFolderPress = async (folder: string) => {
     await handleAddFolder(folder);
     setShowAddFolderPopup(false);
+    refetch();
   };
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      refetch();
+    }
+  }, [isFocused]);
 
   const handleSelect = async (selectedOption: string) => {
     switch (selectedOption) {
@@ -61,7 +71,11 @@ const FoldersScreen = () => {
         handleSelect={handleSelect}
         onIconRightPress={() => setShowAddFolderPopup(true)}
       />
-      <FoldersList data={foldersList} />
+      <FoldersList
+        data={foldersList}
+        refetch={refetch}
+        isFetching={isFetching}
+      />
       <CustomModal
         visible={showAddFolderPopup}
         onClose={() => setShowAddFolderPopup(false)}

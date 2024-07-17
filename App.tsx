@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Toast from "react-native-toast-message";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "./src/common/store/store";
+import { View } from "react-native";
 
 export default function App() {
   useEffect(() => {

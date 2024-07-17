@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, ScrollView } from "react-native";
 import { style } from "./style";
 import PrimaryButton from "../../../common/components/primaryButton";
 import { TextInputField } from "../../../common/components/input/input";
@@ -11,6 +11,8 @@ import { styles } from "../../../common/theme/styles";
 import { useNavigation } from "@react-navigation/native";
 import { useLoginData } from "./useLoginData";
 import { LoginStackRoutes } from "../../../common/navigation/routes";
+import SignupButtons from "../signup/SignupButtons";
+import { COLORS } from "../../../common/theme/colors";
 
 const Login = () => {
   const { t } = useTranslation();
@@ -36,42 +38,57 @@ const Login = () => {
 
   return (
     <KeyboardAvoidingViewWrapper>
-      <View style={{ ...style.innerContainer }}>
-        <View
-          style={{
-            ...styles.flex,
-            justifyContent: "flex-end",
-          }}
-        >
-          <TextInputField
-            autoCapitalize="none"
-            containerStyle={{ marginTop: SPACINGS.md }}
-            placeholder={t("signUpWithEmail.email")}
-            onChangeText={(text) => setEmail(text)}
-          />
-          <PasswordInput
-            containerStyle={{ marginTop: SPACINGS.md }}
-            placeholder={t("signUpWithEmail.password")}
-            onChangeText={(text) => setPassword(text)}
-          />
-          <TouchableOpacity onPress={handleForgotPress}>
-            <Text style={style.forgotlabel}>
-              {t("password.forgotpassword")}
-            </Text>
-          </TouchableOpacity>
-        </View>
+      <ScrollView>
+        <View style={{ ...style.innerContainer }}>
+          <View
+            style={{
+              ...styles.flex,
+              justifyContent: "flex-end",
+            }}
+          >
+            <TextInputField
+              autoCapitalize="none"
+              containerStyle={{ marginTop: SPACINGS.md }}
+              placeholder={t("signUpWithEmail.email")}
+              onChangeText={(text) => setEmail(text)}
+            />
+            <PasswordInput
+              containerStyle={{ marginTop: SPACINGS.md }}
+              placeholder={t("signUpWithEmail.password")}
+              onChangeText={(text) => setPassword(text)}
+            />
+            <TouchableOpacity onPress={handleForgotPress}>
+              <Text style={style.forgotlabel}>
+                {t("password.forgotpassword")}
+              </Text>
+            </TouchableOpacity>
+          </View>
 
-        <View style={style.spacer}></View>
-        <PrimaryButton
-          loading={loading}
-          title={t("common.login")}
-          containerStyle={{
-            ...style.buttonContainer,
-            alignSelf: "center",
-          }}
-          onPress={onLoginPress}
-        />
-      </View>
+          <View className="h-10" />
+
+          <PrimaryButton
+            loading={loading}
+            title={t("common.login")}
+            containerStyle={{
+              ...style.buttonContainer,
+              alignSelf: "center",
+            }}
+            onPress={onLoginPress}
+          />
+
+          <Text
+            className=" self-stretch text-center mb-5 text-[20px] font-medium"
+            style={{ color: COLORS.text }}
+          >
+            {t("common.or")}
+          </Text>
+
+          <SignupButtons
+            appleText={t("signUpScreen.appleLogIn")}
+            gmailText={t("signUpScreen.gmailLogIn")}
+          />
+        </View>
+      </ScrollView>
     </KeyboardAvoidingViewWrapper>
   );
 };

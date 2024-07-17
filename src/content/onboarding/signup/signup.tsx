@@ -14,6 +14,7 @@ import { SPACINGS } from "../../../common/theme/spacing";
 import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useGoogleSignin } from "./useGoogleSignin";
+import SignupButtons from "./SignupButtons";
 
 export const SignupScreen = () => {
   const { t } = useTranslation();
@@ -51,7 +52,7 @@ export const SignupScreen = () => {
       </ImageBackground>
 
       <View style={[style.buttonsContainer, styles.flex]}>
-        <PrimaryButton
+        {/*<PrimaryButton
           containerStyle={{ marginBottom: SPACINGS.md }}
           title={t("signUpScreen.appleSignUp")}
           icon={IMAGES.appleIcon}
@@ -68,6 +69,11 @@ export const SignupScreen = () => {
           title={t("signUpScreen.emailSignUp")}
           icon={IMAGES.emailIcon}
           onPress={SignupWithEmail}
+        />*/}
+        <SignupButtons
+          appleText={t("signUpScreen.appleSignUp")}
+          gmailText={t("signUpScreen.gmailSignUp")}
+          emailText={t("signUpScreen.emailSignUp")}
         />
         <View style={style.loginContainer}>
           <Text style={style.alreadyAccount}>{t("signUpScreen.already")}</Text>

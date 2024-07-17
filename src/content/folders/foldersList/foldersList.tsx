@@ -17,40 +17,44 @@ import CustomModal from "../../../common/components/modal/modal";
 import { useFoldersData } from "./useFolderListData";
 import { useTranslation } from "react-i18next";
 import { COLORS } from "../../../common/theme/colors";
+
 type Props = {
   data?: string;
+  refetch: () => Promise<any>;
+  isFetching: boolean;
 };
-const FoldersList = ({ data }: Props) => {
+const FoldersList = ({ data, refetch, isFetching: inputIsFetching }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const selectedFolder = useRef<Folder>(undefined);
   const { t } = useTranslation();
   const [dropDownIndex, setDropdownIndex] = useState<number>();
-  const [refreshing, setRefreshing] = useState(false);
 
   const {
     handleRenameFolder,
     handleDeleteFolder,
     deleting,
     isLoadingUpdate,
+    isFetching: _isFetching,
     isLoading,
   } = useFoldersData();
 
+  const isFetching = _isFetching || inputIsFetching;
+
   const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
+    refetch();
   }, []);
 
   const onFolderNameUpdated = async (folderName: string) => {
     await handleRenameFolder(selectedFolder.current, folderName);
     setShowModal(false);
+    refetch();
   };
 
   const handleUpdateFolder = (folder: Folder) => {
     selectedFolder.current = folder;
     setShowModal(true);
     setDropdownIndex(undefined);
+    refetch();
   };
 
   const handleDelete = (folder: Folder) => {
@@ -67,6 +71,7 @@ const FoldersList = ({ data }: Props) => {
           style: "destructive",
           onPress: () => {
             handleDeleteFolder(folder);
+            refetch();
           },
         },
       ],
@@ -117,7 +122,7 @@ const FoldersList = ({ data }: Props) => {
             }}
             refreshControl={
               <RefreshControl
-                refreshing={refreshing}
+                refreshing={isFetching}
                 onRefresh={onRefresh}
                 colors={[COLORS.shadow, COLORS.shadow]}
                 tintColor={COLORS.shadow}

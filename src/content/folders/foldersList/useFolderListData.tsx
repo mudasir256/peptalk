@@ -8,6 +8,7 @@ import {
 import { Folder } from "./types";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+
 export const useFoldersData = () => {
   const { data, isLoading, isFetching } = useFoldersListQuery("", {
     refetchOnMountOrArgChange: true,

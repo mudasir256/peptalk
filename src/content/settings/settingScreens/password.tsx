@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
@@ -21,45 +21,65 @@ import { HomeStackRoutes } from "../../../common/navigation/routes";
 import { useResetPasswordMutation } from "../../../common/store/slice/api/slice";
 import Toast from "react-native-toast-message";
 
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 const Password = () => {
   const navigation = useNavigation();
   const { navigate } = useNavigation();
   const { t } = useTranslation();
   const [resetPassword, { isError, isLoading }] = useResetPasswordMutation();
-  const [formValid, setFormValid] = useState<boolean>(false);
   const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const handleResetPassword = async () => {
-    try {
-      const data = {
-        new_password1: newPassword,
-        new_password2: confirmPassword,
-      };
-      const res = await resetPassword(data).unwrap();
-      Toast.show({
-        type: t("mediaList.success"),
-        text1: t("mediaList.passwordchangesuccessfully"),
-      });
-    } catch (error) {
-      Toast.show({
-        type: t("mediaList.error"),
-        text1:
-          error.data.new_password2 ||
-          error.data.new_password1 ||
-          t("mediaList.errorupdatngpassword"),
-      });
-      console.log("errors", error);
-    }
-  };
-  const goBack = () => {
-    navigation.goBack();
-  };
+
+  const formik = useFormik({
+    initialValues: {
+      newPassword: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      newPassword: Yup.string()
+        .required(t("common.required"))
+        .min(8, t("password.minLengthError"))
+        .max(30, t("password.maxLengthError")),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("newPassword"), null], t("password.passwordsMustMatch"))
+        .required(t("common.required")),
+    }),
+    onSubmit: async (values) => {
+      try {
+        const data = {
+          new_password1: values.newPassword,
+          new_password2: values.confirmPassword,
+        };
+        const res = await resetPassword(data).unwrap();
+        Toast.show({
+          type: t("mediaList.success"),
+          text1: t("mediaList.passwordchangesuccessfully"),
+        });
+      } catch (error) {
+        Toast.show({
+          type: t("mediaList.error"),
+          text1:
+            error.data.new_password2 ||
+            error.data.new_password1 ||
+            t("mediaList.errorupdatngpassword"),
+        });
+        console.log("errors", error);
+      }
+    },
+  });
+
+  const formValid = formik.isValid;
 
   const handleForgotPress = () => {
     navigate(HomeStackRoutes.ResetPasswordWithEmail);
   };
 
+  const handleSubmit = () => {
+    formik.handleSubmit();
+  };
+
+  /*
   const validateForm = () => {
     const isValid = newPassword.trim() !== "" && confirmPassword.trim() !== "";
     setFormValid(isValid);
@@ -68,6 +88,12 @@ const Password = () => {
   useEffect(() => {
     validateForm();
   }, [newPassword, confirmPassword]);
+  */
+
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <>
       <ScrollView>
@@ -81,7 +107,7 @@ const Password = () => {
           </View>
         </View>
         <View style={style.content}>
-          <View style={style.inputContainer}>
+          {/*<View style={style.inputContainer}>
             <Text style={style.label}>{t("password.oldpassword")}</Text>
             <PasswordInput
               placeholder={t("password.oldpassword")}
@@ -92,22 +118,32 @@ const Password = () => {
                 {t("password.forgotpassword")}
               </Text>
             </TouchableOpacity>
-          </View>
+          </View>*/}
 
           <View style={style.inputContainer}>
             <Text style={style.label}>{t("password.newpassword")}</Text>
             <PasswordInput
               placeholder={t("password.newpassword")}
-              onChangeText={(text) => setNewPassword(text)}
+              onChangeText={formik.handleChange("newPassword")}
             />
+            {formik.errors.newPassword && (
+              <Text className="mt-0" style={{ color: COLORS.error }}>
+                {formik.errors.newPassword}
+              </Text>
+            )}
           </View>
 
           <View style={style.inputContainer}>
-            <Text style={style.label}>{t("password.confirmpassword")}</Text>
+            <Text style={style.label}>{t("password.confirmnewpassword")}</Text>
             <PasswordInput
-              placeholder={t("password.confirmpassword")}
-              onChangeText={(text) => setConfirmPassword(text)}
+              placeholder={t("password.confirmnewpassword")}
+              onChangeText={formik.handleChange("confirmPassword")}
             />
+            {formik.errors.confirmPassword && (
+              <Text className="mt-0" style={{ color: COLORS.error }}>
+                {formik.errors.confirmPassword}
+              </Text>
+            )}
           </View>
         </View>
         <View style={style.buttonContainer}>
@@ -118,10 +154,30 @@ const Password = () => {
               opacity: formValid ? 1 : 0.5,
             }}
             disabled={!formValid}
-            onPress={handleResetPassword}
+            onPress={handleSubmit}
             loading={isLoading}
           />
         </View>
+
+        {/*<Text
+          className=" self-stretch text-center mb-5 text-[20px] font-medium"
+          style={{ color: COLORS.text }}
+        >
+          {t("common.or")}
+        </Text>
+
+        <View style={style.buttonContainer}>
+          <PrimaryButton
+            title={t("password.changepassword")}
+            containerStyle={{
+              ...style.button,
+              opacity: formValid ? 1 : 0.5,
+            }}
+            //disabled={!formValid}
+            onPress={handleResetPassword}
+            loading={isLoading}
+          />
+        </View>*/}
       </ScrollView>
     </>
   );

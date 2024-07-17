@@ -24,6 +24,8 @@ const SearchScreen = ({ navigation }) => {
   const { t } = useTranslation();
   const { data, isLoading } = useGetSearchQuery(search);
 
+  //console.log(data);
+
   useEffect(() => {}, [search]);
 
   const handleVideoPress = (videoUrl) => {
