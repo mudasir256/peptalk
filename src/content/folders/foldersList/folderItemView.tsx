@@ -55,7 +55,7 @@ const FolderItemView = ({
   };
   return (
     <>
-      <TouchableOpacity onPress={handleFolderPress} style={style.container}>
+      <TouchableOpacity onPress={handleFolderPress} className=" p-4">
         <View
           style={[
             style.imageContainer,
@@ -74,10 +74,12 @@ const FolderItemView = ({
             />
           ))}
         </View>
-        <View style={style.folderBottom}>
-          <View style={style.dentist}>
+        <View className="flex-row justify-between items-center mt-[10px] self-stretch">
+          <View className="flex-row items-center justify-center flex-1">
             <Folders />
-            <Text style={style.folderText}>{folder.folder_name}</Text>
+            <Text className="text-[15px] grow shrink ml-2">
+              {folder.folder_name}
+            </Text>
           </View>
           <TouchableOpacity onPress={onEllipsesPress}>
             <Ellipses />

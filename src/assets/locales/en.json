@@ -107,7 +107,6 @@
     "aboutMomBrain": "About Mom Brain",
     "feedback": "Feedback",
     "leaveReview": "Leave a Review",
-    "leaveReviewError": "Couldn't redirect to this link. Please, try again later.",
     "version": "Version",
     "contact": "Contact",
     "terms": "Terms of Use",
@@ -222,5 +221,12 @@
     "deletedsuccessfully": "Deleted Successfully",
     "errorupdating": "Error Updating Folder",
     "updatedsuccessfully": "Updated Successfully"
+  },
+  "yup": {
+    "folderNameMax50": "Folder name can not be longer than 50 characters",
+    "required": "This field is required"
+  },
+  "error": {
+    "Linking": "Couldn't redirect to this link. Please, try again later."
   }
 }

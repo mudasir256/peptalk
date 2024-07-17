@@ -1,17 +1,19 @@
-import React, { useRef, useState } from "react";
+import { useFormik } from "formik";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import {
-  Modal,
-  View,
-  Text,
   KeyboardAvoidingView,
+  Modal,
   Platform,
+  Text,
+  View,
 } from "react-native";
-import { TextInputField } from "../input/input";
+import * as Yup from "yup";
+import { Folder } from "../../../content/folders/foldersList/types";
 import { COLORS } from "../../theme/colors";
+import { TextInputField } from "../input/input";
 import PrimaryButton from "../primaryButton";
 import { style } from "./style";
-import { useTranslation } from "react-i18next";
-import { Folder } from "../../../content/folders/foldersList/types";
 
 type Props = {
   title: string;
@@ -41,31 +43,26 @@ const CustomModal = ({
   showCancel = true,
 }: Props) => {
   const { t } = useTranslation();
-  const [nameError, setNameError] = useState(false);
-  const [lengthError, setLengthError] = useState(false);
-  const inputName = useRef(selectedFolder?.folder_name);
+
+  const formik = useFormik({
+    initialValues: {
+      folderName: selectedFolder?.folder_name ?? "",
+    },
+    validationSchema: Yup.object({
+      folderName: Yup.string()
+        .trim()
+        .required(t("yup.required"))
+        .max(50, t("yup.folderNameMax50")),
+    }),
+    onSubmit: async (values) => {
+      onPressOk?.(values.folderName.trim());
+      formik.handleChange("foldername")("");
+    },
+  });
 
   const handleCancel = () => {
-    inputName.current = "";
-    setNameError(false);
-    setLengthError(false);
+    formik.handleChange("foldername")("");
     onClose?.();
-  };
-  const handleOKPress = () => {
-    if (!inputName.current) {
-      setNameError(true);
-      return;
-    }
-
-    if (inputName.current.length > 15) {
-      setLengthError(true);
-      return;
-    }
-
-    onPressOk?.(inputName.current);
-    inputName.current = "";
-    setNameError(false);
-    setLengthError(false);
   };
 
   return (
@@ -91,24 +88,15 @@ const CustomModal = ({
                     <TextInputField
                       placeholder={t("modal.addFolder")}
                       containerStyle={{ backgroundColor: COLORS.inputbg }}
-                      onChangeText={(text) => {
-                        inputName.current = text;
-                        if (text.length <= 15) {
-                          setLengthError(false);
-                        }
-                        if (text.trim().length > 0) {
-                          setNameError(false);
-                        }
-                      }}
-                      defaultValue={inputName.current}
+                      onChangeText={formik.handleChange("folderName")}
+                      defaultValue={formik.values.folderName}
                     />
                   </View>
                   <View>
-                    {nameError && (
-                      <Text style={style.error}>{t("alert.entername")}</Text>
-                    )}
-                    {lengthError && (
-                      <Text style={style.error}>{t("alert.nameLength")}</Text>
+                    {formik.errors.folderName && (
+                      <Text style={style.error}>
+                        {formik.errors.folderName}
+                      </Text>
                     )}
                   </View>
                 </>
@@ -124,9 +112,9 @@ const CustomModal = ({
                 <PrimaryButton
                   loading={loading}
                   title={t("modal.ok")}
-                  disabled={nameError || lengthError}
+                  disabled={!formik.isValid}
                   containerStyle={style.ok}
-                  onPress={handleOKPress}
+                  onPress={() => formik.handleSubmit()}
                 />
               </View>
             </View>

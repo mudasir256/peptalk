@@ -30,6 +30,7 @@ import {
 import { useDispatch } from "react-redux";
 import CustomModal2 from "../../common/components/modal/CustomModal2";
 import Toast from "react-native-toast-message";
+import { appLinks } from "../../common/constants/links";
 
 const SettingsScreen = () => {
   const { navigate } = useNavigation();
@@ -141,7 +142,10 @@ const SettingsScreen = () => {
       openDeleteAccountModal();
     }*/
     if (item.title === t("settingsScreen.terms")) {
-      navigate(HomeStackRoutes.TermsOfUse);
+      //navigate(HomeStackRoutes.TermsOfUse);
+      Linking.openURL(appLinks.termsOfUseLink).catch((err) => {
+        Alert.alert(t("error.Linking"));
+      });
     }
     if (item.title === t("settingsScreen.aboutMomBrain")) {
       navigate(HomeStackRoutes.About);
@@ -155,8 +159,8 @@ const SettingsScreen = () => {
       });
     }
     if (item.title === t("settingsScreen.leaveReview")) {
-      Linking.openURL("https://apps.apple.com/").catch((err) => {
-        Alert.alert(t("settingsScreen.leaveReviewError"));
+      Linking.openURL(appLinks.appStoreLink).catch((err) => {
+        Alert.alert(t("error.Linking"));
       });
     }
   };
@@ -209,6 +213,7 @@ const SettingsScreen = () => {
               ? t("modal.description")
               : t("modal.description1")
           }
+          key={`${modalVisible}`}
         />
         <CustomModal2
           visible={isLogoutModalVisible}

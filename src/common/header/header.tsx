@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { style } from "./styles";
 import { HomeStackRoutes } from "../navigation/routes";
 import { useTranslation } from "react-i18next";
+import { COLORS } from "../theme/colors";
 
 type Props = {
   items?: { label: string; value: string }[];
@@ -41,8 +42,17 @@ const Header = ({
   return (
     <TouchableWithoutFeedback onPress={closeDropdown}>
       <View style={style.container}>
-        <View style={style.head}>
-          <Text style={style.title}>{title}</Text>
+        <View className=" flex-row justify-between self-stretch">
+          <Text
+            className="text-[20px] grow shrink"
+            style={{
+              fontFamily: "SF-Pro-Text-Bold",
+              color: COLORS.text,
+            }}
+            numberOfLines={3}
+          >
+            {title}
+          </Text>
           <View style={style.btn}>
             <TouchableOpacity
               style={style.dropdown}

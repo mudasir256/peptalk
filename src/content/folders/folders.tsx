@@ -76,6 +76,7 @@ const FoldersScreen = () => {
         refetch={refetch}
         isFetching={isFetching}
       />
+
       <CustomModal
         visible={showAddFolderPopup}
         onClose={() => setShowAddFolderPopup(false)}
@@ -83,6 +84,7 @@ const FoldersScreen = () => {
         showInput
         onPressOk={onAddFolderPress}
         loading={addingFolder}
+        key={`${showAddFolderPopup}`}
       />
     </View>
   );

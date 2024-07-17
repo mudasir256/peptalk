@@ -140,6 +140,7 @@ const FoldersList = ({ data, refetch, isFetching: inputIsFetching }: Props) => {
               onPressOk={onFolderNameUpdated}
               loading={isLoadingUpdate}
               selectedFolder={selectedFolder.current}
+              //key={`${showModal}`}
             />
           )}
           {deleting && (
