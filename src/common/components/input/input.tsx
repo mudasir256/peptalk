@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import {
   View,
   TextInput,
@@ -30,67 +30,69 @@ export type TextInputFieldProps = TextInputProps & {
   value?: string;
 };
 
-export const TextInputField = ({
-  containerStyle,
-  inputStyle,
-  placeholder,
-  searchIcon,
-  onChangeText,
-  validationError,
-  rightIcon,
-  iconSize = 20,
-  onRightIconPress,
-  onPress,
-  focusBorderColor = COLORS.primary,
-  FocusBorderWidth = 2,
-  ...rest
-}: TextInputFieldProps) => {
-  const [focus, setFocus] = useState(false);
+export const TextInputField = memo(
+  ({
+    containerStyle,
+    inputStyle,
+    placeholder,
+    searchIcon,
+    onChangeText,
+    validationError,
+    rightIcon,
+    iconSize = 20,
+    onRightIconPress,
+    onPress,
+    focusBorderColor = COLORS.primary,
+    FocusBorderWidth = 2,
+    ...rest
+  }: TextInputFieldProps) => {
+    const [focus, setFocus] = useState(false);
 
-  return (
-    <>
-      <View
-        style={[
-          style.searchContainer,
-          focus && {
-            borderColor: focusBorderColor,
-            borderWidth: FocusBorderWidth,
-          },
-          containerStyle,
-        ]}
-      >
-        {searchIcon && <SearchIcon style={style.iconStyle} />}
-        <TextInput
-          style={[style.input, inputStyle]}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
-          onFocus={() => {
-            onPress ? onPress() : setFocus(true);
-          }}
-          onBlur={() => setFocus(false)}
-          {...rest}
-        />
+    return (
+      <>
+        <View
+          style={[
+            style.searchContainer,
+            focus && {
+              borderColor: focusBorderColor,
+              borderWidth: FocusBorderWidth,
+            },
+            containerStyle,
+          ]}
+        >
+          {searchIcon && <SearchIcon style={style.iconStyle} />}
+          <TextInput
+            style={[style.input, inputStyle]}
+            placeholder={placeholder}
+            onChangeText={onChangeText}
+            onFocus={() => {
+              onPress ? onPress() : setFocus(true);
+            }}
+            onBlur={() => setFocus(false)}
+            {...rest}
+          />
 
-        {rightIcon && (
-          <TouchableOpacity
-            onPress={onRightIconPress}
-            style={[
-              style.iconButton,
-              { transform: [{ translateY: -iconSize / 20 }] },
-            ]}
-          >
-            {rightIcon}
-          </TouchableOpacity>
-        )}
-      </View>
-      <View style={style.errorContainer}>
-        {validationError && !focus && (
-          <Text style={style.errorText}>{validationError}</Text>
-        )}
-      </View>
-    </>
-  );
-};
+          {rightIcon && (
+            <TouchableOpacity
+              onPress={onRightIconPress}
+              style={[
+                style.iconButton,
+                { transform: [{ translateY: -iconSize / 20 }] },
+              ]}
+            >
+              {rightIcon}
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={style.errorContainer}>
+          {validationError && !focus && (
+            <Text style={style.errorText}>{validationError}</Text>
+          )}
+        </View>
+      </>
+    );
+  }
+);
 
 const style = StyleSheet.create({
   input: {

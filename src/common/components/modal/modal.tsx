@@ -44,9 +44,11 @@ const CustomModal = ({
 }: Props) => {
   const { t } = useTranslation();
 
+  const folderNameInitialvalue = selectedFolder?.folder_name ?? "";
+
   const formik = useFormik({
     initialValues: {
-      folderName: selectedFolder?.folder_name ?? "",
+      folderName: folderNameInitialvalue,
     },
     validationSchema: Yup.object({
       folderName: Yup.string()
@@ -71,7 +73,7 @@ const CustomModal = ({
         animationType="fade"
         transparent={true}
         visible={visible}
-        onRequestClose={handleCancel}
+        //onRequestClose={handleCancel}
       >
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -89,7 +91,7 @@ const CustomModal = ({
                       placeholder={t("modal.addFolder")}
                       containerStyle={{ backgroundColor: COLORS.inputbg }}
                       onChangeText={formik.handleChange("folderName")}
-                      defaultValue={formik.values.folderName}
+                      defaultValue={folderNameInitialvalue}
                     />
                   </View>
                   <View>
