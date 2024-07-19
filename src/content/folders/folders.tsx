@@ -12,9 +12,9 @@ import { useIsFocused } from "@react-navigation/native";
 
 const FoldersScreen = () => {
   const { t } = useTranslation();
-  const [selectedData, setSelectedData] = useState("");
+  const [ordering, setOrdering] = useState("");
   const { addingFolder, handleAddFolder } = useFoldersData();
-  const { data, isFetching, refetch } = useFoldersListQuery(selectedData);
+  const { data, isFetching, refetch } = useFoldersListQuery({ ordering });
   const { results: foldersList = [] } = data || {};
   const [showAddFolderPopup, setShowAddFolderPopup] = useState(false);
   const onAddFolderPress = async (folder: string) => {
@@ -34,16 +34,16 @@ const FoldersScreen = () => {
   const handleSelect = async (selectedOption: string) => {
     switch (selectedOption) {
       case t("mediaList.titleA-Z"):
-        setSelectedData("=folder_name");
+        setOrdering("folder_name");
         break;
       case t("mediaList.titleZ-A"):
-        setSelectedData("=-folder_name");
+        setOrdering("-folder_name");
         break;
       case t("mediaList.dateascending"):
-        setSelectedData("=created_at");
+        setOrdering("created_at");
         break;
       case t("mediaList.datedescending"):
-        setSelectedData("=-created_at");
+        setOrdering("-created_at");
         break;
       default:
         break;

@@ -3,16 +3,20 @@ import {
   useAddFolderMutationMutation,
   useDeleteFolderMutation,
   useFoldersListQuery,
+  useFoldersListQuery_data,
   useUpdateFolderMutation,
 } from "../../../common/store/slice/api/slice";
 import { Folder } from "./types";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export const useFoldersData = () => {
-  const { data, isLoading, isFetching } = useFoldersListQuery("", {
-    refetchOnMountOrArgChange: true,
-  });
+export const useFoldersData = (queryParams?: useFoldersListQuery_data) => {
+  const { data, isLoading, isFetching, refetch } = useFoldersListQuery(
+    queryParams ?? {},
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
   const { t } = useTranslation();
   const [
     addFolder,
@@ -103,6 +107,7 @@ export const useFoldersData = () => {
     handleAddFolder,
     addingFolderData,
     isFetching,
+    refetch,
   };
 };
 

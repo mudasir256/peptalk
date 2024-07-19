@@ -1,5 +1,10 @@
 import { emptySplitApi } from "./emptySplitApi";
-import { PasswordResetQueryDataType } from "./types";
+import { objectToQueryParams } from "./functions";
+import {
+  DRFFolderListResponseType,
+  PasswordResetQueryDataType,
+  useFoldersListQuery_data,
+} from "./types";
 
 export const apiSlice = emptySplitApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -51,11 +56,21 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         };
       },
     }),
-    foldersList: builder.query({
-      query: (data) => ({
-        url: `/child-encouragement/folder/list/?ordering${data}`,
-        method: "GET",
-      }),
+    foldersList: builder.query<
+      DRFFolderListResponseType,
+      useFoldersListQuery_data
+    >({
+      query: (data) => {
+        const url = `/child-encouragement/folder/list/?${objectToQueryParams(
+          data
+        )}`;
+        //console.log("url: ", url);
+
+        return {
+          url,
+          method: "GET",
+        };
+      },
       providesTags: ["folders"],
     }),
     addFolderMutation: builder.mutation({
@@ -215,6 +230,7 @@ export const apiSlice = emptySplitApi.injectEndpoints({
     }),
   }),
 });
+
 export const {
   useRegisterMutation,
   useLoginMutation,

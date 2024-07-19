@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Text,
   View,
@@ -10,7 +10,10 @@ import {
 import { TextInputField } from "../../common/components/input/input";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
-import { useGetSearchQuery } from "../../common/store/slice/api/slice";
+import {
+  useFoldersListQuery,
+  useGetSearchQuery,
+} from "../../common/store/slice/api/slice";
 import { IMAGES } from "../../assets/images";
 import { style } from "./style";
 import { styles } from "../../common/theme/styles";
@@ -18,11 +21,36 @@ import {
   FolderStackRoutes,
   HomeStackRoutes,
 } from "../../common/navigation/routes";
+import { APIFolderType } from "../../common/store/slice/api/types";
+import { useIsFocused } from "@react-navigation/native";
 
 const SearchScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
   const { t } = useTranslation();
-  const { data, isLoading } = useGetSearchQuery(search);
+  const { data, isLoading, refetch: refetchMedia } = useGetSearchQuery(search);
+
+  const {
+    data: foldersResponse,
+    isFetching: isFoldersFetching,
+    refetch: refetchFolders,
+  } = useFoldersListQuery({ search });
+
+  const refetch = useCallback(() => {
+    refetchMedia();
+    refetchFolders();
+  }, [refetchMedia, refetchFolders]);
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) {
+      refetch();
+    }
+  }, [isFocused]);
+
+  const foldersData = foldersResponse?.results ?? [];
+
+  //console.log("foldersData", foldersData);
 
   //console.log(data);
 
@@ -49,15 +77,19 @@ const SearchScreen = ({ navigation }) => {
         </TouchableOpacity>
       );
     } else {
+      //console.log("second item", item);
+
+      const folderItem: APIFolderType = item;
+
       return (
         <TouchableOpacity
           style={style.itemContainer}
           onPress={() =>
-            handleFolderPress(item.folder.id, item.folder.folder_name)
+            handleFolderPress(folderItem.id, folderItem.folder_name)
           }
         >
           <Image source={IMAGES.folder} style={style.icon} />
-          <Text style={style.title}>{item.folder.folder_name}</Text>
+          <Text style={style.title}>{folderItem.folder_name}</Text>
         </TouchableOpacity>
       );
     }
@@ -87,12 +119,13 @@ const SearchScreen = ({ navigation }) => {
     },
     {
       title: t("search.foldersuggestions"),
-      data: data.results
-        .filter((item) => item.folder && item.folder.folder_name)
-        .slice(0, 3),
+      data: foldersData.slice(0, 3),
       index: 1,
     },
   ];
+
+  //console.log("0", filteredData[0]);
+  //console.log("1", filteredData[1]);
 
   return (
     <View style={[style.container, styles.flex]}>
