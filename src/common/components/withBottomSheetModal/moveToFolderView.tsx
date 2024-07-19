@@ -1,23 +1,19 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  Alert,
-  TextInput,
-} from "react-native";
-import HomeFolder from "../homeFolder/homeFolder";
-import PrimaryButton from "../primaryButton";
-import { style } from "./style";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
+import { useFormik } from "formik";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Alert, FlatList, Text, TouchableOpacity, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { CrossIcon } from "../../../assets/svgs/svgIcons";
+import { useTextFormikConfig } from "../../formiks/textFormik";
 import {
   useFoldersListQuery,
   useMoveFolderMutation,
 } from "../../store/slice/api/slice";
-import { useTranslation } from "react-i18next";
-import Toast from "react-native-toast-message";
+import HomeFolder from "../homeFolder/homeFolder";
+import TextInputModal from "../Modals/TextInputModal/TextInputModal";
+import PrimaryButton from "../primaryButton";
+import { style } from "./style";
 
 type Props = {
   handleClosePress: VoidFunction;
@@ -27,6 +23,9 @@ type Props = {
   fileUri?: string;
   cancelPressed?: boolean;
   foldersData?: any;
+  openAddFolderPopup?: () => void;
+  selectedFolderId: string;
+  setSelectedFolderId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const MoveToFolderView = ({
@@ -35,8 +34,10 @@ const MoveToFolderView = ({
   title,
   onSavePress,
   foldersData,
+  openAddFolderPopup,
+  selectedFolderId,
+  setSelectedFolderId,
 }: Props) => {
-  const [selectedFolderId, setSelectedFolderId] = useState("");
   const [moveFolder, { isLoading }] = useMoveFolderMutation();
   const { data } = useFoldersListQuery({});
   const { t } = useTranslation();
@@ -61,8 +62,27 @@ const MoveToFolderView = ({
     }
   };
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const formikConfig = useTextFormikConfig({
+    initialValue: "",
+    maxLength: 50,
+    maxLengthError: t("yup.stringMax50"),
+    onPressOk: async (name) => {
+      console.log("name", name);
+      if (name) {
+        console.log("found name");
+        onSavePress(selectedFolderId, name);
+        handleClosePress();
+      }
+    },
+  });
+
+  const formik = useFormik(formikConfig);
+
   const handleUploadMedia = async () => {
-    Alert.prompt(
+    setIsModalVisible(true);
+    /*Alert.prompt(
       t("alert.name"),
       "",
       async (name) => {
@@ -72,7 +92,7 @@ const MoveToFolderView = ({
         }
       },
       "plain-text"
-    );
+    );*/
   };
   return (
     <>
@@ -106,14 +126,43 @@ const MoveToFolderView = ({
           )}
         </BottomSheetView>
       </View>
-      <View style={style.buttonContainer}>
-        <PrimaryButton
-          title={title === "Save" ? t("common.save") : t("common.moveFolder")}
-          containerStyle={style.button}
-          onPress={title === "Save" ? handleUploadMedia : moveMediaToFolder}
-          loading={isLoading}
-        />
-      </View>
+      {selectedFolderId && (
+        <View style={style.buttonContainer}>
+          <View className="flex-1 items-center">
+            <PrimaryButton
+              title={
+                title === "Save" ? t("common.save") : t("common.moveFolder")
+              }
+              containerStyle={style.button}
+              onPress={title === "Save" ? handleUploadMedia : moveMediaToFolder}
+              loading={isLoading}
+            />
+          </View>
+        </View>
+      )}
+
+      {openAddFolderPopup && (
+        <View style={style.buttonContainer}>
+          <View className="flex-1 items-center">
+            <PrimaryButton
+              title={t("modal.addFolder")}
+              containerStyle={style.button}
+              onPress={openAddFolderPopup}
+            />
+          </View>
+        </View>
+      )}
+      <TextInputModal
+        formik={formik}
+        defaultValue=""
+        placeholder={t("placeholder.videoName")}
+        title={t("alert.name")}
+        onClose={() => {
+          setIsModalVisible(false);
+        }}
+        onPressOk={formik.handleSubmit}
+        visible={isModalVisible}
+      />
     </>
   );
 };

@@ -44,10 +44,11 @@ const Forgotpassword = () => {
       <View style={style.innerContainer}>
         <View style={[styles.flex, { justifyContent: "flex-end" }]}>
           <TextInputField
-            autoCapitalize="none"
             containerStyle={{ marginTop: SPACINGS.md }}
             placeholder={t("signUpWithEmail.email")}
             onChangeText={(text) => setEmail(text)}
+            keyboardType="email-address"
+            autoCapitalize="none"
           />
         </View>
 

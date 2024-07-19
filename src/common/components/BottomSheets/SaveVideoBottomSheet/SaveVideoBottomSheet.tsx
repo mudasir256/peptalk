@@ -1,17 +1,23 @@
-import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
-import React, { forwardRef, useEffect, useState } from "react";
 import {
   BottomSheetBackdropProps,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
-import MoveToFolderView from "../withBottomSheetModal/moveToFolderView";
-import CustomModal from "../modal/modal";
-import { useTranslation } from "react-i18next";
-import useCameraUpload from "../../../content/camera/useCameraUpload";
-import RNFS from "react-native-fs";
-import { styles } from "./styles";
-import { useFoldersData } from "../../../content/folders/foldersList/useFolderListData";
 import * as VideoThumbnails from "expo-video-thumbnails";
+import React, {
+  forwardRef,
+  memo,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { useTranslation } from "react-i18next";
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
+import RNFS from "react-native-fs";
+import useCameraUpload from "../../../../content/camera/useCameraUpload";
+import { useFoldersData } from "../../../../content/folders/foldersList/useFolderListData";
+import AddFolderModal from "../../Modals/AddFolderModal";
+import MoveToFolderView from "../../withBottomSheetModal/moveToFolderView";
+import { styles } from "./styles";
 
 type Props = {
   index?: number;
@@ -21,9 +27,10 @@ type Props = {
   handleClosePress?: () => void;
   title: string;
   fileUri?: string;
+  thumbnail?: string;
 };
 
-const BottomModal = forwardRef<BottomSheetModal, Props>(
+const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
   (
     {
       index = 1,
@@ -33,6 +40,7 @@ const BottomModal = forwardRef<BottomSheetModal, Props>(
       handleClosePress,
       title,
       fileUri,
+      thumbnail,
     },
     ref
   ) => {
@@ -44,21 +52,7 @@ const BottomModal = forwardRef<BottomSheetModal, Props>(
       isLoading: isLoadingFolders,
       isFetching,
     } = useFoldersData();
-    const [thumbnail, setThumbnail] = useState(null);
 
-    useEffect(() => {
-      const generateThumbnail = async () => {
-        try {
-          const { uri } = await VideoThumbnails.getThumbnailAsync(fileUri, {
-            time: 15000,
-          });
-          setThumbnail(uri);
-        } catch (e) {
-          console.warn(e);
-        }
-      };
-      generateThumbnail();
-    }, [thumbnail]);
     const [showAddFolderPopup, setShowAddFolderPopup] = useState(false);
     const [cancelPressed, setCancelPressed] = useState(false);
     const { t } = useTranslation();
@@ -70,19 +64,35 @@ const BottomModal = forwardRef<BottomSheetModal, Props>(
       isUploadMediaLoading,
     } = useCameraUpload();
 
+    const openAddFolderPopup = useCallback(() => {
+      setShowAddFolderPopup(true);
+    }, [setShowAddFolderPopup]);
+
+    const [selectedFolderId, setSelectedFolderId] = useState("");
+
     useEffect(() => {
       if (
         !isLoadingFolders &&
         !isFetching &&
+        !cancelPressed &&
         foldersData.results.length === 0
       ) {
         setShowAddFolderPopup(true);
       }
-    }, [foldersData, showAddFolderPopup]);
+    }, [foldersData, showAddFolderPopup, cancelPressed]);
 
     const onAddFolderPress = async (folder: string) => {
-      await handleAddFolder(folder);
-      setShowAddFolderPopup(false);
+      handleAddFolder(folder)
+        .then((storedFolderData) => {
+          if (storedFolderData?.id) {
+            setSelectedFolderId(storedFolderData.id);
+          }
+          setShowAddFolderPopup(false);
+          //console.log(storedFolderData, "Wasssssup");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
 
     const handleCancelPressed = () => {
@@ -126,15 +136,15 @@ const BottomModal = forwardRef<BottomSheetModal, Props>(
               cancelPressed={cancelPressed}
               onSavePress={handleUploadMedia}
               foldersData={foldersData}
+              openAddFolderPopup={openAddFolderPopup}
+              selectedFolderId={selectedFolderId}
+              setSelectedFolderId={setSelectedFolderId}
             />
-            <CustomModal
-              visible={showAddFolderPopup}
+            <AddFolderModal
+              isVisible={showAddFolderPopup}
               onClose={handleCancelPressed}
-              title={t("modal.titleModal")}
-              showInput
-              onPressOk={onAddFolderPress}
-              loading={addingFolder}
-              showCancel={false}
+              onSave={onAddFolderPress}
+              isLoading={addingFolder}
             />
           </BottomSheetModal>
         </View>
@@ -155,5 +165,66 @@ const BottomModal = forwardRef<BottomSheetModal, Props>(
     );
   }
 );
+const SaveVideoBottomSheet = memo(
+  forwardRef<BottomSheetModal, Props>(
+    (
+      {
+        index = 1,
+        backdropComponent,
+        snapPoints,
+        onChange,
+        handleClosePress,
+        title,
+        fileUri,
+      },
+      ref
+    ) => {
+      const [modalKey, setModalKey] = useState(1); // To reset modal state everytime the modal is closed
 
-export default BottomModal;
+      const handleSheetChanges = useCallback(
+        (index: number) => {
+          if (index === -1) {
+            setModalKey(modalKey + 1);
+            // Modal state is reset on every close
+          }
+          onChange(index);
+        },
+        [modalKey]
+      );
+
+      const [thumbnail, setThumbnail] = useState<undefined | string>(undefined);
+
+      useEffect(() => {
+        //console.log("EFFECT", fileUri);
+        const generateThumbnail = async () => {
+          try {
+            const { uri } = await VideoThumbnails.getThumbnailAsync(fileUri, {
+              time: 15000,
+            });
+            setThumbnail(uri);
+          } catch (e) {
+            console.warn(e);
+          }
+        };
+        generateThumbnail();
+      }, [fileUri]);
+
+      return (
+        <SaveVideoBottomSheetInner
+          index={index}
+          backdropComponent={backdropComponent}
+          snapPoints={snapPoints}
+          onChange={handleSheetChanges}
+          handleClosePress={handleClosePress}
+          title={title}
+          fileUri={fileUri}
+          thumbnail={thumbnail}
+          ref={ref}
+          key={modalKey} // Resetting modal state from scratch on every open, like it's the first time to open this modal
+        />
+      );
+    }
+  )
+);
+
+export default SaveVideoBottomSheet;

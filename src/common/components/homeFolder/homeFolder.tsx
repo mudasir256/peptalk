@@ -10,7 +10,18 @@ const HomeFolder = ({ name, isChecked, onCheckboxToggle, id }) => {
     <View style={styles.head}>
       <View style={styles.folder}>
         <Folders />
-        <Text style={styles.move}>{name}</Text>
+        <Text
+          style={{
+            marginLeft: 5,
+            fontSize: 17,
+            fontWeight: "400",
+            lineHeight: 22,
+            color: COLORS.text,
+            flex: 1,
+          }}
+        >
+          {name}
+        </Text>
       </View>
       <TouchableOpacity onPress={() => onCheckboxToggle(id)}>
         <View

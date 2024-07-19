@@ -62,8 +62,14 @@ export const SignUpWithEmail = () => {
       Toast.show({
         type: "error",
         text1:
-          error.data.password1 || error.data.email || t("mediaList.erroraccor"),
+          error.data.password1 ||
+          error.data.email ||
+          error.data?.non_field_errors?.[0] ||
+          t("mediaList.erroraccor"),
       });
+      if (error.data?.non_field_errors?.[0]) {
+        setPasswordError(error.data?.non_field_errors?.[0]);
+      }
     }
   };
 
@@ -140,6 +146,8 @@ export const SignUpWithEmail = () => {
           placeholder={t("signUpWithEmail.email")}
           onChangeText={(text) => setEmail(text)}
           validationError={emailError}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
         <PasswordInput
           containerStyle={{ marginTop: SPACINGS.md }}

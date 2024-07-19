@@ -1,11 +1,9 @@
-import BottomModal from "../../../common/components/bottomSheetModal/bottomSheetModal";
+import { Ionicons } from "@expo/vector-icons";
 import {
-  NativeEventEmitter,
-  NativeModules,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+  BottomSheetBackdrop,
+  BottomSheetBackdropProps,
+  BottomSheetModal,
+} from "@gorhom/bottom-sheet";
 import React, {
   useCallback,
   useEffect,
@@ -13,19 +11,20 @@ import React, {
   useRef,
   useState,
 } from "react";
-import Video from "react-native-video";
-import { Ionicons } from "@expo/vector-icons";
-import { Edit, StickerSmile } from "../../../assets/svgs/svgIcons";
-import PrimaryButton from "../../../common/components/primaryButton";
-import {
-  BottomSheetBackdrop,
-  BottomSheetBackdropProps,
-  BottomSheetModal,
-} from "@gorhom/bottom-sheet";
-import { useNavigation } from "@react-navigation/native";
-import { style } from "./style";
 import { useTranslation } from "react-i18next";
+import {
+  NativeEventEmitter,
+  NativeModules,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import Video from "react-native-video";
 import { showEditor } from "react-native-video-trim";
+import { Edit, StickerSmile } from "../../../assets/svgs/svgIcons";
+import SaveVideoBottomSheet from "../../../common/components/BottomSheets/SaveVideoBottomSheet/SaveVideoBottomSheet";
+import PrimaryButton from "../../../common/components/primaryButton";
+import { style } from "./style";
 
 const VideoScreen = ({ route, navigation: { goBack } }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -132,7 +131,7 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
           onPress={onMoveToFolderPress}
         />
       </View>
-      <BottomModal
+      <SaveVideoBottomSheet
         title={t("common.save")}
         fileUri={videoUrl}
         ref={bottomSheetModalRef}

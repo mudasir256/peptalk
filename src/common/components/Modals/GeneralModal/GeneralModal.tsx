@@ -7,10 +7,10 @@ import {
   Text,
   View,
 } from "react-native";
-import PrimaryButton from "../primaryButton";
+import PrimaryButton from "../../primaryButton";
 import { style } from "./style";
 
-type Props = {
+type GeneralModalProps = {
   title: string;
   visible?: boolean;
   onClose: () => void;
@@ -19,9 +19,10 @@ type Props = {
   id?: number;
   loading?: boolean;
   showCancel?: boolean;
+  children?: React.ReactNode;
 };
 
-const CustomModal2 = ({
+const GeneralModal = ({
   visible,
   onClose,
   title,
@@ -30,7 +31,8 @@ const CustomModal2 = ({
   id,
   loading,
   showCancel = true,
-}: Props) => {
+  children,
+}: GeneralModalProps) => {
   const { t } = useTranslation();
 
   const handleCancel = () => {
@@ -56,6 +58,15 @@ const CustomModal2 = ({
                 <Text style={style.description}>{description}</Text>
               )}
 
+              {
+                children
+                /**
+                 *
+                 * Content of the modal
+                 *
+                 */
+              }
+
               <View style={style.buttonContainer}>
                 {showCancel && (
                   <PrimaryButton
@@ -80,4 +91,5 @@ const CustomModal2 = ({
   );
 };
 
-export default CustomModal2;
+export default GeneralModal;
+export type { GeneralModalProps };

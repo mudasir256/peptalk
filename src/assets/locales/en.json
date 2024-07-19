@@ -224,7 +224,11 @@
   },
   "yup": {
     "folderNameMax50": "Folder name can not be longer than 50 characters",
-    "required": "This field is required"
+    "required": "This field is required",
+    "stringMax50": "This field can not be longer than 50 characters"
+  },
+  "placeholder": {
+    "videoName": "Video Name"
   },
   "error": {
     "Linking": "Couldn't redirect to this link. Please, try again later."

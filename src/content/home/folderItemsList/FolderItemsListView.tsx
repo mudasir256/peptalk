@@ -1,14 +1,14 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import { View } from "react-native";
-import { style } from "./style";
 import {
-  BottomSheetModal,
-  BottomSheetBackdropProps,
   BottomSheetBackdrop,
+  BottomSheetBackdropProps,
+  BottomSheetModal,
 } from "@gorhom/bottom-sheet";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { View } from "react-native";
 import MoveToFolderView from "../../../common/components/withBottomSheetModal/moveToFolderView";
 import { FolderItemsList } from "./folderItemsList";
-import { useTranslation } from "react-i18next";
+import { style } from "./style";
 
 type Props = {
   id?: string;
@@ -20,6 +20,7 @@ const FolderItemsListView = ({ loadings, data }: Props) => {
   const [mediaId, setMediaId] = useState("");
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const snapPoints = useMemo(() => ["1", "74%"], []);
+  const [selectedFolderId, setSelectedFolderId] = useState("");
 
   const onMoveToFolderPress = useCallback((id: string) => {
     bottomSheetModalRef.current?.present();
@@ -63,6 +64,8 @@ const FolderItemsListView = ({ loadings, data }: Props) => {
           title={t("common.move")}
           id={mediaId}
           handleClosePress={handleClosePress}
+          selectedFolderId={selectedFolderId}
+          setSelectedFolderId={setSelectedFolderId}
         />
       </BottomSheetModal>
     </View>

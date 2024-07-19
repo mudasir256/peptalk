@@ -1,36 +1,36 @@
-import React, { useCallback, useMemo, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
-  View,
+  Alert,
+  Image,
+  Linking,
+  SectionList,
   Text,
   TouchableOpacity,
-  Image,
-  SectionList,
-  Linking,
-  Alert,
+  View,
 } from "react-native";
-import { style } from "./style";
+import Toast from "react-native-toast-message";
+import { useDispatch } from "react-redux";
 import { IMAGES } from "../../assets/images";
-import { useTranslation } from "react-i18next";
-import { SectionedData } from "./types";
+import CustomModal from "../../common/components/modal/modal";
+import YesOrNoModal from "../../common/components/Modals/YesOrNoModal.tsx/YesOrNoModal";
+import { appLinks } from "../../common/constants/links";
 import { HomeStackRoutes } from "../../common/navigation/routes";
-import { useNavigation } from "@react-navigation/native";
+import { useAppSelector } from "../../common/store/hooks";
+import { selectAuthState } from "../../common/store/selectors";
 import {
   apiSlice,
   useDeleteAccountMutation,
   useUserQuery,
 } from "../../common/store/slice/api/slice";
-import CustomModal from "../../common/components/modal/modal";
-import { useSettingsData } from "./useSettingData";
-import { useAppSelector } from "../../common/store/hooks";
-import { selectAuthState } from "../../common/store/selectors";
 import {
   logoutAction,
   setOnboarding,
 } from "../../common/store/slice/authentication/slice";
-import { useDispatch } from "react-redux";
-import CustomModal2 from "../../common/components/modal/CustomModal2";
-import Toast from "react-native-toast-message";
-import { appLinks } from "../../common/constants/links";
+import { style } from "./style";
+import { SectionedData } from "./types";
+import { useSettingsData } from "./useSettingData";
 
 const SettingsScreen = () => {
   const { navigate } = useNavigation();
@@ -215,7 +215,7 @@ const SettingsScreen = () => {
           }
           key={`${modalVisible}`}
         />
-        <CustomModal2
+        <YesOrNoModal
           visible={isLogoutModalVisible}
           onClose={closeLogoutModal}
           title={t("settingsScreen.logout")}
@@ -223,7 +223,7 @@ const SettingsScreen = () => {
           onPressOk={logUserOut}
           loading={false}
         />
-        <CustomModal2
+        <YesOrNoModal
           visible={isDeleteAccountModalVisible}
           onClose={closeDeleteAccountModal}
           title={t("settingsScreen.deleteAccount")}

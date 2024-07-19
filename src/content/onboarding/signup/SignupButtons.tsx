@@ -49,7 +49,7 @@ const SignupButtons = memo(
     const SignupWithEmail = () => navigate(LoginStackRoutes.SignUpWithEmail);
 
     return (
-      <>
+      <View className=" self-stretch items-center">
         <PrimaryButton
           containerStyle={{ marginBottom: SPACINGS.md }}
           title={appleText}
@@ -70,7 +70,7 @@ const SignupButtons = memo(
             onPress={SignupWithEmail}
           />
         )}
-      </>
+      </View>
     );
   }
 );

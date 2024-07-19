@@ -33,11 +33,12 @@ export const useFoldersData = () => {
         folder_name: folderName,
       };
       try {
-        await addFolder(data).unwrap();
+        const folderInfo = (await addFolder(data).unwrap()) as FolderType;
         Toast.show({
           type: t("mediaList.success"),
           text1: `${folderName} ${t("mediaList.addedsuccessfully")}`,
         });
+        return folderInfo;
       } catch (err) {
         Toast.show({
           type: t("mediaList.error"),
@@ -103,4 +104,14 @@ export const useFoldersData = () => {
     addingFolderData,
     isFetching,
   };
+};
+
+type FolderType = {
+  created_at: string;
+  folder_name: string;
+  id: string;
+  media: any[];
+  parent: any;
+  sub_folder: any[];
+  updated_at: string;
 };

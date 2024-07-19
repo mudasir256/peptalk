@@ -47,10 +47,11 @@ const Login = () => {
             }}
           >
             <TextInputField
-              autoCapitalize="none"
               containerStyle={{ marginTop: SPACINGS.md }}
               placeholder={t("signUpWithEmail.email")}
               onChangeText={(text) => setEmail(text)}
+              keyboardType="email-address"
+              autoCapitalize="none"
             />
             <PasswordInput
               containerStyle={{ marginTop: SPACINGS.md }}

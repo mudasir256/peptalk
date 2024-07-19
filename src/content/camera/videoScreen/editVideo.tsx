@@ -1,18 +1,18 @@
-import BottomModal from "../../../common/components/bottomSheetModal/bottomSheetModal";
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import Video from "react-native-video";
 import { Ionicons } from "@expo/vector-icons";
-import { showEditor } from "react-native-video-trim";
-import PrimaryButton from "../../../common/components/primaryButton";
 import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetModal,
 } from "@gorhom/bottom-sheet";
-import { StickerSmile } from "../../../assets/svgs/svgIcons";
-import { style } from "./style";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Text, TouchableOpacity, View } from "react-native";
+import Video from "react-native-video";
+import { showEditor } from "react-native-video-trim";
+import { StickerSmile } from "../../../assets/svgs/svgIcons";
+import SaveVideoBottomSheet from "../../../common/components/BottomSheets/SaveVideoBottomSheet/SaveVideoBottomSheet";
+import PrimaryButton from "../../../common/components/primaryButton";
+import { style } from "./style";
 
 const EditVideo = ({ route, navigation: { goBack } }) => {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -28,7 +28,10 @@ const EditVideo = ({ route, navigation: { goBack } }) => {
   const onMoveToFolderPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
-  const handleSheetChanges = useCallback((index: number) => {}, []);
+  const handleSheetChanges = useCallback((index: number) => {
+    if (index === -1) {
+    }
+  }, []);
 
   const handleClosePress = useCallback(() => {
     bottomSheetModalRef.current?.dismiss();
@@ -98,7 +101,7 @@ const EditVideo = ({ route, navigation: { goBack } }) => {
           onPress={trimVideo}
         />
       </View>
-      <BottomModal
+      <SaveVideoBottomSheet
         title={t("common.save")}
         ref={bottomSheetModalRef}
         backdropComponent={backdropComponent}
