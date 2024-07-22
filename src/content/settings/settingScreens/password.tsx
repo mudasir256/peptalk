@@ -62,7 +62,7 @@ const Password = () => {
           text1:
             error.data.new_password2 ||
             error.data.new_password1 ||
-            t("mediaList.errorupdatngpassword"),
+            t("mediaList.errorupdatingpassword"),
         });
         console.log("errors", error);
       }

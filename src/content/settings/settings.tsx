@@ -155,7 +155,7 @@ const SettingsScreen = () => {
     }
     if (item.title === t("settingsScreen.contact")) {
       Linking.openURL("mailto:contact@mombrain.net").catch((err) => {
-        Alert.alert(t("settingsScreen.SigninMessage"));
+        console.log(`Unable to open mailto link: ${err}`);
       });
     }
     if (item.title === t("settingsScreen.leaveReview")) {

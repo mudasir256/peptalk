@@ -30,13 +30,13 @@ export const useMediaList = () => {
               await deleteMedia(id).unwrap();
               Toast.show({
                 type: t("mediaList.success"),
-                text1: `${media_name} ${t("mediaList.deleted")}`,
+                text1: `${media_name} ${t("mediaList.itemdeleted")}`,
                 position: "bottom",
               });
             } catch (error) {
               Toast.show({
                 type: t("mediaList.error"),
-                text1: t("mediaList.faileddelete"),
+                text1: t("mediaList.failedtodeleteitem"),
               });
             }
           },
@@ -49,7 +49,7 @@ export const useMediaList = () => {
     let newName = await new Promise((resolve) => {
       Alert.prompt(
         t("mediaList.renamemedia"),
-        t("mediaList.enternewname"),
+        t("mediaList.enternewmedianame"),
         (inputValue) => {
           resolve(inputValue);
         }
@@ -67,12 +67,12 @@ export const useMediaList = () => {
         }).unwrap();
         Toast.show({
           type: t("mediaList.success"),
-          text1: `${newName} ${t("mediaList.renamedsuccessfully")}`,
+          text1: `${newName} ${t("mediaList.itemrenamedsuccessfully")}`,
         });
       } catch (error) {
         Toast.show({
           type: t("mediaList.error"),
-          text1: t("mediaList.failedrename"),
+          text1: t("mediaList.failedtorenameitem"),
         });
       }
     }

@@ -19,10 +19,11 @@ export const useLoginData = () => {
       const {access,refresh} = await login(user).unwrap();
       dispatch(setToken({ accessToken: access, refreshToken: refresh }));
       dispatch(setAuthenticated({ authState: AuthState.Authenticated }));      
-      Toast.show({
-        type: t("mediaList.success"),
-        text1: t("mediaList.successfullyloggedin"),
-      });
+      //disabling this toast as it interferes with pressing skip or otherwise using the app, and doesn't provide much value
+      // Toast.show({
+      //   type: t("mediaList.success"),
+      //   text1: t("mediaList.successfullyloggedin"),
+      // });
     } catch (error) {
       Toast.show({
         type: t("mediaList.error"),

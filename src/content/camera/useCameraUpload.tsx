@@ -83,7 +83,7 @@ const useCameraUpload = () => {
     } catch (error) {
       Toast.show({
         type: t("mediaList.error"),
-        text1: t("mediaList.erroruploading"),
+        text1: t("mediaList.erroruploadingmedia"),
       });
       console.error("File upload failed:", error);
     } finally {

@@ -25,12 +25,12 @@ const Forgotpassword = () => {
       const response = await forgotPassword(data).unwrap();
       Toast.show({
         type: "success",
-        text1: t("mediaList.successfully"),
+        text1: t("mediaList.forgotPasswordEmailSentSuccessfully"),
       });
     } catch (error) {
       Toast.show({
         type: "error",
-        text1: error.data?.email || t("mediaList.failedtosent"),
+        text1: error.data?.email || t("mediaList.failedToSendForgotPasswordEmail"),
       });
     }
   };

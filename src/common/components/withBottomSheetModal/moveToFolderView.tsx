@@ -55,7 +55,7 @@ const MoveToFolderView = ({
       } catch (err) {
         Toast.show({
           type: t("mediaList.error"),
-          text1: t("mediaList.erroradding"),
+          text1: t("mediaList.erroraddingfolder"),
         });
       }
     }
@@ -63,8 +63,8 @@ const MoveToFolderView = ({
 
   const handleUploadMedia = async () => {
     Alert.prompt(
-      t("alert.name"),
-      "",
+      t("alert.enteritemnameheading"),
+      t("alert.enteritemname"),
       async (name) => {
         if (name) {
           onSavePress(selectedFolderId, name);

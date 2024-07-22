@@ -58,14 +58,14 @@ export const SignUpWithEmail = () => {
         console.error("Unexpected response format");
       }
     } catch (error) {
-      console.error("Error logging in:", error);
+      console.error("Error creating account:", error);
       Toast.show({
         type: "error",
         text1:
           error.data.password1 ||
           error.data.email ||
           error.data?.non_field_errors?.[0] ||
-          t("mediaList.erroraccor"),
+          t("mediaList.errorcreatingaccount"),
       });
       if (error.data?.non_field_errors?.[0]) {
         setPasswordError(error.data?.non_field_errors?.[0]);
