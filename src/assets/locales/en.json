@@ -1,7 +1,7 @@
 {
   "common": {
     "back": "Back",
-    "login": "Login",
+    "login": "Log In",
     "moveFolder": "Move Folder",
     "move": "Move",
     "date": "Date",
@@ -40,7 +40,7 @@
   },
   "landingScreen": {
     "create a free account": "Create a Free Account",
-    "login": "Login",
+    "login": "Log In",
     "detail1": "Show your child they can do it, with a Pep Talk from themselves!",
     "detail2": "Use the app camera or import video from your phone.",
     "detail3": "Add stickers or voiceover to the video recording.",
@@ -54,11 +54,11 @@
     "title": "Let's Get Started!",
     "appleSignUp": "Sign Up With Apple",
     "gmailSignUp": "Sign Up With Google",
-    "emailSignUp": "Sign Up With E-mail",
+    "emailSignUp": "Sign Up With Email",
     "appleLogIn": "Log In With Apple",
     "gmailLogIn": "Log In With Google",
-    "emailLogIn": "Log In With E-mail",
-    "already": "Already Have an Account",
+    "emailLogIn": "Log In With EMail",
+    "already": "Already Have an Account?",
     "termsAlert1": "Terms of Service",
     "termsAlert2": "By continuing you agree to Mom Brain's Terms of Service.",
     "cancel": "Cancel",
@@ -75,7 +75,7 @@
     "errorMessageFirstName": "Please enter first name.",
     "errorMessageLastName": "Please enter last name.",
     "errorMessageValidEmail": "Please enter a valid email address.",
-    "errorMessageEmail": "Please enter e-mail address.",
+    "errorMessageEmail": "Please enter email address.",
     "errorMessagePassword": "Passwords must be at least 8 characters long."
   },
   "welcomeScreen": {
@@ -140,7 +140,7 @@
     "description": "Are you sure you want to logout?",
     "description1": "Are you sure you want to delete your account? You will lose access to your stored videos and folders.",
     "deleteAccount": "Delete Account",
-    "loginAccount": "Login"
+    "loginAccount": "Log In"
   },
   "mediaList": {
     "deleteitem": "Delete Item",
@@ -172,8 +172,8 @@
     "errorcreatingaccount": "An error occurred signing up. Please try again.",
     "errorupdatingpassword": "An error occurred updating your password. Please try again.",
     "passwordchangesuccessfully": "Password Changed Successfully",
-    "forgotPasswordEmailSentSuccessfully": "A forgot password e-mail was sent.",
-    "failedToSendForgotPasswordEmail": "Failed To Send Forgot Password E-mail",
+    "forgotPasswordEmailSentSuccessfully": "A forgot password email was sent.",
+    "failedToSendForgotPasswordEmail": "Failed To Send Forgot Password Email",
     "successDeleteAccount": "Account Deleted Successfully"
   },
   "camera": {
@@ -189,7 +189,7 @@
     "confirmnewpassword": "Confirm New Password",
     "changepassword": "Change Password",
     "resetpassword": "Reset Password",
-    "email": "E-mail",
+    "email": "Email",
     "description": "You will receive an email with instructions on how to reset your password in a few minutes.",
     "minLengthError": "Passwords must be at least 8 characters.",
     "maxLengthError": "Passwords must be at most 30 characters.",
