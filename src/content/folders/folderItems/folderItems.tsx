@@ -51,8 +51,8 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
       setImage(result.assets[0].uri);
       const fileUri = result.assets[0].uri;
       Alert.prompt(
-        t("alert.name"),
-        "",
+        t("alert.enteritemnameheading"),
+        t("alert.enteritemname"),
         async (name) => {
           if (name) {
             const { uri } = await VideoThumbnails.getThumbnailAsync(fileUri, {

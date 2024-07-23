@@ -38,7 +38,7 @@ export const useAppleIdSignin = () => {
       console.log(e) 
       Toast.show({
         type: t("mediaList.error"),
-        text1: t("mediaList.failedsignup"),
+        text1: t("mediaList.failedsignin"),
       });
     }
   };

@@ -1,7 +1,7 @@
 {
   "common": {
     "back": "Back",
-    "login": "Login",
+    "login": "Log In",
     "moveFolder": "Move Folder",
     "move": "Move",
     "date": "Date",
@@ -39,13 +39,13 @@
     "date2": "Date: Descending"
   },
   "landingScreen": {
-    "create a free account": "Create a free account",
-    "login": "Login",
-    "detail1": "Show your child they can do it, with a pep talk from themselves!",
+    "create a free account": "Create a Free Account",
+    "login": "Log In",
+    "detail1": "Show your child they can do it, with a Pep Talk from themselves!",
     "detail2": "Use the app camera or import video from your phone.",
     "detail3": "Add stickers or voiceover to the video recording.",
-    "detail4": "Play back the pep talk for a boost of confidence!",
-    "detail5": "You’ve got this!",
+    "detail4": "Play back the Pep Talk for a boost of confidence!",
+    "detail5": "You've got this!",
     "step1": "Step 1",
     "step2": "Step 2",
     "step3": "Step 3"
@@ -57,10 +57,10 @@
     "emailSignUp": "Sign Up With Email",
     "appleLogIn": "Log In With Apple",
     "gmailLogIn": "Log In With Google",
-    "emailLogIn": "Log In With Email",
-    "already": "Already have an account",
-    "termsAlert1": "Terms Of Service",
-    "termsAlert2": "By continuing you agree to Mom Brain's Terms Of Service.",
+    "emailLogIn": "Log In With EMail",
+    "already": "Already Have an Account?",
+    "termsAlert1": "Terms of Service",
+    "termsAlert2": "By continuing you agree to Mom Brain's Terms of Service.",
     "cancel": "Cancel",
     "ok": "Ok"
   },
@@ -70,20 +70,20 @@
     "email": "Email",
     "password": "Password (8+ Characters)",
     "checkbox": "By continuing you agree to our",
-    "checkboxLink": " terms of service",
+    "checkboxLink": " Terms of Service",
     "createAccount": "Create Account",
-    "errorMessageFirstName": "Please enter first name",
-    "errorMessageLastName": "Please enter last name",
-    "errorMessageValidEmail": "Please enter a valid email address",
-    "errorMessageEmail": "Please enter email address",
-    "errorMessagePassword": "Password must be at least 8 characters long"
+    "errorMessageFirstName": "Please enter first name.",
+    "errorMessageLastName": "Please enter last name.",
+    "errorMessageValidEmail": "Please enter a valid email address.",
+    "errorMessageEmail": "Please enter email address.",
+    "errorMessagePassword": "Passwords must be at least 8 characters long."
   },
   "welcomeScreen": {
-    "skip": "SKIP",
-    "detail1": "Show your child they can do it, with a pep talk from themselves!",
+    "skip": "Skip",
+    "detail1": "Show your child they can do it, with a Pep Talk from themselves!",
     "detail2": "Use the app camera or import video from your phone.",
     "detail3": "Add stickers or voiceover to the video recording.",
-    "detail4": "Play back the pep talk for a boost of confidence!",
+    "detail4": "Play back the Pep Talk for a boost of confidence!",
     "step1": "Step 1",
     "step2": "Step 2",
     "step3": "Step 3"
@@ -110,9 +110,8 @@
     "version": "Version",
     "contact": "Contact",
     "terms": "Terms of Use",
-    "versions": "v.1.0",
-    "password": "Password",
-    "SigninMessage": "Please sign in with gmail"
+    "versions": "v1.0",
+    "password": "Password"
   },
   "modal": {
     "addFolder": "Add Folder",
@@ -121,13 +120,13 @@
     "folderName": "Folder Name",
     "titleModal": "Add New Folder",
     "deleteAccount": "Delete Account",
-    "description": "Are you sure you want to logout? ",
-    "description1": "Are you sure you want to delete your account? You will loose access to your stored videos and folders.",
+    "description": "Are you sure you want to logout?",
+    "description1": "Are you sure you want to delete your account? You will lose access to your stored videos and folders.",
     "updatefoldername": "Update Folder Name"
   },
   "search": {
     "search": "Search",
-    "nodata": "No data found",
+    "nodata": "No Data Found",
     "videosuggestions": "Video Suggestions",
     "foldersuggestions": "Folder Suggestions"
   },
@@ -139,45 +138,43 @@
     "createAccount": "Create Account",
     "titleModal": "Add New Folder",
     "description": "Are you sure you want to logout?",
-    "description1": "Are you sure you want to delete your account? You will loose access to your stored videos and folders",
+    "description1": "Are you sure you want to delete your account? You will lose access to your stored videos and folders.",
     "deleteAccount": "Delete Account",
-    "loginAccount": "Login"
+    "loginAccount": "Log In"
   },
   "mediaList": {
     "deleteitem": "Delete Item",
-    "deleted": "Deleted successfully",
-    "delete": "Are you sure you want to delete?",
+    "itemdeleted": "Item Deleted Successfully",
+    "delete": "Are you sure you want to delete this item?",
     "cancel": "Cancel",
     "error": "error",
-    "faileddelete": "Failed to delete",
+    "failedtodeleteitem": "Failed to Delete Item",
     "success": "success",
-    "deletedsuccessfully": "Deleted Successfully",
-    "errordeleting": "Error deleting folder:",
-    "renamedsuccessfully": "renamed successfully",
-    "failedrename": "Failed to rename",
-    "renamemedia": "Rename Media",
-    "enternewname": "Renamed Successfully",
-    "movedsuccessfully": "Moved successfully",
-    "uploaded": "Uploaded successfully",
-    "erroradding": "Error Adding Folder",
-    "erroruploading": "Error Uploading",
+    "folderdeletedsuccessfully": "Folder Deleted Successfully",
+    "errordeletingfolder": "Error Deleting Folder",
+    "itemrenamedsuccessfully": "Item Renamed",
+    "failedtorenameitem": "Failed to Rename Item",
+    "renamemedia": "Rename Item",
+    "enternewmedianame": "Enter a new name:",
+    "movedsuccessfully": "Moved Successfully",
+    "uploaded": "Uploaded Successfully",
+    "erroraddingfolder": "Error Adding Folder",
+    "erroruploadingmedia": "Error Uploading Media",
     "titleA-Z": "Title: A-Z",
     "titleZ-A": "Title: Z-A",
     "dateascending": "Date: Ascending",
     "datedescending": "Date: Descending",
-    "addedsuccessfully": "added successfully",
-    "addingerror": "Error Adding Folder",
-    "successfullyloggedin": "successfully logged in",
+    "folderaddedsuccessfully": "Folder Added",
+    "successfullyloggedin": "Login Successful",
     "signedinsuccessfully": "Signed in Successfully",
-    "failedsignup": "Failed to sign up",
-    "failedsignin": "failed sign in",
+    "failedsignin": "Sign-in Failed",
     "successfullysignedup": "Successfully Signed up",
-    "erroraccor": "An Error Occurred Please try again",
-    "errorupdatngpassword": "error updatng password",
+    "errorcreatingaccount": "An error occurred signing up. Please try again.",
+    "errorupdatingpassword": "An error occurred updating your password. Please try again.",
     "passwordchangesuccessfully": "Password Changed Successfully",
-    "successfully": "Email sent Successfully",
-    "failedtosent": "Failed To Send An Email",
-    "successDeleteAccount": "Account deleted successfully"
+    "forgotPasswordEmailSentSuccessfully": "A forgot password email was sent.",
+    "failedToSendForgotPasswordEmail": "Failed To Send Forgot Password Email",
+    "successDeleteAccount": "Account Deleted Successfully"
   },
   "camera": {
     "nocamera": "No access to camera",
@@ -194,43 +191,41 @@
     "resetpassword": "Reset Password",
     "email": "Email",
     "description": "You will receive an email with instructions on how to reset your password in a few minutes.",
-    "minLengthError": "New password must be at least 8 characters",
-    "maxLengthError": "New password must be at most 30 characters",
-    "passwordsMustMatch": "Passwords must match"
+    "minLengthError": "Passwords must be at least 8 characters.",
+    "maxLengthError": "Passwords must be at most 30 characters.",
+    "passwordsMustMatch": "Passwords must match."
   },
   "permission": {
     "permission": "Permission",
-    "permissionmessage": "PepTalk requires camera and microphone access to function properly. Please grant the necessary permissions in your device settings."
+    "permissionmessage": "PepTalk requires camera and microphone access to function properly. Please grant these permissions in your device settings."
   },
   "alert": {
     "deletefolder": "Delete Folder",
-    "areyousure": "Are you sure you want to delete the folder",
-    "name": "Please Enter name of media",
-    "videosize": "Video size exceeded 200 MB limit.",
-    "microphone": "Camera or microphone permission not granted.",
+    "areyousure": "Are you sure you want to delete this folder?",
+    "enteritemnameheading": "Enter Item Name",
+    "enteritemname": "Please enter a name for this item:",
+    "videosize": "Video file size cannot exceed 200 Megabytes. Please trim your video to make it shorter.",
+    "microphone": "The Camera or Microphone permissions have not been granted.",
     "permissionrequired": "Permission Required",
-    "camerapermission": "Please grant camera and microphone permissions to use PepTalk.",
-    "entername": "Please enter a name",
-    "accesscameraroll": "Permission to access camera roll is required!",
-    "nameLength": "Folder name must have 15 alphabets"
+    "camerapermission": "Please grant camera and microphone permissions to use PepTalk.",    
+    "accesscameraroll": "Permission to access you Camera Roll is required. Please grant this permission in your device settings."
   },
   "toast": {
     "error": "error",
-    "failed": "Failed to delete",
     "success": "success",
     "deletedsuccessfully": "Deleted Successfully",
     "errorupdating": "Error Updating Folder",
     "updatedsuccessfully": "Updated Successfully"
   },
   "yup": {
-    "folderNameMax50": "Folder name can not be longer than 50 characters",
+    "folderNameMax50": "Folder name cannot be longer than 50 characters.",
     "required": "This field is required",
-    "stringMax50": "This field can not be longer than 50 characters"
+    "stringMax50": "This field cannot be longer than 50 characters."
   },
   "placeholder": {
     "videoName": "Video Name"
   },
   "error": {
-    "Linking": "Couldn't redirect to this link. Please, try again later."
+    "Linking": "Link could not be accessed. Please confirm that you are connected to the internet and try again."
   }
 }

@@ -40,13 +40,13 @@ export const useFoldersData = (queryParams?: useFoldersListQuery_data) => {
         const folderInfo = (await addFolder(data).unwrap()) as FolderType;
         Toast.show({
           type: t("mediaList.success"),
-          text1: `${folderName} ${t("mediaList.addedsuccessfully")}`,
+          text1: `${folderName} ${t("mediaList.folderaddedsuccessfully")}`,
         });
         return folderInfo;
       } catch (err) {
         Toast.show({
           type: t("mediaList.error"),
-          text1: t("mediaList.addingerror"),
+          text1: t("mediaList.erroraddingfolder"),
         });
       }
     }
@@ -58,12 +58,12 @@ export const useFoldersData = (queryParams?: useFoldersListQuery_data) => {
       if (isError) {
         Toast.show({
           type: t("toast.error"),
-          text1: t("toast.failed"),
+          text1: t("mediaList.errordeletingfolder"),
         });
       } else {
         Toast.show({
           type: t("toast.success"),
-          text1: `${folder_name} ${t("toast.deletedsuccessfully")}`,
+          text1: `${folder_name} ${t("mediaList.folderdeletedsuccessfully")}`,
           position: "bottom",
         });
       }
