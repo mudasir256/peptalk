@@ -7,8 +7,14 @@ import {
 } from "../../common/store/slice/api/slice";
 import Toast from "react-native-toast-message";
 import { useTranslation } from "react-i18next";
+import { CommonActions, useNavigation } from "@react-navigation/native";
+import {
+  CameraStackRoutes,
+  HomeStackRoutes,
+} from "../../common/navigation/routes";
 
 const useCameraUpload = () => {
+  const navigation = useNavigation();
   const { t } = useTranslation();
   const [initMedia, { isLoading: isInitMediaLoading }] =
     useUploadMediaInitMutation();
@@ -76,6 +82,15 @@ const useCameraUpload = () => {
       };
 
       const completeResponse = await completeMedia(completePayload).unwrap();
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            { name: HomeStackRoutes.HomeTab },
+            { name: CameraStackRoutes.Camera },
+          ],
+        })
+      );
       Toast.show({
         type: t("mediaList.success"),
         text1: t("mediaList.uploaded"),

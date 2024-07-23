@@ -52,7 +52,6 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
       isLoading: isLoadingFolders,
       isFetching,
     } = useFoldersData();
-
     const [showAddFolderPopup, setShowAddFolderPopup] = useState(false);
     const [cancelPressed, setCancelPressed] = useState(false);
     const { t } = useTranslation();
@@ -155,7 +154,7 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
           <View style={[StyleSheet.absoluteFill, styles.overlay]}>
             <View style={styles.progressContainer}>
               <Text style={styles.progressText}>
-                Uploading: {uploadProgress.toFixed(2)}%
+                Uploading: {Math.round(uploadProgress)}%
               </Text>
               <ActivityIndicator size="large" color="gray" />
             </View>

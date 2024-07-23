@@ -128,7 +128,7 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
         <View style={[StyleSheet.absoluteFill, style.overlay]}>
           <View style={style.progressContainer}>
             <Text style={style.progressText}>
-              Uploading: {uploadProgress.toFixed(2)}%
+              Uploading: {Math.round(uploadProgress)}%
             </Text>
             <ActivityIndicator size="large" color="gray" />
           </View>
