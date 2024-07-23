@@ -110,15 +110,23 @@ export const apiSlice = emptySplitApi.injectEndpoints({
       }),
     }),
     getMediaList: builder.query({
-      query: (data) => ({
-        url: `/child-encouragement/media/list?ordering${data}`,
-        method: "GET",
-      }),
+      query: (data) => {        
+        return {
+          url: `/child-encouragement/media/list`,
+          method: 'GET',
+          params: {
+            ordering: data.ordering,
+            page: data.page,
+            limit: data.limit,
+          },
+        };
+      },
       providesTags: (result) =>
-        result
-          ? result.results.map(({ id }) => ({ type: "Media", id }))
-          : [{ type: "Media", id: "LIST" }],
+        result ? result.results.map(({ id }) => ({ type: "Media", id })) :
+        [{ type: "Media", id: 'LIST' }],
     }),
+    
+    
     addVideo: builder.mutation({
       query: (data) => {
         return {

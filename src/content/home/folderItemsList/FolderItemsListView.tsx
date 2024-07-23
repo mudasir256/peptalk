@@ -14,8 +14,9 @@ type Props = {
   id?: string;
   data?: any;
   loadings?: boolean;
+  onEndReached?: () => void;
 };
-const FolderItemsListView = ({ loadings, data }: Props) => {
+const FolderItemsListView = ({ loadings, data, onEndReached }: Props) => {
   const { t } = useTranslation();
   const [mediaId, setMediaId] = useState("");
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -46,12 +47,19 @@ const FolderItemsListView = ({ loadings, data }: Props) => {
     []
   );
 
+  const handleEndReached = () => {
+    if (onEndReached) {
+      onEndReached();
+    }
+  };
+
   return (
     <View style={style.container}>
       <FolderItemsList
         data={data?.results || data?.media}
         loading={loadings}
         onMoveToFolderPress={onMoveToFolderPress}
+        handleEndReached={handleEndReached}
       />
       <BottomSheetModal
         ref={bottomSheetModalRef}

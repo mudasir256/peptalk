@@ -18,12 +18,14 @@ type Props = {
   data: FolderItem[];
   loading: boolean;
   onMoveToFolderPress: (id: string) => void;
+  handleEndReached?: () => void;
 };
 
 export const FolderItemsList = ({
   data,
   onMoveToFolderPress,
   loading,
+  handleEndReached,
 }: Props) => {
   const { t } = useTranslation();
   const [refreshing, setRefreshing] = useState(false);
@@ -67,6 +69,8 @@ export const FolderItemsList = ({
               titleColor={COLORS.shadow}
             />
           }
+          onEndReachedThreshold={0.5}
+          onEndReached={handleEndReached}
         />
       )}
     </>
