@@ -106,14 +106,12 @@ const MoveToFolderView = ({
           )}
         </BottomSheetView>
       </View>
-      <View style={style.buttonContainer}>
-        <PrimaryButton
-          title={title === "Save" ? t("common.save") : t("common.moveFolder")}
-          containerStyle={style.button}
-          onPress={title === "Save" ? handleUploadMedia : moveMediaToFolder}
-          loading={isLoading}
-        />
-      </View>
+      <PrimaryButton
+        title={title === "Save" ? t("common.save") : t("common.moveFolder")}
+        containerStyle={style.button}
+        onPress={title === "Save" ? handleUploadMedia : moveMediaToFolder}
+        loading={isLoading}
+      />
     </>
   );
 };

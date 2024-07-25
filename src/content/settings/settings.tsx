@@ -40,13 +40,13 @@ const SettingsScreen = () => {
   const [selectedValue, setSelectedValue] = useState(null);
   const { handleLogout, isLoadingLogout } = useSettingsData();
   const { data } = useUserQuery({});
-  const { profile } = data || {};
-  const { first_name = "" } = profile || {};
+  const { profile, email } = data || {};
+  const { first_name = "", last_name = "" } = profile || {};
   let authStatus = useAppSelector(selectAuthState);
   const dispatch = useDispatch();
 
-  const email = useAppSelector((state) => state.authentication);
-  console.log("email", email);
+  // const email = useAppSelector((state) => state.authentication);
+  // console.log("email", data);
 
   const [deleteAccount, { isLoading }] = useDeleteAccountMutation();
 
@@ -55,9 +55,9 @@ const SettingsScreen = () => {
       {
         title: t("settingsScreen.account"),
         data: [
-          { title: first_name },
+          { title: email },
           {
-            title: t("settingsScreen.loggedin") + first_name,
+            title: t("settingsScreen.loggedin") + first_name + " " + last_name,
           },
           { title: t("settingsScreen.deleteAccount") },
           { title: t("settingsScreen.password"), showRevealIcon: true },

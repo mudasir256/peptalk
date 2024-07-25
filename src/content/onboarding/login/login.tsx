@@ -22,7 +22,9 @@ const Login = () => {
   const password = useRef<string>(undefined);
 
   const onLoginPress = () => {
-    handleLogin(email.current, password.current);
+    if (email.current !== undefined && password.current !== undefined) {
+      handleLogin(email.current, password.current);
+    }
   };
 
   const setEmail = (value: string) => {

@@ -30,7 +30,8 @@ const Forgotpassword = () => {
     } catch (error) {
       Toast.show({
         type: "error",
-        text1: error.data?.email || t("mediaList.failedToSendForgotPasswordEmail"),
+        text1:
+          error.data?.email || t("mediaList.failedToSendForgotPasswordEmail"),
       });
     }
   };
@@ -42,7 +43,7 @@ const Forgotpassword = () => {
   return (
     <KeyboardAvoidingViewWrapper>
       <View style={style.innerContainer}>
-        <View style={[styles.flex, { justifyContent: "flex-end" }]}>
+        <View style={[styles.flex, { justifyContent: "flex-start" }]}>
           <TextInputField
             containerStyle={{ marginTop: SPACINGS.md }}
             placeholder={t("signUpWithEmail.email")}
@@ -50,20 +51,20 @@ const Forgotpassword = () => {
             keyboardType="email-address"
             autoCapitalize="none"
           />
-        </View>
 
-        <View style={style.spacer}></View>
-        <PrimaryButton
-          title={t("common.resetpassword")}
-          onPress={handleResetPassword}
-          containerStyle={{
-            ...style.buttonContainer,
-            opacity: formValid ? 1 : 0.5,
-            alignSelf: "center",
-          }}
-          disabled={!formValid}
-          loading={isLoading}
-        />
+          <PrimaryButton
+            title={t("common.resetpassword")}
+            onPress={handleResetPassword}
+            containerStyle={{
+              ...style.buttonContainer,
+              opacity: formValid ? 1 : 0.5,
+              alignSelf: "center",
+              marginTop: SPACINGS.md,
+            }}
+            disabled={!formValid}
+            loading={isLoading}
+          />
+        </View>
       </View>
     </KeyboardAvoidingViewWrapper>
   );

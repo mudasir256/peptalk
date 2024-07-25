@@ -18,6 +18,8 @@ import { useFoldersData } from "../../../../content/folders/foldersList/useFolde
 import AddFolderModal from "../../Modals/AddFolderModal";
 import MoveToFolderView from "../../withBottomSheetModal/moveToFolderView";
 import { styles } from "./styles";
+import { CommonActions, useNavigation } from "@react-navigation/native";
+import { CameraStackRoutes, HomeStackRoutes } from "../../../navigation/routes";
 
 type Props = {
   index?: number;
@@ -52,6 +54,7 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
       isLoading: isLoadingFolders,
       isFetching,
     } = useFoldersData();
+    const navigation = useNavigation();
     const [showAddFolderPopup, setShowAddFolderPopup] = useState(false);
     const [cancelPressed, setCancelPressed] = useState(false);
     const { t } = useTranslation();
@@ -110,6 +113,15 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
             return;
           }
           await uploadVideoInChunks(fileUri, folderId, name, thumbnail);
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [
+                { name: HomeStackRoutes.HomeTab },
+                { name: CameraStackRoutes.Camera },
+              ],
+            })
+          );
           handleClosePress();
         } catch (err) {}
       }
@@ -135,9 +147,9 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
               cancelPressed={cancelPressed}
               onSavePress={handleUploadMedia}
               foldersData={foldersData}
-              openAddFolderPopup={openAddFolderPopup}
-              selectedFolderId={selectedFolderId}
-              setSelectedFolderId={setSelectedFolderId}
+              // openAddFolderPopup={openAddFolderPopup}
+              // selectedFolderId={selectedFolderId}
+              // setSelectedFolderId={setSelectedFolderId}
             />
             <AddFolderModal
               isVisible={showAddFolderPopup}
@@ -183,7 +195,7 @@ const SaveVideoBottomSheet = memo(
       const handleSheetChanges = useCallback(
         (index: number) => {
           if (index === -1) {
-            setModalKey(modalKey + 1);
+            // setModalKey(modalKey + 1);
             // Modal state is reset on every close
           }
           onChange(index);

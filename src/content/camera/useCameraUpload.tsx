@@ -82,15 +82,6 @@ const useCameraUpload = () => {
       };
 
       const completeResponse = await completeMedia(completePayload).unwrap();
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [
-            { name: HomeStackRoutes.HomeTab },
-            { name: CameraStackRoutes.Camera },
-          ],
-        })
-      );
       Toast.show({
         type: t("mediaList.success"),
         text1: t("mediaList.uploaded"),

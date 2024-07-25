@@ -28,13 +28,16 @@ export const style = StyleSheet.create({
     borderRadius: 25,
     borderWidth: 0,
     marginTop: 1,
+    marginBottom: 30,
+    alignSelf: 'center'
   },
-  buttonContainer: {
-    ...styles.rowCenter,
-    borderTopWidth: 1,
-    borderTopColor: "white",
-    marginBottom: 30
-  },
+  // buttonContainer: {
+  //   ...styles.rowCenter,
+  //   borderTopWidth: 1,
+  //   borderTopColor: "white",
+  //   marginBottom: 30,
+  //   backgroundColor: "red"
+  // },
   iconContainer: {
     borderWidth: 2,
     borderColor: COLORS.secondary,
