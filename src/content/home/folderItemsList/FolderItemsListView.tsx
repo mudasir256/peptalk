@@ -72,8 +72,8 @@ const FolderItemsListView = ({ loadings, data, onEndReached }: Props) => {
           title={t("common.move")}
           id={mediaId}
           handleClosePress={handleClosePress}
-          selectedFolderId={selectedFolderId}
-          setSelectedFolderId={setSelectedFolderId}
+          //selectedFolderId={selectedFolderId}
+          //setSelectedFolderId={setSelectedFolderId}
         />
       </BottomSheetModal>
     </View>

@@ -1,37 +1,37 @@
-import React, { useRef } from "react";
-import { TouchableOpacity, View, Text, ScrollView } from "react-native";
-import { style } from "./style";
-import PrimaryButton from "../../../common/components/primaryButton";
-import { TextInputField } from "../../../common/components/input/input";
-import { PasswordInput } from "../../../common/components/passwordInput/passwordInput";
-import { KeyboardAvoidingViewWrapper } from "../../../common/components/keyboardAvoidingViewWrapper/keyboardAvoidingViewWrapper";
-import { SPACINGS } from "../../../common/theme/spacing";
-import { useTranslation } from "react-i18next";
-import { styles } from "../../../common/theme/styles";
 import { useNavigation } from "@react-navigation/native";
-import { useLoginData } from "./useLoginData";
+import { useFormik } from "formik";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import * as Yup from "yup";
+import { TextInputField } from "../../../common/components/input/input";
+import { KeyboardAvoidingViewWrapper } from "../../../common/components/keyboardAvoidingViewWrapper/keyboardAvoidingViewWrapper";
+import { PasswordInput } from "../../../common/components/passwordInput/passwordInput";
+import PrimaryButton from "../../../common/components/primaryButton";
 import { LoginStackRoutes } from "../../../common/navigation/routes";
-import SignupButtons from "../signup/SignupButtons";
 import { COLORS } from "../../../common/theme/colors";
+import { SPACINGS } from "../../../common/theme/spacing";
+import { styles } from "../../../common/theme/styles";
+import SignupButtons from "../signup/SignupButtons";
+import { style } from "./style";
+import { useLoginData } from "./useLoginData";
 
 const Login = () => {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const { handleLogin, loading } = useLoginData();
-  const email = useRef<string>(undefined);
-  const password = useRef<string>(undefined);
 
-  const onLoginPress = () => {
-    handleLogin(email.current, password.current);
-  };
+  const formik = useFormik({
+    initialValues: { email: "", password: "" },
+    validationSchema: Yup.object({
+      email: Yup.string().required(t("yup.required")).trim(),
+      password: Yup.string().required(t("yup.required")).trim(),
+    }),
+    onSubmit: (values) => {
+      handleLogin(values.email.trim(), values.password.trim());
+    },
+  });
 
-  const setEmail = (value: string) => {
-    email.current = value;
-  };
-
-  const setPassword = (value: string) => {
-    password.current = value;
-  };
   const handleForgotPress = () => {
     navigate(LoginStackRoutes.ForgotPassword);
   };
@@ -49,15 +49,23 @@ const Login = () => {
             <TextInputField
               containerStyle={{ marginTop: SPACINGS.md }}
               placeholder={t("signUpWithEmail.email")}
-              onChangeText={(text) => setEmail(text)}
+              onChangeText={formik.handleChange("email")}
               keyboardType="email-address"
               autoCapitalize="none"
             />
+            {formik.errors.email && (
+              <Text style={{ color: COLORS.error }}>{formik.errors.email}</Text>
+            )}
             <PasswordInput
               containerStyle={{ marginTop: SPACINGS.md }}
               placeholder={t("signUpWithEmail.password")}
-              onChangeText={(text) => setPassword(text)}
+              onChangeText={formik.handleChange("password")}
             />
+            {formik.errors.password && (
+              <Text style={{ color: COLORS.error }}>
+                {formik.errors.password}
+              </Text>
+            )}
             <TouchableOpacity onPress={handleForgotPress}>
               <Text style={style.forgotlabel}>
                 {t("password.forgotpassword")}
@@ -74,7 +82,7 @@ const Login = () => {
               ...style.buttonContainer,
               alignSelf: "center",
             }}
-            onPress={onLoginPress}
+            onPress={() => formik.handleSubmit()}
           />
 
           <Text

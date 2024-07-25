@@ -202,12 +202,14 @@
   "alert": {
     "deletefolder": "Delete Folder",
     "areyousure": "Are you sure you want to delete this folder?",
+    "deleteMedia": "Delete Video",
+    "areYouSureDeleteMedia": "Deleting this video will remove it from the Pep Talk app",
     "enteritemnameheading": "Enter Item Name",
     "enteritemname": "Please enter a name for this item:",
     "videosize": "Video file size cannot exceed 200 Megabytes. Please trim your video to make it shorter.",
     "microphone": "The Camera or Microphone permissions have not been granted.",
     "permissionrequired": "Permission Required",
-    "camerapermission": "Please grant camera and microphone permissions to use PepTalk.",    
+    "camerapermission": "Please grant camera and microphone permissions to use PepTalk.",
     "accesscameraroll": "Permission to access you Camera Roll is required. Please grant this permission in your device settings."
   },
   "toast": {

@@ -106,7 +106,9 @@ const MoveToFolderView = ({
           )}
         </BottomSheetView>
       </View>
-      <View style={style.buttonContainer}>
+      <View //style={style.buttonContainer}
+        className=" self-stretch items-center justify-center mb-[30px]"
+      >
         <PrimaryButton
           title={title === "Save" ? t("common.save") : t("common.moveFolder")}
           containerStyle={style.button}
