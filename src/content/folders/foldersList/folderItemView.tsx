@@ -11,11 +11,12 @@ import { SecondryFont, NormalFont } from "../../../common/theme/typography";
 import { styles } from "../../../common/theme/styles";
 import { useNavigation } from "@react-navigation/native";
 import { FolderStackRoutes } from "../../../common/navigation/routes";
+import DestructiveModal from "../../../common/components/Modals/DestructiveModal/DestructiveModal";
 
 type Props = {
   folder: Folder;
   onRenamePress?: VoidFunction;
-  onDeletePress?: VoidFunction;
+  handleDeleteFolder?: VoidFunction;
   showDropdown?: boolean;
   onEllipsesPress?: VoidFunction;
 };
@@ -23,7 +24,7 @@ type Props = {
 const FolderItemView = ({
   folder,
   onRenamePress,
-  onDeletePress,
+  handleDeleteFolder,
   onEllipsesPress,
   showDropdown,
 }: Props) => {
@@ -43,8 +44,9 @@ const FolderItemView = ({
   ];
 
   const handleOptionSelect = async (option: string) => {
-    if (option === "delete") onDeletePress?.();
-    else if (option === "rename") onRenamePress?.();
+    if (option === "delete") {
+      setIsDeleteModalVisible(true);
+    } else if (option === "rename") onRenamePress?.();
     setShowMoreOptions(false);
   };
   const handleFolderPress = () => {
@@ -53,6 +55,14 @@ const FolderItemView = ({
       folderId: folder.id,
     });
   };
+
+  const deletefolder = () => {
+    handleDeleteFolder?.();
+    setIsDeleteModalVisible(false);
+  };
+
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+
   return (
     <>
       <TouchableOpacity onPress={handleFolderPress} className=" p-4">
@@ -93,6 +103,14 @@ const FolderItemView = ({
           onSelect={handleOptionSelect}
         />
       )}
+
+      <DestructiveModal
+        visible={isDeleteModalVisible}
+        setIsVisible={setIsDeleteModalVisible}
+        title={t("alert.deletefolder")}
+        description={t("alert.areyousure")}
+        onDelete={deletefolder}
+      />
     </>
   );
 };

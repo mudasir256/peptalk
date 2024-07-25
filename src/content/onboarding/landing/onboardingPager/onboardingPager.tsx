@@ -40,6 +40,7 @@ export const OnboardingPager = () => {
           image={IMAGES.illustration2}
           detail={t("landingScreen.detail3")}
           imageStyle={{ width: "100%", height: "75%" }}
+          resizeMode="cover"
         />
         <HighlightPage
           key="4"

@@ -17,6 +17,9 @@ import {
 import Video, { VideoRef } from "react-native-video";
 import { useMediaList } from "./useMediaList";
 import { useTranslation } from "react-i18next";
+import DestructiveModal from "../Modals/DestructiveModal/DestructiveModal";
+import { useDeleteMediaMutation } from "../../store/slice/api/slice";
+import Toast from "react-native-toast-message";
 
 type Props = {
   item: FolderItem;
@@ -30,6 +33,8 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
   const { handleRenameMedia, handleDeletemedia, loading } = useMediaList();
+
+  const [deleteMedia] = useDeleteMediaMutation({});
 
   const handleLoadStart = () => {
     setIsLoading(true);
@@ -84,9 +89,32 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
     } ${date.getDate()}, ${date.getFullYear()}`;
   };
 
-  const handleDeleteMedia = () => {
-    handleDeletemedia({ id: item.id, media_name: item.media_name });
+  // Deleting
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const showDeleteModal = () => {
+    setIsDeleteModalVisible(true);
   };
+
+  const handleDeleteMedia = async () => {
+    //handleDeletemedia({ id: item.id, media_name: item.media_name });
+    //deleteMedia(item.id);
+
+    try {
+      await deleteMedia(id).unwrap();
+      Toast.show({
+        type: t("mediaList.success"),
+        text1: `${item.name} ${t("mediaList.itemdeleted")}`,
+        position: "bottom",
+      });
+    } catch (error) {
+      Toast.show({
+        type: t("mediaList.error"),
+        text1: t("mediaList.failedtodeleteitem"),
+      });
+    }
+    setIsDeleteModalVisible(false);
+  };
+
   return (
     <View style={style.container}>
       <View style={style.imageContainer}>
@@ -143,12 +171,21 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={style.iconContainer}
-            onPress={handleDeleteMedia}
+            //onPress={handleDeleteMedia}
+            onPress={showDeleteModal}
           >
             <Delete />
           </TouchableOpacity>
         </View>
       </View>
+
+      <DestructiveModal
+        visible={isDeleteModalVisible}
+        setIsVisible={setIsDeleteModalVisible}
+        title={t("alert.deleteMedia")}
+        description={t("alert.areYouSureDeleteMedia")}
+        onDelete={handleDeleteMedia}
+      />
     </View>
   );
 };

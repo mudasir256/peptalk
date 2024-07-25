@@ -1,22 +1,22 @@
 import React, { useCallback, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
-  View,
-  Text,
+  ActivityIndicator,
   Alert,
   FlatList,
-  StyleSheet,
-  ActivityIndicator,
-  TouchableWithoutFeedback,
   RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
 } from "react-native";
-import { Folder } from "./types";
+import CustomModal from "../../../common/components/modal/modal";
+import { COLORS } from "../../../common/theme/colors";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { styles } from "../../../common/theme/styles";
 import FolderItemView from "./folderItemView";
-import CustomModal from "../../../common/components/modal/modal";
+import { Folder } from "./types";
 import { useFoldersData } from "./useFolderListData";
-import { useTranslation } from "react-i18next";
-import { COLORS } from "../../../common/theme/colors";
 
 type Props = {
   data?: string;
@@ -90,7 +90,7 @@ const FoldersList = ({ data, refetch, isFetching: inputIsFetching }: Props) => {
             showDropdown={dropDownIndex === index}
             folder={item}
             onRenamePress={() => handleUpdateFolder(item)}
-            onDeletePress={() => handleDelete(item)}
+            handleDeleteFolder={() => handleDeleteFolder(item)}
             onEllipsesPress={() => setDropdownIndex(index)}
           />
         </View>

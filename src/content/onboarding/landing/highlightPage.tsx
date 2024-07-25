@@ -5,6 +5,7 @@ import {
   StyleSheet,
   ImageRequireSource,
   Text,
+  ImageResizeMode,
 } from "react-native";
 import { styles } from "../../../common/theme/styles";
 import { COLORS } from "../../../common/theme/colors";
@@ -20,6 +21,7 @@ type Props = {
   detail: string;
   imageStyle?: object;
   detailStyle?: object;
+  resizeMode?: ImageResizeMode;
 };
 
 export const HighlightPage = ({
@@ -28,13 +30,14 @@ export const HighlightPage = ({
   detail,
   imageStyle,
   detailStyle,
+  resizeMode = "contain",
 }: Props) => (
   <View style={[styles.flex, style.container]}>
     {title && <Text style={style.title}>{title}</Text>}
     <View style={[style.imageContainer]}>
       <Image
         source={image}
-        resizeMode="contain"
+        resizeMode={resizeMode}
         style={[style.image, imageStyle]}
       />
     </View>
