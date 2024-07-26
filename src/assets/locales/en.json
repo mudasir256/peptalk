@@ -57,7 +57,7 @@
     "emailSignUp": "Sign Up With Email",
     "appleLogIn": "Log In With Apple",
     "gmailLogIn": "Log In With Google",
-    "emailLogIn": "Log In With EMail",
+    "emailLogIn": "Log In With Email",
     "already": "Already Have an Account?",
     "termsAlert1": "Terms of Service",
     "termsAlert2": "By continuing you agree to Mom Brain's Terms of Service.",
@@ -222,7 +222,8 @@
   "yup": {
     "folderNameMax50": "Folder name cannot be longer than 50 characters.",
     "required": "This field is required",
-    "stringMax50": "This field cannot be longer than 50 characters."
+    "stringMax50": "This field cannot be longer than 50 characters.",
+    "wrongEmail": "This is not the correct email"
   },
   "placeholder": {
     "videoName": "Video Name"

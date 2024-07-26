@@ -1,14 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { memo } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, Text, View } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Alert, View } from "react-native";
 import { IMAGES } from "../../../assets/images";
 import PrimaryButton from "../../../common/components/primaryButton/index";
 import { LoginStackRoutes } from "../../../common/navigation/routes";
 import { SPACINGS } from "../../../common/theme/spacing";
-import { styles } from "../../../common/theme/styles";
-import { style } from "./style";
 import { useAppleIdSignin } from "./useAppleIdSignin";
 import { useGoogleSignin } from "./useGoogleSignin";
 
@@ -47,6 +44,12 @@ const SignupButtons = memo(
     };
 
     const SignupWithEmail = () => navigate(LoginStackRoutes.SignUpWithEmail);
+
+    /*
+    const withGoogle = () => {
+      onGoogleButtonPress();
+    };
+    */
 
     return (
       <View className=" self-stretch items-center">

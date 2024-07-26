@@ -9,13 +9,54 @@ import { COLORS } from "../../../common/theme/colors";
 import { styles } from "../../../common/theme/styles";
 import { PasswordInput } from "../../../common/components/passwordInput/passwordInput";
 import PrimaryButton from "../../../common/components/primaryButton";
+import { TextInputField } from "../../../common/components/input/input";
+import {
+  useForgotPasswordMutation,
+  useUserQuery,
+} from "../../../common/store/slice/api/slice";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Toast from "react-native-toast-message";
 
 const ResetPasswordWithEmail = () => {
   const navigation = useNavigation();
   const { t } = useTranslation();
+  const [sendForgotPassword, { isLoading }] = useForgotPasswordMutation();
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string().trim().required(t("common.required")),
+    }),
+    onSubmit: async (values) => {
+      const email = values.email.trim();
+      sendForgotPassword({ email })
+        .then(() => {
+          Toast.show({
+            type: t("mediaList.success"),
+            text1: t("mediaList.forgotPasswordEmailSentSuccessfully"),
+          });
+        })
+        .catch((error) => {
+          Toast.show({
+            type: t("mediaList.error"),
+            text1:
+              error.data.email ||
+              t("mediaList.failedToSendForgotPasswordEmail"),
+          });
+        });
+    },
+  });
+
+  //console.log(data);
 
   const goBack = () => {
     navigation.goBack();
+  };
+
+  const handleSubmit = () => {
+    formik.handleSubmit();
   };
 
   return (
@@ -32,7 +73,14 @@ const ResetPasswordWithEmail = () => {
       <View style={style.content}>
         <View style={style.inputContainer}>
           <Text style={style.label}>{t("password.email")}</Text>
-          <PasswordInput placeholder={t("password.email")} />
+          <TextInputField
+            placeholder={t("password.email")}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            defaultValue=""
+            onChangeText={formik.handleChange("email")}
+          />
+          <Text style={{ color: COLORS.error }}>{formik.errors.email}</Text>
         </View>
         <Text style={style.label}>{t("password.description")}</Text>
       </View>
@@ -40,6 +88,8 @@ const ResetPasswordWithEmail = () => {
         <PrimaryButton
           title={t("password.resetpassword")}
           containerStyle={style.button}
+          onPress={handleSubmit}
+          loading={isLoading}
         />
       </View>
     </>

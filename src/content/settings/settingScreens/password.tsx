@@ -158,7 +158,7 @@ const Password = () => {
           />
         </View>
 
-        {/*<Text
+        <Text
           className=" self-stretch text-center mb-5 text-[20px] font-medium"
           style={{ color: COLORS.text }}
         >
@@ -167,16 +167,16 @@ const Password = () => {
 
         <View style={style.buttonContainer}>
           <PrimaryButton
-            title={t("password.changepassword")}
+            title={t("password.forgotpassword")}
             containerStyle={{
               ...style.button,
               opacity: formValid ? 1 : 0.5,
             }}
             //disabled={!formValid}
-            onPress={handleResetPassword}
+            onPress={handleForgotPress}
             loading={isLoading}
           />
-        </View>*/}
+        </View>
       </ScrollView>
     </>
   );

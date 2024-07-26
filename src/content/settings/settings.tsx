@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useMemo, useState } from "react";
+import { useFormik } from "formik";
+import React, { memo, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Alert,
@@ -12,13 +13,14 @@ import {
 } from "react-native";
 import Toast from "react-native-toast-message";
 import { useDispatch } from "react-redux";
+import * as Yup from "yup";
 import { IMAGES } from "../../assets/images";
 import CustomModal from "../../common/components/modal/modal";
+import DestructiveModal from "../../common/components/Modals/DestructiveModal/DestructiveModal";
 import YesOrNoModal from "../../common/components/Modals/YesOrNoModal.tsx/YesOrNoModal";
+import { PasswordInput } from "../../common/components/passwordInput/passwordInput";
 import { appLinks } from "../../common/constants/links";
 import { HomeStackRoutes } from "../../common/navigation/routes";
-import { useAppSelector } from "../../common/store/hooks";
-import { selectAuthState } from "../../common/store/selectors";
 import {
   apiSlice,
   useDeleteAccountMutation,
@@ -28,9 +30,9 @@ import {
   logoutAction,
   setOnboarding,
 } from "../../common/store/slice/authentication/slice";
+import { COLORS } from "../../common/theme/colors";
 import { style } from "./style";
 import { SectionedData } from "./types";
-import { useSettingsData } from "./useSettingData";
 
 const SettingsScreen = () => {
   const { navigate } = useNavigation();
@@ -38,14 +40,10 @@ const SettingsScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
-  const { handleLogout, isLoadingLogout } = useSettingsData();
   const { data } = useUserQuery({});
   const { profile, email } = data || {};
   const { first_name = "", last_name = "" } = profile || {};
-  let authStatus = useAppSelector(selectAuthState);
   const dispatch = useDispatch();
-
-  const [deleteAccount, { isLoading }] = useDeleteAccountMutation();
 
   const DATA: SectionedData[] = useMemo(
     () => [
@@ -88,23 +86,6 @@ const SettingsScreen = () => {
     dispatch(setOnboarding(false));
   };
 
-  const handleDeleteAccount = () => {
-    deleteAccount({ email: "" })
-      .then((data) => {
-        logUserOut();
-        Toast.show({
-          type: t("mediaList.success"),
-          text1: t("mediaList.successDeleteAccount"),
-        });
-      })
-      .catch(() => {
-        Toast.show({
-          type: t("mediaList.error"),
-          text1: t("mediaList.error"),
-        });
-      });
-  };
-
   const handleCloseModal = () => {
     setModalVisible(false);
   };
@@ -131,9 +112,9 @@ const SettingsScreen = () => {
     if (item.title === t("settingsScreen.logout")) {
       openLogoutModal();
     }
-    /*if (item.title === t("settingsScreen.deleteAccount")) {
+    if (item.title === t("settingsScreen.deleteAccount")) {
       openDeleteAccountModal();
-    }*/
+    }
     if (item.title === t("settingsScreen.terms")) {
       //navigate(HomeStackRoutes.TermsOfUse);
       Linking.openURL(appLinks.termsOfUseLink).catch((err) => {
@@ -214,17 +195,82 @@ const SettingsScreen = () => {
           onPressOk={logUserOut}
           loading={false}
         />
-        <YesOrNoModal
-          visible={isDeleteAccountModalVisible}
-          onClose={closeDeleteAccountModal}
-          title={t("settingsScreen.deleteAccount")}
-          description={t("modal.description1")}
-          onPressOk={handleDeleteAccount}
-          loading={false}
-        />
+
+        {isDeleteAccountModalVisible && (
+          <DeleteAccountModal setIsVisible={setisDeleteAccountModalVisible} />
+        )}
       </View>
     </View>
   );
 };
+
+const DeleteAccountModal = memo(
+  ({ setIsVisible }: { setIsVisible: (a: boolean) => void }) => {
+    const { t } = useTranslation();
+    const [deleteAccount, { isLoading }] = useDeleteAccountMutation();
+    const dispatch = useDispatch();
+
+    const logUserOut = () => {
+      dispatch(apiSlice.util.resetApiState());
+      dispatch(logoutAction());
+      dispatch(setOnboarding(false));
+    };
+
+    const formik = useFormik({
+      initialValues: {
+        password: "",
+      },
+      validationSchema: Yup.object({
+        password: Yup.string().trim().required(t("common.required")),
+      }),
+      onSubmit: async (values) => {
+        console.log(values);
+        const password = values.password.trim();
+        deleteAccount({ password })
+          .then((data) => {
+            const _data: any = data;
+
+            console.log(data);
+            if (_data?.error?.data?.password?.[0]) {
+              formik.setErrors({ password: _data?.error?.data?.password?.[0] });
+
+              return;
+            }
+            logUserOut();
+            Toast.show({
+              type: t("mediaList.success"),
+              text1: t("mediaList.successDeleteAccount"),
+            });
+            setIsVisible(false);
+          })
+          .catch((error) => {
+            Toast.show({
+              type: t("mediaList.error"),
+              text1: error.data.password || t("mediaList.error"),
+            });
+          });
+      },
+    });
+
+    return (
+      <DestructiveModal
+        visible={true}
+        setIsVisible={setIsVisible}
+        onDelete={() => {
+          formik.handleSubmit();
+        }}
+        title={t("settingsScreen.deleteAccount")}
+        description={t("modal.description1")}
+      >
+        <PasswordInput
+          defaultValue=""
+          onChangeText={formik.handleChange("password")}
+          placeholder={t("settingsScreen.password")}
+        />
+        <Text style={{ color: COLORS.error }}>{formik.errors.password}</Text>
+      </DestructiveModal>
+    );
+  }
+);
 
 export default SettingsScreen;
