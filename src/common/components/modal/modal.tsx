@@ -1,9 +1,19 @@
-import React, { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { Alert } from "react-native";
 import { useFormik } from "formik";
+import React from "react";
+import { useTranslation } from "react-i18next";
+import {
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Text,
+  View,
+} from "react-native";
 import * as Yup from "yup";
 import { Folder } from "../../../content/folders/foldersList/types";
+import { COLORS } from "../../theme/colors";
+import { TextInputField } from "../input/input";
+import PrimaryButton from "../primaryButton";
+import { style } from "./style";
 
 type Props = {
   title: string;
@@ -19,7 +29,7 @@ type Props = {
   showCancel?: boolean;
 };
 
-const CustomAlertPrompt = ({
+const CustomModal = ({
   visible,
   onClose,
   title,
@@ -27,7 +37,10 @@ const CustomAlertPrompt = ({
   showText,
   description,
   onPressOk,
+  id,
+  loading,
   selectedFolder,
+  showCancel = true,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -45,42 +58,73 @@ const CustomAlertPrompt = ({
     }),
     onSubmit: async (values) => {
       onPressOk?.(values.folderName.trim());
-      formik.handleChange("folderName")("");
+      formik.handleChange("foldername")("");
     },
   });
 
-  useEffect(() => {
-    if (visible) {
-      Alert.prompt(
-        title,
-        showText ? description : "",
-        [
-          {
-            text: t("modal.cancel"),
-            style: "cancel",
-            onPress: () => {
-              formik.handleChange("folderName")("");
-              onClose?.();
-            },
-          },
-          {
-            text: t("modal.ok"),
-            onPress: (text) => {
-              if (showInput && formik.isValid) {
-                formik.setFieldValue("folderName", text);
-                formik.handleSubmit();
-              }
-            },
-            style: "default",
-          },
-        ],
-        "plain-text",
-        folderNameInitialvalue
-      );
-    }
-  }, [visible]);
+  const handleCancel = () => {
+    formik.handleChange("foldername")("");
+    onClose?.();
+  };
 
-  return null;
+  return (
+    <>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={visible}
+        //onRequestClose={handleCancel}
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={{ flex: 1 }}
+        >
+          <View style={style.centeredView}>
+            <View style={style.modalView}>
+              <Text style={style.addNew}>{title}</Text>
+              {showText && <Text style={style.description}>{description}</Text>}
+              {showInput && (
+                <>
+                  <Text style={style.modalTitle}>{t("modal.folderName")}</Text>
+                  <View>
+                    <TextInputField
+                      placeholder={t("modal.addFolder")}
+                      containerStyle={{ backgroundColor: COLORS.inputbg }}
+                      onChangeText={formik.handleChange("folderName")}
+                      defaultValue={folderNameInitialvalue}
+                    />
+                  </View>
+                  <View>
+                    {formik.errors.folderName && (
+                      <Text style={style.error}>
+                        {formik.errors.folderName}
+                      </Text>
+                    )}
+                  </View>
+                </>
+              )}
+              <View style={style.buttonContainer}>
+                {showCancel && (
+                  <PrimaryButton
+                    title={t("modal.cancel")}
+                    containerStyle={style.cancel}
+                    onPress={handleCancel}
+                  />
+                )}
+                <PrimaryButton
+                  loading={loading}
+                  title={t("modal.ok")}
+                  disabled={!formik.isValid}
+                  containerStyle={style.ok}
+                  onPress={() => formik.handleSubmit()}
+                />
+              </View>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
+    </>
+  );
 };
 
-export default CustomAlertPrompt;
+export default CustomModal;
