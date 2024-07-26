@@ -12,7 +12,10 @@ const HomeScreen = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const { data: defaultData, isLoading: mediaListLoading } =
-    useGetMediaListQuery({ ordering: selectedData, page, limit });
+    useGetMediaListQuery(
+      { ordering: selectedData, page, limit },
+      { refetchOnMountOrArgChange: true }
+    );
 
   const handleSelect = useCallback(
     (selectedOption) => {
