@@ -54,7 +54,6 @@ const EditVideo = ({ route, navigation: { goBack } }) => {
       const result = await showEditor(videoUrl, {
         maxDuration: 20,
       }).then((res) => console.log("console of res", res));
-      console.log("Trimmed video result:", result);
     } catch (error) {
       console.error("Error trimming video:", error);
     }

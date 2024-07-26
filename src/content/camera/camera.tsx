@@ -20,7 +20,6 @@ const CameraScreen = () => {
         setIsRecording(true);
         await cameraRef.current.startRecording({
           onRecordingFinished: async (video) => {
-            console.log(video);
             const fileUri = video.path;
             setIsRecording(false);
             navigate(CameraStackRoutes.VideoScreen, {

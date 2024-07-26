@@ -50,10 +50,6 @@ const SearchScreen = ({ navigation }) => {
 
   const foldersData = foldersResponse?.results ?? [];
 
-  //console.log("foldersData", foldersData);
-
-  //console.log(data);
-
   useEffect(() => {}, [search]);
 
   const handleVideoPress = (videoUrl) => {
@@ -77,8 +73,6 @@ const SearchScreen = ({ navigation }) => {
         </TouchableOpacity>
       );
     } else {
-      //console.log("second item", item);
-
       const folderItem: APIFolderType = item;
 
       return (
@@ -123,9 +117,6 @@ const SearchScreen = ({ navigation }) => {
       index: 1,
     },
   ];
-
-  //console.log("0", filteredData[0]);
-  //console.log("1", filteredData[1]);
 
   return (
     <View style={[style.container, styles.flex]}>

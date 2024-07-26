@@ -45,9 +45,6 @@ const SettingsScreen = () => {
   let authStatus = useAppSelector(selectAuthState);
   const dispatch = useDispatch();
 
-  // const email = useAppSelector((state) => state.authentication);
-  // console.log("email", data);
-
   const [deleteAccount, { isLoading }] = useDeleteAccountMutation();
 
   const DATA: SectionedData[] = useMemo(
@@ -86,18 +83,14 @@ const SettingsScreen = () => {
   );
 
   const logUserOut = () => {
-    console.log("Pressed");
-    // authStatus === AuthState.Authenticated;
     dispatch(apiSlice.util.resetApiState());
     dispatch(logoutAction());
     dispatch(setOnboarding(false));
-    // setModalVisible(true);
   };
 
   const handleDeleteAccount = () => {
     deleteAccount({ email: "" })
       .then((data) => {
-        console.log("data", data);
         logUserOut();
         Toast.show({
           type: t("mediaList.success"),
@@ -154,9 +147,7 @@ const SettingsScreen = () => {
       navigate(HomeStackRoutes.Password);
     }
     if (item.title === t("settingsScreen.contact")) {
-      Linking.openURL("mailto:contact@mombrain.net").catch((err) => {
-        console.log(`Unable to open mailto link: ${err}`);
-      });
+      Linking.openURL("mailto:contact@mombrain.net").catch((err) => {});
     }
     if (item.title === t("settingsScreen.leaveReview")) {
       Linking.openURL(appLinks.appStoreLink).catch((err) => {

@@ -90,7 +90,6 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
             setSelectedFolderId(storedFolderData.id);
           }
           setShowAddFolderPopup(false);
-          //console.log(storedFolderData, "Wasssssup");
         })
         .catch((error) => {
           console.error(error);
@@ -206,7 +205,6 @@ const SaveVideoBottomSheet = memo(
       const [thumbnail, setThumbnail] = useState<undefined | string>(undefined);
 
       useEffect(() => {
-        //console.log("EFFECT", fileUri);
         const generateThumbnail = async () => {
           try {
             const { uri } = await VideoThumbnails.getThumbnailAsync(fileUri, {

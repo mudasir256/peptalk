@@ -28,9 +28,7 @@ const FolderItemsListView = ({ loadings, data, onEndReached }: Props) => {
     setMediaId(id);
   }, []);
 
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+  const handleSheetChanges = useCallback((index: number) => {}, []);
 
   const handleClosePress = useCallback(() => {
     bottomSheetModalRef.current?.dismiss();

@@ -23,7 +23,6 @@ export const useAppleIdSignin = () => {
       const dataToSubmit = {
         id_token: credential.authorizationCode,
       };
-      console.log('Credential::', credential)
       return
       const res = await apple(dataToSubmit).unwrap()
       console.log(res)

@@ -6,7 +6,6 @@ export const useSettingsData = () => {
   const handleLogout = async (detail:string) => {
     try {
       await logout(detail);
-      console.log("Logout successful");
     } catch (error) {
       console.error("Logout failed:", error);
     }

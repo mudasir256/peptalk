@@ -13,7 +13,6 @@ const customFetchBaseQuery = fetchBaseQuery({
   prepareHeaders: async (headers, { getState, endpoint }) => {
     const authState = (getState() as any)?.authentication;
     const { accessToken } = authState;
-    console.log(accessToken)
     if (accessToken && endpoint !== '/token/refresh/') {
       headers.set('authorization', `Bearer ${accessToken}`);
     }

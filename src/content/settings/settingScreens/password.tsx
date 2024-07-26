@@ -64,7 +64,6 @@ const Password = () => {
             error.data.new_password1 ||
             t("mediaList.errorupdatingpassword"),
         });
-        console.log("errors", error);
       }
     },
   });

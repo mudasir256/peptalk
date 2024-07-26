@@ -64,7 +64,6 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         const url = `/child-encouragement/folder/list/?${objectToQueryParams(
           data
         )}`;
-        //console.log("url: ", url);
 
         return {
           url,
@@ -177,7 +176,6 @@ export const apiSlice = emptySplitApi.injectEndpoints({
     }),
     resetPassword: builder.mutation({
       query: (data) => {
-        console.log("datyata", data);
         return {
           url: "/password/change/",
           method: "POST",

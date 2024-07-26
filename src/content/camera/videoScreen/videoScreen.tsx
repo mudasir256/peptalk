@@ -40,7 +40,6 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
     const subscription = eventEmitter.addListener("VideoTrim", (event) => {
       switch (event.name) {
         case "onFinishTrimming": {
-          console.log("onFinishTrimming", event);
           const trimmedVideoPath = event.outputPath;
           setVideoUrl(trimmedVideoPath);
           break;
@@ -60,9 +59,7 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
     bottomSheetModalRef.current?.present();
   }, []);
 
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+  const handleSheetChanges = useCallback((index: number) => {}, []);
 
   const handleClosePress = useCallback(() => {
     bottomSheetModalRef.current?.dismiss();
@@ -85,7 +82,6 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
       const result = await showEditor(videoUrl, {
         fullScreenModalIOS: true,
       });
-      console.log("Trimmed video path:", result);
     } catch (error) {
       console.error("Error trimming video:", error);
     }

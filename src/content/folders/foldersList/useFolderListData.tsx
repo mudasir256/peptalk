@@ -72,13 +72,11 @@ export const useFoldersData = (queryParams?: useFoldersListQuery_data) => {
     }
   };
   const handleRenameFolder = async ({ id }: Folder, updatedName: string) => {
-    console.log("foldername", updatedName);
     const data = {
       folder_name: updatedName,
     };
     try {
       const res = await updateFolder({ id: id, data }).unwrap();
-      console.log(res, "console pof update");
       if (isUpdatingError) {
         Toast.show({
           type: t("toast.error"),
