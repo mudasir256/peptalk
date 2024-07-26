@@ -18,6 +18,9 @@ import {
 } from "../../store/slice/api/slice";
 import { useTranslation } from "react-i18next";
 import Toast from "react-native-toast-message";
+import { useTextFormikConfig } from "../../formiks/textFormik";
+import { useFormik } from "formik";
+import TextInputModal from "../Modals/TextInputModal/TextInputModal";
 
 type Props = {
   handleClosePress: VoidFunction;
@@ -27,6 +30,9 @@ type Props = {
   fileUri?: string;
   cancelPressed?: boolean;
   foldersData?: any;
+  openAddFolderPopup?: () => void;
+  selectedFolderId: string;
+  setSelectedFolderId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const MoveToFolderView = ({
@@ -35,11 +41,33 @@ const MoveToFolderView = ({
   title,
   onSavePress,
   foldersData,
+  openAddFolderPopup,
+  selectedFolderId,
+  setSelectedFolderId,
 }: Props) => {
-  const [selectedFolderId, setSelectedFolderId] = useState("");
+  //const [selectedFolderId, setSelectedFolderId] = useState("");
   const [moveFolder, { isLoading }] = useMoveFolderMutation();
-  const { data } = useFoldersListQuery({});
+
   const { t } = useTranslation();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const formikConfig = useTextFormikConfig({
+    initialValue: "",
+    maxLength: 50,
+    maxLengthError: t("yup.stringMax50"),
+    onPressOk: async (name) => {
+      console.log("name", name);
+      if (name) {
+        console.log("found name");
+        onSavePress(selectedFolderId, name);
+        handleClosePress();
+      }
+    },
+  });
+
+  const formik = useFormik(formikConfig);
+
+  const { data } = useFoldersListQuery({});
   const moveMediaToFolder = async () => {
     if (selectedFolderId) {
       const dataToUpdate = {
@@ -62,7 +90,9 @@ const MoveToFolderView = ({
   };
 
   const handleUploadMedia = async () => {
-    Alert.prompt(
+    setIsModalVisible(true);
+
+    /*Alert.prompt(
       t("alert.enteritemnameheading"),
       t("alert.enteritemname"),
       async (name) => {
@@ -72,7 +102,7 @@ const MoveToFolderView = ({
         }
       },
       "plain-text"
-    );
+    );*/
   };
   return (
     <>
@@ -111,6 +141,29 @@ const MoveToFolderView = ({
         containerStyle={style.button}
         onPress={title === "Save" ? handleUploadMedia : moveMediaToFolder}
         loading={isLoading}
+      />
+      {openAddFolderPopup && (
+        <View className=" flex-row self-stretch">
+          <View className="flex-1 items-center">
+            <PrimaryButton
+              title={t("modal.addFolder")}
+              containerStyle={style.button}
+              onPress={openAddFolderPopup}
+            />
+          </View>
+        </View>
+      )}
+
+      <TextInputModal
+        formik={formik}
+        defaultValue=""
+        placeholder={t("placeholder.videoName")}
+        title={t("placeholder.videoName")}
+        onClose={() => {
+          setIsModalVisible(false);
+        }}
+        onPressOk={formik.handleSubmit}
+        visible={isModalVisible}
       />
     </>
   );

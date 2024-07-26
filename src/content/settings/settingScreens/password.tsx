@@ -170,11 +170,11 @@ const Password = () => {
             title={t("password.forgotpassword")}
             containerStyle={{
               ...style.button,
-              opacity: formValid ? 1 : 0.5,
+              //opacity: formValid ? 1 : 0.5,
             }}
             //disabled={!formValid}
             onPress={handleForgotPress}
-            loading={isLoading}
+            //loading={isLoading}
           />
         </View>
       </ScrollView>

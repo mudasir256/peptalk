@@ -146,9 +146,9 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
               cancelPressed={cancelPressed}
               onSavePress={handleUploadMedia}
               foldersData={foldersData}
-              // openAddFolderPopup={openAddFolderPopup}
-              // selectedFolderId={selectedFolderId}
-              // setSelectedFolderId={setSelectedFolderId}
+              openAddFolderPopup={openAddFolderPopup}
+              selectedFolderId={selectedFolderId}
+              setSelectedFolderId={setSelectedFolderId}
             />
             <AddFolderModal
               isVisible={showAddFolderPopup}

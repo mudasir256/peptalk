@@ -11,7 +11,8 @@
     "nodata": "No Data Found",
     "resetpassword": "Reset Password",
     "or": "Or",
-    "required": "Required"
+    "required": "Required",
+    "name": "Name"
   },
   "months": {
     "january": "January",
