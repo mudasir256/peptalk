@@ -136,12 +136,14 @@ const MoveToFolderView = ({
           )}
         </BottomSheetView>
       </View>
-      <PrimaryButton
-        title={title === "Save" ? t("common.save") : t("common.moveFolder")}
-        containerStyle={style.button}
-        onPress={title === "Save" ? handleUploadMedia : moveMediaToFolder}
-        loading={isLoading}
-      />
+      {selectedFolderId && (
+        <PrimaryButton
+          title={title === "Save" ? t("common.save") : t("common.moveFolder")}
+          containerStyle={style.button}
+          onPress={title === "Save" ? handleUploadMedia : moveMediaToFolder}
+          loading={isLoading}
+        />
+      )}
       {openAddFolderPopup && (
         <View className=" flex-row self-stretch">
           <View className="flex-1 items-center">
