@@ -1,17 +1,21 @@
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useGoogleLoginMutation } from "../../../common/store/slice/api/slice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Toast from "react-native-toast-message";
 import { useDispatch } from "react-redux";
-import { setAuthenticated, setToken } from "../../../common/store/slice/authentication/slice";
+import {
+  setAuthenticated,
+  setToken,
+} from "../../../common/store/slice/authentication/slice";
 import { AuthState } from "../../../common/store/slice/authentication/types";
 import { useTranslation } from "react-i18next";
 
 export const useGoogleSignin = () => {
   const [google] = useGoogleLoginMutation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -23,6 +27,11 @@ export const useGoogleSignin = () => {
   }, []);
 
   const onGoogleButtonPress = async () => {
+    if (isLoading) {
+      return;
+    }
+    setIsLoading(true);
+
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
@@ -31,20 +40,24 @@ export const useGoogleSignin = () => {
         const dataToSubmit = {
           access_token: accessToken.accessToken,
         };
-        const res = await google(dataToSubmit).unwrap()
-        dispatch(setToken({ accessToken: res.access , refreshToken:res.refresh }));
+        const res = await google(dataToSubmit).unwrap();
+        dispatch(
+          setToken({ accessToken: res.access, refreshToken: res.refresh })
+        );
         dispatch(setAuthenticated({ authState: AuthState.Authenticated }));
-          Toast.show({
-            type: t("mediaList.success"),
-            text1: t("mediaList.signedinsuccessfully"),
-          });
-        }
+        Toast.show({
+          type: t("mediaList.success"),
+          text1: t("mediaList.signedinsuccessfully"),
+        });
+      }
     } catch (error) {
       Toast.show({
         type: t("mediaList.error"),
         text1: t("mediaList.failedsignin"),
       });
+    } finally {
+      setIsLoading(false);
     }
   };
-  return { onGoogleButtonPress };
+  return { onGoogleButtonPress, isLoading };
 };

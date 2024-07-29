@@ -23,7 +23,7 @@ import * as VideoThumbnails from "expo-video-thumbnails";
 
 const FolderItems = ({ route, navigation: { goBack } }) => {
   const { t } = useTranslation();
-  const [selectedData, setSelectedData] = useState("");
+  const [orderingMedia, setOrderingMedia] = useState("");
   const [image, setImage] = useState(null);
   const {
     uploadVideoInChunks,
@@ -66,19 +66,21 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
     }
   };
 
+  console.log("This is folders items");
+
   const handleSelect = async (selectedOption) => {
     switch (selectedOption) {
       case t("mediaList.titleA-Z"):
-        setSelectedData("=media_name");
+        setOrderingMedia("media_name");
         break;
       case t("mediaList.titleZ-A"):
-        setSelectedData("=-media_name");
+        setOrderingMedia("-media_name");
         break;
       case t("mediaList.dateascending"):
-        setSelectedData("=created_at");
+        setOrderingMedia("created_at");
         break;
       case t("mediaList.datedescending"):
-        setSelectedData("=-created_at");
+        setOrderingMedia("-created_at");
         break;
       default:
         break;
@@ -100,9 +102,14 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
 
   const foldername = route.params?.foldername;
   const folderId = route.params.folderId;
-  const { data: foldersData, isLoading } = useGetFoldersListByIdQuery({
+  const {
+    data: foldersData,
+    isLoading,
+    refetch,
+    isFetching,
+  } = useGetFoldersListByIdQuery({
     id: folderId,
-    data: selectedData,
+    ordering_media: orderingMedia,
   });
 
   return (
@@ -119,7 +126,12 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
           iconRight={<ImportIcon />}
           onIconRightPress={pickImage}
         />
-        <FolderItemsListView data={foldersData} loadings={isLoading} />
+        <FolderItemsListView
+          data={foldersData}
+          loadings={isLoading}
+          refetch={refetch}
+          isFetching={isFetching}
+        />
       </View>
       {(isCompleteMediaLoading ||
         isInitMediaLoading ||

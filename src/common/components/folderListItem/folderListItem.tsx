@@ -1,40 +1,43 @@
-import React, { useRef, useState, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
-  View,
-  Text,
-  TouchableOpacity,
   ActivityIndicator,
   Image,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import { style } from "./style";
-import { FolderItem } from "../../../content/home/folderItemsList/type";
+import Video, { VideoRef } from "react-native-video";
 import {
   Delete,
   Edit,
   MoveFolder,
   PlayIcon,
 } from "../../../assets/svgs/svgIcons";
-import Video, { VideoRef } from "react-native-video";
-import { useMediaList } from "./useMediaList";
-import { useTranslation } from "react-i18next";
+import { FolderItem } from "../../../content/home/folderItemsList/type";
 import DestructiveModal from "../Modals/DestructiveModal/DestructiveModal";
-import { useDeleteMediaMutation } from "../../store/slice/api/slice";
-import Toast from "react-native-toast-message";
+import { style } from "./style";
+import { useMediaList } from "./useMediaList";
 
 type Props = {
   item: FolderItem;
   onMoveToFolderPress: (id: string) => void;
+  refetch: () => void;
 };
 
-export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
+export const FolderListItem = ({
+  item,
+  onMoveToFolderPress,
+  refetch,
+}: Props) => {
   const id = item.id;
   const videoRef = useRef<VideoRef>(null);
   const [isLoadings, setIsLoading] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const { t } = useTranslation();
-  const { handleRenameMedia, handleDeletemedia, loading } = useMediaList();
-
-  const [deleteMedia] = useDeleteMediaMutation({});
+  const { handleRenameMedia, handleDeletemedia, loading } = useMediaList({
+    refetch,
+  });
 
   const handleLoadStart = () => {
     setIsLoading(true);
@@ -95,24 +98,10 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
     setIsDeleteModalVisible(true);
   };
 
-  const handleDeleteMedia = async () => {
-    //handleDeletemedia({ id: item.id, media_name: item.media_name });
-    //deleteMedia(item.id);
-
-    try {
-      await deleteMedia(id).unwrap();
-      Toast.show({
-        type: t("mediaList.success"),
-        text1: `${item.name} ${t("mediaList.itemdeleted")}`,
-        position: "bottom",
-      });
-    } catch (error) {
-      Toast.show({
-        type: t("mediaList.error"),
-        text1: t("mediaList.failedtodeleteitem"),
-      });
-    }
-    setIsDeleteModalVisible(false);
+  const _handleDeleteMedia = async () => {
+    handleDeletemedia({ id, media_name: item.media_name }).then(() => {
+      setIsDeleteModalVisible(false);
+    });
   };
 
   return (
@@ -179,13 +168,16 @@ export const FolderListItem = ({ item, onMoveToFolderPress }: Props) => {
         </View>
       </View>
 
-      <DestructiveModal
-        visible={isDeleteModalVisible}
-        setIsVisible={setIsDeleteModalVisible}
-        title={t("alert.deleteMedia")}
-        description={t("alert.areYouSureDeleteMedia")}
-        onDelete={handleDeleteMedia}
-      />
+      {isDeleteModalVisible && (
+        <DestructiveModal
+          visible={isDeleteModalVisible}
+          setIsVisible={setIsDeleteModalVisible}
+          title={t("alert.deleteMedia")}
+          description={t("alert.areYouSureDeleteMedia")}
+          onDelete={_handleDeleteMedia}
+          loading={loading}
+        />
+      )}
     </View>
   );
 };

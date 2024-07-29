@@ -11,11 +11,20 @@ const HomeScreen = () => {
   const [selectedData, setSelectedData] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const { data: defaultData, isLoading: mediaListLoading } =
-    useGetMediaListQuery(
-      { ordering: selectedData, page, limit },
-      { refetchOnMountOrArgChange: true }
-    );
+  const {
+    data: defaultData,
+    isLoading: mediaListLoading,
+    isFetching,
+    refetch,
+  } = useGetMediaListQuery(
+    { ordering: selectedData, page, limit },
+    { refetchOnMountOrArgChange: true }
+  );
+
+  /*const _refetch = () => {
+    console.log("refetching");
+    refetch();
+  };*/
 
   const handleSelect = useCallback(
     (selectedOption) => {
@@ -79,6 +88,8 @@ const HomeScreen = () => {
         data={defaultData}
         loadings={mediaListLoading}
         onEndReached={handleEndReached}
+        refetch={refetch}
+        isFetching={isFetching}
       />
     </View>
   );

@@ -8,6 +8,7 @@ import { LoginStackRoutes } from "../../../common/navigation/routes";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { useAppleIdSignin } from "./useAppleIdSignin";
 import { useGoogleSignin } from "./useGoogleSignin";
+import { COLORS } from "../../../common/theme/colors";
 
 const SignupButtons = memo(
   ({
@@ -22,10 +23,18 @@ const SignupButtons = memo(
     const { t } = useTranslation();
     const { navigate } = useNavigation();
 
-    const { signInWithAppleId } = useAppleIdSignin();
-    const { onGoogleButtonPress } = useGoogleSignin();
+    const { signInWithAppleId, isLoading: isAppleLoading } = useAppleIdSignin();
+    const { onGoogleButtonPress, isLoading: isGoogleLodaing } =
+      useGoogleSignin();
+
+    console.log(isGoogleLodaing, isAppleLoading);
+
+    const isLoading = isAppleLoading || isGoogleLodaing;
 
     const onAppldIdPress = () => {
+      if (isLoading) {
+        return;
+      }
       Alert.alert(
         t("signUpScreen.termsAlert1"),
         t("signUpScreen.termsAlert2"),
@@ -43,13 +52,14 @@ const SignupButtons = memo(
       );
     };
 
-    const SignupWithEmail = () => navigate(LoginStackRoutes.SignUpWithEmail);
-
-    /*
-    const withGoogle = () => {
+    const _onGoogleButtonPress = () => {
+      if (isLoading) {
+        return;
+      }
       onGoogleButtonPress();
     };
-    */
+
+    const SignupWithEmail = () => navigate(LoginStackRoutes.SignUpWithEmail);
 
     return (
       <View className=" self-stretch items-center">
@@ -58,12 +68,16 @@ const SignupButtons = memo(
           title={appleText}
           icon={IMAGES.appleIcon}
           onPress={onAppldIdPress}
+          loading={isAppleLoading}
+          loadingColor={COLORS.text}
         />
         <PrimaryButton
           containerStyle={{ marginBottom: SPACINGS.md }}
           title={gmailText}
           icon={IMAGES.googleIcon}
-          onPress={onGoogleButtonPress}
+          onPress={_onGoogleButtonPress}
+          loading={isGoogleLodaing}
+          loadingColor={COLORS.text}
         />
         {emailText && (
           <PrimaryButton

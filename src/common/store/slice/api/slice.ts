@@ -135,15 +135,19 @@ export const apiSlice = emptySplitApi.injectEndpoints({
         };
       },
     }),
-    getFoldersListById: builder.query({
-      query: ({ id, data }) => {
-        return {
-          url: `/child-encouragement/folder/${id}/?ordering_media${data}`,
-          method: "GET",
-        };
-      },
-      providesTags: ["FoldersByID"],
-    }),
+    getFoldersListById: builder.query<any, { id: any; ordering_media: string }>(
+      {
+        query: ({ id, ordering_media }) => {
+          return {
+            url: `/child-encouragement/folder/${id}/?${objectToQueryParams({
+              ordering_media,
+            })}`,
+            method: "GET",
+          };
+        },
+        providesTags: ["FoldersByID"],
+      }
+    ),
     deleteMedia: builder.mutation({
       query: (id) => ({
         url: `/child-encouragement/media/${id}/delete/`,

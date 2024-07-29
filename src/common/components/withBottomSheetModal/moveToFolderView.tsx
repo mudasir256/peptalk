@@ -67,7 +67,7 @@ const MoveToFolderView = ({
 
   const formik = useFormik(formikConfig);
 
-  const { data } = useFoldersListQuery({});
+  const { data } = useFoldersListQuery({ ordering: "folder_name" });
   const moveMediaToFolder = async () => {
     if (selectedFolderId) {
       const dataToUpdate = {

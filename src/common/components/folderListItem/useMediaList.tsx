@@ -7,15 +7,31 @@ import Toast from "react-native-toast-message";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export const useMediaList = () => {
+export const useMediaList = ({ refetch }: { refetch: () => void }) => {
   const [deleteMedia] = useDeleteMediaMutation({});
   const [updateMedia, { isLoading: loading }] = useUpdateMediaMutation();
   const [mediaId, setMediaId] = useState();
   const { t } = useTranslation();
 
-  const handleDeletemedia = ({ id, media_name }) => {
+  const handleDeletemedia = async ({ id, media_name }) => {
     setMediaId(id);
-    Alert.alert(
+
+    try {
+      await deleteMedia(id).unwrap();
+      refetch();
+      Toast.show({
+        type: t("mediaList.success"),
+        text1: `${media_name} ${t("mediaList.itemdeleted")}`,
+        position: "bottom",
+      });
+    } catch (error) {
+      Toast.show({
+        type: t("mediaList.error"),
+        text1: t("mediaList.failedtodeleteitem"),
+      });
+    }
+
+    /*Alert.alert(
       t("mediaList.deleteitem"),
       t("mediaList.delete", { media_name: media_name }),
       [
@@ -44,6 +60,7 @@ export const useMediaList = () => {
       ],
       { cancelable: false }
     );
+    */
   };
   const handleRenameMedia = async ({ id }) => {
     let newName = await new Promise((resolve) => {
@@ -65,6 +82,7 @@ export const useMediaList = () => {
           id: id,
           data: datatoSubmit,
         }).unwrap();
+        refetch();
         Toast.show({
           type: t("mediaList.success"),
           text1: `${newName} ${t("mediaList.itemrenamedsuccessfully")}`,

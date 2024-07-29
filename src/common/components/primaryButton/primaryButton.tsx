@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { style } from "./style";
+import { COLORS } from "../../theme/colors";
 
 type Props = TouchableOpacityProps & {
   title: string;
@@ -18,6 +19,7 @@ type Props = TouchableOpacityProps & {
   containerStyle?: ViewStyle;
   loading?: boolean;
   disabled?: boolean;
+  loadingColor?: string;
 };
 
 export const PrimaryButton = memo(
@@ -28,6 +30,7 @@ export const PrimaryButton = memo(
     containerStyle = undefined,
     loading = false,
     disabled,
+    loadingColor = COLORS.white,
     ...rest
   }: Props) => (
     <TouchableOpacity
@@ -39,7 +42,7 @@ export const PrimaryButton = memo(
       {icon && <Image source={icon} />}
       <View style={[style.textContainer, { marginEnd: icon ? 24 : 0 }]}>
         {loading ? (
-          <ActivityIndicator color="white" />
+          <ActivityIndicator color={loadingColor} />
         ) : (
           <Text style={style.buttonText}>{title}</Text>
         )}

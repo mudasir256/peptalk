@@ -41,6 +41,16 @@ const DestructiveModal = ({
     //}
   };
 
+  const handlePress = () => {
+    if (loading) {
+      return;
+    } else {
+      onDelete();
+    }
+  };
+
+  const opacity = loading ? 0.5 : 1;
+
   return (
     <>
       <Modal
@@ -109,8 +119,9 @@ const DestructiveModal = ({
                     gap: 16,
                     backgroundColor: COLORS.error,
                     borderColor: COLORS.error,
+                    opacity,
                   }}
-                  onPress={onDelete}
+                  onPress={handlePress}
                 >
                   <Image source={IMAGES.trash_v1} />
                   <Text

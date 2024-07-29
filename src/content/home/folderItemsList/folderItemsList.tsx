@@ -17,29 +17,29 @@ import { COLORS } from "../../../common/theme/colors";
 type Props = {
   data: FolderItem[];
   loading: boolean;
+  isFetching: boolean;
   onMoveToFolderPress: (id: string) => void;
   handleEndReached?: () => void;
+  refetch: () => void;
 };
 
 export const FolderItemsList = ({
   data,
   onMoveToFolderPress,
   loading,
+  isFetching,
   handleEndReached,
+  refetch,
 }: Props) => {
   const { t } = useTranslation();
-  const [refreshing, setRefreshing] = useState(false);
-
-  const handleRefresh = useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
 
   const renderFolderListItem: ListRenderItem<FolderItem> = ({ item }) => {
     return (
-      <FolderListItem item={item} onMoveToFolderPress={onMoveToFolderPress} />
+      <FolderListItem
+        item={item}
+        onMoveToFolderPress={onMoveToFolderPress}
+        refetch={refetch}
+      />
     );
   };
   return (
@@ -62,8 +62,8 @@ export const FolderItemsList = ({
           }}
           refreshControl={
             <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh}
+              refreshing={isFetching}
+              onRefresh={refetch}
               colors={[COLORS.shadow, COLORS.shadow]}
               tintColor={COLORS.shadow}
               titleColor={COLORS.shadow}

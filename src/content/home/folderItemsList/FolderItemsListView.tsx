@@ -14,9 +14,17 @@ type Props = {
   id?: string;
   data?: any;
   loadings?: boolean;
+  isFetching: boolean;
   onEndReached?: () => void;
+  refetch: () => void;
 };
-const FolderItemsListView = ({ loadings, data, onEndReached }: Props) => {
+const FolderItemsListView = ({
+  loadings,
+  data,
+  onEndReached,
+  isFetching,
+  refetch,
+}: Props) => {
   const { t } = useTranslation();
   const [mediaId, setMediaId] = useState("");
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -58,6 +66,8 @@ const FolderItemsListView = ({ loadings, data, onEndReached }: Props) => {
         loading={loadings}
         onMoveToFolderPress={onMoveToFolderPress}
         handleEndReached={handleEndReached}
+        refetch={refetch}
+        isFetching={isFetching}
       />
       <BottomSheetModal
         ref={bottomSheetModalRef}

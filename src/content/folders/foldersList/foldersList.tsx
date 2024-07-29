@@ -17,9 +17,10 @@ import { styles } from "../../../common/theme/styles";
 import FolderItemView from "./folderItemView";
 import { Folder } from "./types";
 import { useFoldersData } from "./useFolderListData";
+import { APIFolderType } from "../../../common/store/slice/api/types";
 
 type Props = {
-  data?: string;
+  data?: APIFolderType[];
   refetch: () => Promise<any>;
   isFetching: boolean;
 };
