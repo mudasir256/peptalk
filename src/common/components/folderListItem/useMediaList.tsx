@@ -62,16 +62,22 @@ export const useMediaList = ({ refetch }: { refetch: () => void }) => {
     );
     */
   };
-  const handleRenameMedia = async ({ id }) => {
-    let newName = await new Promise((resolve) => {
-      Alert.prompt(
+  const handleRenameMedia = async ({
+    id,
+    newName,
+  }: {
+    id: any;
+    newName: string;
+  }) => {
+    /*let _newName = await new Promise((resolve) => {
+      //Alert.prompt(
         t("mediaList.renamemedia"),
         t("mediaList.enternewmedianame"),
         (inputValue) => {
           resolve(inputValue);
         }
       );
-    });
+    });*/
 
     if (newName !== null) {
       const datatoSubmit = {

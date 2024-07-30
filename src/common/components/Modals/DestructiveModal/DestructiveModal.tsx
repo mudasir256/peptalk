@@ -16,7 +16,7 @@ import { style } from "./style";
 
 type DestructiveModalProps = {
   title: string;
-  visible?: boolean;
+  visible: boolean;
   setIsVisible: (a: boolean) => void;
   description?: string;
   onDelete: () => void;

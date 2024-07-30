@@ -25,7 +25,7 @@ const useTextFormikConfig = ({
   }> = {
     //useMemo(() => {
     initialValues: {
-      textValue: initialValue,
+      textValue: "abc",
     },
     validationSchema: Yup.object({
       textValue: Yup.string()

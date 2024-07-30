@@ -20,6 +20,9 @@ import { useGetFoldersListByIdQuery } from "../../../common/store/slice/api/slic
 import * as ImagePicker from "expo-image-picker";
 import useCameraUpload from "../../../content/camera/useCameraUpload";
 import * as VideoThumbnails from "expo-video-thumbnails";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { useTextFormikConfig } from "../../../common/formiks/textFormik";
 
 const FolderItems = ({ route, navigation: { goBack } }) => {
   const { t } = useTranslation();
@@ -47,9 +50,43 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
       quality: 1,
     });
 
+    /*
+    const [isItemNameModalVisible, setIsItemNameModalVisible] = useState(false);
+    const openItemNameModal = () => {
+      setIsItemNameModalVisible(true);
+    };
+    const closeItemNameModal = () => {
+      setIsItemNameModalVisible(false);
+    };*/
+
+    const fileUri = result.assets[0].uri;
+
+    /*const setItemName = async (name: string) => {
+      if (name) {
+        const { uri } = await VideoThumbnails.getThumbnailAsync(fileUri, {
+          time: 15000,
+        });
+        uploadVideoInChunks(fileUri, folderId, name, uri);
+      }
+      closeItemNameModal();
+    };
+
+    const defaultItemName = "";
+
+    const formikConfig = useTextFormikConfig({
+      initialValue: defaultItemName,
+      maxLength: 50,
+      maxLengthError: t("yup.stringMax50"),
+      onPressOk: setItemName,
+    });
+
+    const formik = useFormik(formikConfig);
+    */
+
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      const fileUri = result.assets[0].uri;
+      //openItemNameModal();
+
       Alert.prompt(
         t("alert.enteritemnameheading"),
         t("alert.enteritemname"),
@@ -146,6 +183,16 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
           </View>
         </View>
       )}
+
+      {/*<TextInputModal
+        formik={formik}
+        defaultValue={defaultMediaName}
+        placeholder={t("placeholder.videoName")}
+        title={t("placeholder.videoName")}
+        onClose={closeRenameMediaModal}
+        onPressOk={formik.handleSubmit}
+        visible={isRenameMediaModalVisible}
+      />*/}
     </>
   );
 };

@@ -59,7 +59,7 @@ const FoldersList = ({ data, refetch, isFetching: inputIsFetching }: Props) => {
   };
 
   const handleDelete = (folder: Folder) => {
-    Alert.alert(
+    /*Alert.alert(
       t("alert.deletefolder"),
       `${t("alert.areyousure")} "${folder.folder_name}"?`,
       [
@@ -77,7 +77,7 @@ const FoldersList = ({ data, refetch, isFetching: inputIsFetching }: Props) => {
         },
       ],
       { cancelable: false }
-    );
+    );*/
     setDropdownIndex(undefined);
   };
 

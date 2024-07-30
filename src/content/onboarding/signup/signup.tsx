@@ -25,7 +25,7 @@ export const SignupScreen = () => {
   const { onGoogleButtonPress } = useGoogleSignin();
 
   const onAppldIdPress = () => {
-    Alert.alert(t("signUpScreen.termsAlert1"), t("signUpScreen.termsAlert2"), [
+    /*Alert.alert(t("signUpScreen.termsAlert1"), t("signUpScreen.termsAlert2"), [
       {
         text: t("signUpScreen.cancel"),
         onPress: () => console.log("cancel"),
@@ -35,7 +35,7 @@ export const SignupScreen = () => {
         text: t("signUpScreen.ok"),
         onPress: signInWithAppleId,
       },
-    ]);
+    ]);*/
   };
 
   const SignupWithEmail = () => navigate(LoginStackRoutes.SignUpWithEmail);

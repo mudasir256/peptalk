@@ -12,13 +12,15 @@ import { style } from "./style";
 
 type Props = {
   title: string;
-  visible?: boolean;
+  visible: boolean;
   onClose: () => void;
   description?: string;
   onPressOk: () => void;
   id?: number;
   loading?: boolean;
   showCancel?: boolean;
+  okButtonText?: string;
+  cancelButtonText?: string;
 };
 
 const YesOrNoModal = ({
@@ -30,6 +32,8 @@ const YesOrNoModal = ({
   id,
   loading,
   showCancel = true,
+  okButtonText,
+  cancelButtonText,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -59,14 +63,14 @@ const YesOrNoModal = ({
               <View style={style.buttonContainer}>
                 {showCancel && (
                   <PrimaryButton
-                    title={t("modal.cancel")}
+                    title={cancelButtonText ?? t("modal.cancel")}
                     containerStyle={style.cancel}
                     onPress={handleCancel}
                   />
                 )}
                 <PrimaryButton
                   loading={loading}
-                  title={t("modal.ok")}
+                  title={okButtonText ?? t("modal.ok")}
                   //disabled={nameError || lengthError}
                   containerStyle={style.ok}
                   onPress={onPressOk}

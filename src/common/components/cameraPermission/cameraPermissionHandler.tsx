@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator, Linking, Alert } from "react-native";
 import { Camera } from "react-native-vision-camera";
 import { useTranslation } from "react-i18next";
+import YesOrNoModal from "../Modals/YesOrNoModal.tsx/YesOrNoModal";
 
 const CameraPermissionHandler = ({ children }) => {
   const { t } = useTranslation();
@@ -35,6 +36,21 @@ const CameraPermissionHandler = ({ children }) => {
     Linking.openSettings();
   };
 
+  const [
+    isCameraPermissionErrorModalVisible,
+    setIsCameraPermissionErrorModalVisible,
+  ] = useState(false);
+  const showCameraPermissionErrorModal = () => {
+    setIsCameraPermissionErrorModalVisible(true);
+  };
+  const closeCameraPermissionErrorModal = () => {
+    setIsCameraPermissionErrorModalVisible(false);
+  };
+  const onOressOkForCameraPermissionModal = () => {
+    setIsCameraPermissionErrorModalVisible(false);
+    goToSettings();
+  };
+
   if (initialPermissionsRequest) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -44,7 +60,8 @@ const CameraPermissionHandler = ({ children }) => {
   }
 
   if (!permissionsGranted) {
-    Alert.alert(
+    showCameraPermissionErrorModal();
+    /*Alert.alert(
       t("alert.permissionrequired"),
       t("alert.camerapermission"),
       [
@@ -56,11 +73,22 @@ const CameraPermissionHandler = ({ children }) => {
         { text: t("bottomTab.settings"), onPress: goToSettings },
       ],
       { cancelable: false }
-    );
+    );*/
 
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
+        {isCameraPermissionErrorModalVisible && (
+          <YesOrNoModal
+            title={t("alert.permissionrequired")}
+            description={t("alert.camerapermission")}
+            onClose={closeCameraPermissionErrorModal}
+            onPressOk={onOressOkForCameraPermissionModal}
+            visible={isCameraPermissionErrorModalVisible}
+            okButtonText={t("bottomTab.settings")}
+            cancelButtonText={t("bottomTab.settings")}
+          />
+        )}
       </View>
     );
   }

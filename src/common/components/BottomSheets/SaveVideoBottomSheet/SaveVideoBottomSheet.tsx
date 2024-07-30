@@ -20,6 +20,7 @@ import MoveToFolderView from "../../withBottomSheetModal/moveToFolderView";
 import { styles } from "./styles";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { CameraStackRoutes, HomeStackRoutes } from "../../../navigation/routes";
+import InfoModal from "../../Modals/InfoModal/InfoModal";
 
 type Props = {
   index?: number;
@@ -101,6 +102,15 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
       setCancelPressed(true);
     };
 
+    const [isVideoSizeErrorModalVisible, setIsVideoSizeErrorModalVisible] =
+      useState(false);
+    const showVideoSizeErrorModal = () => {
+      setIsVideoSizeErrorModalVisible(true);
+    };
+    const closeVideoSizeErrorModal = () => {
+      setIsVideoSizeErrorModalVisible(false);
+    };
+
     const handleUploadMedia = async (folderId: string, name: string) => {
       if (folderId) {
         try {
@@ -108,7 +118,8 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
           const fileSizeInBytes = stats.size;
           const fileSizeInMB = fileSizeInBytes / (1024 * 1024);
           if (fileSizeInMB > 200) {
-            Alert.alert(t("alert.videosize"));
+            //Alert.alert(t("alert.videosize"));
+            showVideoSizeErrorModal();
             return;
           }
           await uploadVideoInChunks(fileUri, folderId, name, thumbnail);
@@ -171,6 +182,12 @@ const SaveVideoBottomSheetInner = forwardRef<BottomSheetModal, Props>(
             </View>
           </View>
         )}
+
+        <InfoModal
+          visible={isVideoSizeErrorModalVisible}
+          description={t("alert.videosize")}
+          closeModal={closeVideoSizeErrorModal}
+        />
       </>
     );
   }

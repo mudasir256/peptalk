@@ -4,6 +4,7 @@ import React, { memo, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Alert,
+  Button,
   Image,
   Linking,
   SectionList,
@@ -33,6 +34,7 @@ import {
 import { COLORS } from "../../common/theme/colors";
 import { style } from "./style";
 import { SectionedData } from "./types";
+import InfoModal from "../../common/components/Modals/InfoModal/InfoModal";
 
 const SettingsScreen = () => {
   const { navigate } = useNavigation();
@@ -108,6 +110,23 @@ const SettingsScreen = () => {
     setisDeleteAccountModalVisible(false);
   };
 
+  const [isLinkErrorModalVisible, setIsLinkErrorModalVisible] = useState(false);
+  const showLinkErrorModal = () => {
+    setIsLinkErrorModalVisible(true);
+  };
+  const hideLinkErrorModal = () => {
+    setIsLinkErrorModalVisible(false);
+  };
+
+  const openLink = (link: string) => {
+    try {
+      Linking.openURL(link);
+    } catch (err) {
+      //Alert.alert(t("error.Linking"));
+      showLinkErrorModal();
+    }
+  };
+
   const handlePress = (item: { title: string }) => {
     if (item.title === t("settingsScreen.logout")) {
       openLogoutModal();
@@ -117,9 +136,7 @@ const SettingsScreen = () => {
     }
     if (item.title === t("settingsScreen.terms")) {
       //navigate(HomeStackRoutes.TermsOfUse);
-      Linking.openURL(appLinks.termsOfUseLink).catch((err) => {
-        Alert.alert(t("error.Linking"));
-      });
+      openLink(appLinks.termsOfUseLink);
     }
     if (item.title === t("settingsScreen.aboutMomBrain")) {
       navigate(HomeStackRoutes.About);
@@ -128,12 +145,10 @@ const SettingsScreen = () => {
       navigate(HomeStackRoutes.Password);
     }
     if (item.title === t("settingsScreen.contact")) {
-      Linking.openURL("mailto:contact@mombrain.net").catch((err) => {});
+      openLink(appLinks.contactUs);
     }
     if (item.title === t("settingsScreen.leaveReview")) {
-      Linking.openURL(appLinks.appStoreLink).catch((err) => {
-        Alert.alert(t("error.Linking"));
-      });
+      openLink(appLinks.appStoreLink);
     }
   };
 
@@ -161,6 +176,7 @@ const SettingsScreen = () => {
       <View style={style.head}>
         <Text style={style.title}>{t("settingsScreen.title")}</Text>
       </View>
+
       <SectionList
         style={style.list}
         sections={DATA}
@@ -197,15 +213,29 @@ const SettingsScreen = () => {
         />
 
         {isDeleteAccountModalVisible && (
-          <DeleteAccountModal setIsVisible={setisDeleteAccountModalVisible} />
+          <DeleteAccountModal
+            isVisible={isDeleteAccountModalVisible}
+            setIsVisible={setisDeleteAccountModalVisible}
+          />
         )}
       </View>
+      <InfoModal
+        visible={isLinkErrorModalVisible}
+        closeModal={hideLinkErrorModal}
+        description={t("error.Linking")}
+      />
     </View>
   );
 };
 
 const DeleteAccountModal = memo(
-  ({ setIsVisible }: { setIsVisible: (a: boolean) => void }) => {
+  ({
+    isVisible,
+    setIsVisible,
+  }: {
+    isVisible: boolean;
+    setIsVisible: (a: boolean) => void;
+  }) => {
     const { t } = useTranslation();
     const [deleteAccount, { isLoading }] = useDeleteAccountMutation();
     const dispatch = useDispatch();
@@ -254,7 +284,7 @@ const DeleteAccountModal = memo(
 
     return (
       <DestructiveModal
-        visible={true}
+        visible={isVisible}
         setIsVisible={setIsVisible}
         onDelete={() => {
           formik.handleSubmit();

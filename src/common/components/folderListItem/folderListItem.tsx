@@ -18,6 +18,10 @@ import { FolderItem } from "../../../content/home/folderItemsList/type";
 import DestructiveModal from "../Modals/DestructiveModal/DestructiveModal";
 import { style } from "./style";
 import { useMediaList } from "./useMediaList";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { useTextFormikConfig } from "../../formiks/textFormik";
+import TextInputModal from "../Modals/TextInputModal/TextInputModal";
 
 type Props = {
   item: FolderItem;
@@ -104,6 +108,30 @@ export const FolderListItem = ({
     });
   };
 
+  const [isRenameMediaModalVisible, setIsRenameMediaModalVisible] =
+    useState(false);
+  const openRenameMediaModal = () => {
+    setIsRenameMediaModalVisible(true);
+  };
+  const closeRenameMediaModal = () => {
+    setIsRenameMediaModalVisible(false);
+  };
+  const renameMedia = (newName: string) => {
+    handleRenameMedia({ id, newName });
+    closeRenameMediaModal();
+  };
+
+  const defaultMediaName = item.media_name.toString();
+
+  const formikConfig = useTextFormikConfig({
+    initialValue: defaultMediaName,
+    maxLength: 50,
+    maxLengthError: t("yup.stringMax50"),
+    onPressOk: renameMedia,
+  });
+
+  const formik = useFormik(formikConfig);
+
   return (
     <View style={style.container}>
       <View style={style.imageContainer}>
@@ -147,7 +175,8 @@ export const FolderListItem = ({
         </View>
         <View style={style.iconsContainer}>
           <TouchableOpacity
-            onPress={() => handleRenameMedia({ id: id })}
+            //onPress={() => handleRenameMedia({ id })}
+            onPress={openRenameMediaModal}
             style={style.iconContainer}
           >
             <Edit />
@@ -178,6 +207,16 @@ export const FolderListItem = ({
           loading={loading}
         />
       )}
+
+      <TextInputModal
+        formik={formik}
+        defaultValue={defaultMediaName}
+        placeholder={t("placeholder.videoName")}
+        title={t("placeholder.videoName")}
+        onClose={closeRenameMediaModal}
+        onPressOk={formik.handleSubmit}
+        visible={isRenameMediaModalVisible}
+      />
     </View>
   );
 };

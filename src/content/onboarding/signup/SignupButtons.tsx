@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
 import { IMAGES } from "../../../assets/images";
@@ -9,6 +9,7 @@ import { SPACINGS } from "../../../common/theme/spacing";
 import { useAppleIdSignin } from "./useAppleIdSignin";
 import { useGoogleSignin } from "./useGoogleSignin";
 import { COLORS } from "../../../common/theme/colors";
+import YesOrNoModal from "../../../common/components/Modals/YesOrNoModal.tsx/YesOrNoModal";
 
 const SignupButtons = memo(
   ({
@@ -31,11 +32,25 @@ const SignupButtons = memo(
 
     const isLoading = isAppleLoading || isGoogleLodaing;
 
+    const [isAcceptPolicyModalVisible, setIsAcceptPolicyModalVisible] =
+      useState(false);
+    const showAcceptPolicyModal = () => {
+      setIsAcceptPolicyModalVisible(true);
+    };
+    const closeAcceptPolicyModal = () => {
+      setIsAcceptPolicyModalVisible(false);
+    };
+    const onOressOkForAcceptPolicyModal = () => {
+      setIsAcceptPolicyModalVisible(false);
+      signInWithAppleId();
+    };
+
     const onAppldIdPress = () => {
       if (isLoading) {
         return;
       }
-      Alert.alert(
+      showAcceptPolicyModal();
+      /*Alert.alert(
         t("signUpScreen.termsAlert1"),
         t("signUpScreen.termsAlert2"),
         [
@@ -49,7 +64,7 @@ const SignupButtons = memo(
             onPress: signInWithAppleId,
           },
         ]
-      );
+      );*/
     };
 
     const _onGoogleButtonPress = () => {
@@ -63,6 +78,17 @@ const SignupButtons = memo(
 
     return (
       <View className=" self-stretch items-center">
+        {isAcceptPolicyModalVisible && (
+          <YesOrNoModal
+            visible={isAcceptPolicyModalVisible}
+            onClose={closeAcceptPolicyModal}
+            title={t("signUpScreen.termsAlert1")}
+            description={t("signUpScreen.termsAlert2")}
+            onPressOk={onOressOkForAcceptPolicyModal}
+            okButtonText={t("signUpScreen.ok")}
+            cancelButtonText={t("signUpScreen.cancel")}
+          />
+        )}
         <PrimaryButton
           containerStyle={{ marginBottom: SPACINGS.md }}
           title={appleText}
