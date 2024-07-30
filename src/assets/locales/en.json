@@ -133,7 +133,8 @@
   },
   "dropDown": {
     "rename": "Rename",
-    "delete": "Delete"
+    "delete": "Delete",
+    "cancel": "Cancel"
   },
   "loginStack": {
     "createAccount": "Create Account",

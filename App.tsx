@@ -9,6 +9,7 @@ import Toast from "react-native-toast-message";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor } from "./src/common/store/store";
 import { View } from "react-native";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 
 export default function App() {
   useEffect(() => {
@@ -18,11 +19,13 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <FontProvider>
-          <StatusBar style="dark" />
-          <RootNavigator />
-          <Toast topOffset={60} position="bottom" />
-        </FontProvider>
+        <ActionSheetProvider>
+          <FontProvider>
+            <StatusBar style="dark" />
+            <RootNavigator />
+            <Toast topOffset={60} position="bottom" />
+          </FontProvider>
+        </ActionSheetProvider>
       </PersistGate>
     </Provider>
   );

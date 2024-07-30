@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { Text, View, StyleSheet, Image, ActivityIndicator } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ellipses, Folders } from "../../../assets/svgs/svgIcons";
-import Dropdown from "../../../common/components/modal/dropDownModal/dropDown";
 import { useTranslation } from "react-i18next";
 import { Folder } from "./types";
 import { COLORS } from "../../../common/theme/colors";
@@ -12,12 +11,12 @@ import { styles } from "../../../common/theme/styles";
 import { useNavigation } from "@react-navigation/native";
 import { FolderStackRoutes } from "../../../common/navigation/routes";
 import DestructiveModal from "../../../common/components/Modals/DestructiveModal/DestructiveModal";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 
 type Props = {
   folder: Folder;
   onRenamePress?: VoidFunction;
   handleDeleteFolder?: VoidFunction;
-  showDropdown?: boolean;
   onEllipsesPress?: VoidFunction;
 };
 
@@ -25,13 +24,12 @@ const FolderItemView = ({
   folder,
   onRenamePress,
   handleDeleteFolder,
-  onEllipsesPress,
-  showDropdown,
 }: Props) => {
-  const { images = [] } = folder || {};
   const { t } = useTranslation();
   const { navigate } = useNavigation();
   const [showMoreOptions, setShowMoreOptions] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
+  const { showActionSheetWithOptions } = useActionSheet();
   const numImages = folder.media.length || 0;
   const imageStyle =
     numImages === 1
@@ -39,16 +37,31 @@ const FolderItemView = ({
       : [style.multiImage, { flex: 1 / numImages }];
 
   const options = [
-    { label: t("dropDown.rename"), value: "rename" },
-    { label: t("dropDown.delete"), value: "delete" },
+    t("dropDown.rename"),
+    t("dropDown.delete"),
+    t("dropDown.cancel"),
   ];
 
-  const handleOptionSelect = async (option: string) => {
-    if (option === "delete") {
-      setIsDeleteModalVisible(true);
-    } else if (option === "rename") onRenamePress?.();
-    setShowMoreOptions(false);
+  useEffect(() => {
+    if (folder.media.length === 0) {
+      setImageLoading(false);
+    }
+  }, [folder.media.length]);
+
+  const handleOptionSelect = (selectedIndex: number) => {
+    switch (selectedIndex) {
+      case 0:
+        onRenamePress?.();
+        break;
+      case 1:
+        setIsDeleteModalVisible(true);
+        break;
+      case 2:
+        setShowMoreOptions(false);
+        break;
+    }
   };
+
   const handleFolderPress = () => {
     navigate(FolderStackRoutes.FolderItems, {
       foldername: folder.folder_name,
@@ -56,60 +69,83 @@ const FolderItemView = ({
     });
   };
 
-  const deletefolder = () => {
+  const deleteFolder = () => {
     handleDeleteFolder?.();
     setIsDeleteModalVisible(false);
   };
 
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
+
+  const handleImageError = () => {
+    setImageLoading(false);
+  };
+
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+
+  const onEllipsesPressHandler = () => {
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex: 2,
+        destructiveButtonIndex: 1,
+      },
+      handleOptionSelect
+    );
+  };
 
   return (
     <>
-      <TouchableOpacity onPress={handleFolderPress} className=" p-4">
+      <TouchableOpacity onPress={handleFolderPress} className="p-4">
         <View
           style={[
             style.imageContainer,
             {
               flexDirection: numImages > 1 ? "row" : "column",
               backgroundColor:
-                folder.media.length === 0 ? COLORS.primary : "transparent",
+                folder.media.length === 0 && !imageLoading
+                  ? COLORS.primary
+                  : "transparent",
+              justifyContent: "center",
+              alignItems: "center",
             },
           ]}
         >
+          {imageLoading && (
+            <ActivityIndicator
+              style={{ position: "absolute" }}
+              size="large"
+              color={COLORS.primary}
+            />
+          )}
           {folder.media.map((image, index) => (
             <Image
               key={index}
               source={{ uri: image.thumbnail }}
+              onLoad={handleImageLoad}
+              onError={handleImageError}
               style={[imageStyle, index >= 0 && { ...style.imageOverlap }]}
             />
           ))}
         </View>
-        <View className="flex-row justify-between items-center mt-[10px] self-stretch">
-          <View className="flex-row items-center justify-center flex-1">
+        <View style={style.rowContainer}>
+          <View style={style.rowContent}>
             <Folders />
-            <Text className="text-[15px] grow shrink ml-2">
-              {folder.folder_name}
-            </Text>
+            <Text style={style.folderName}>{folder.folder_name}</Text>
           </View>
-          <TouchableOpacity onPress={onEllipsesPress}>
+          <TouchableOpacity onPress={onEllipsesPressHandler}>
             <Ellipses />
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
-      {showDropdown && (
-        <Dropdown
-          options={options}
-          onClose={() => setShowMoreOptions(false)}
-          onSelect={handleOptionSelect}
-        />
-      )}
 
       <DestructiveModal
         visible={isDeleteModalVisible}
         setIsVisible={setIsDeleteModalVisible}
         title={t("alert.deletefolder")}
         description={t("alert.areyousure")}
-        onDelete={deletefolder}
+        onDelete={deleteFolder}
       />
     </>
   );
@@ -125,6 +161,9 @@ const style = StyleSheet.create({
     borderColor: COLORS.imageBorder,
     height: 162,
     overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
   },
   dentist: {
     ...styles.rowCenter,
@@ -158,6 +197,25 @@ const style = StyleSheet.create({
     borderRadius: SPACINGS.sm,
     borderWidth: SPACINGS.s,
     marginLeft: -40,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
+    alignSelf: "stretch",
+  },
+  rowContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
+  folderName: {
+    fontSize: 15,
+    marginLeft: 2,
+    flexGrow: 1,
+    flexShrink: 1,
   },
 });
 
