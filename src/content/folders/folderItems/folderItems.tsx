@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   TouchableOpacity,
   View,
@@ -23,6 +23,7 @@ import * as VideoThumbnails from "expo-video-thumbnails";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useTextFormikConfig } from "../../../common/formiks/textFormik";
+import TextInputModal from "../../../common/components/Modals/TextInputModal/TextInputModal";
 
 const FolderItems = ({ route, navigation: { goBack } }) => {
   const { t } = useTranslation();
@@ -35,6 +36,47 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
     isInitMediaLoading,
     isUploadMediaLoading,
   } = useCameraUpload();
+
+  const [isItemNameModalVisible, setIsItemNameModalVisible] = useState(false);
+  const openItemNameModal = () => {
+    //console.log("Opening the modal");
+    setIsItemNameModalVisible(true);
+  };
+  const closeItemNameModal = () => {
+    setIsItemNameModalVisible(false);
+  };
+
+  const foldername = route.params?.foldername;
+  const folderId = route.params.folderId;
+
+  const [fileUri, setFileUri] = useState("");
+
+  //const fileUri = result.assets[0].uri;
+
+  const setItemName = useCallback(
+    async (name: string) => {
+      if (name) {
+        const { uri } = await VideoThumbnails.getThumbnailAsync(fileUri, {
+          time: 15000,
+        });
+        uploadVideoInChunks(fileUri, folderId, name, uri);
+      }
+      closeItemNameModal();
+    },
+    [fileUri, folderId, uploadVideoInChunks]
+  );
+
+  const defaultItemName = "";
+
+  const formikConfig = useTextFormikConfig({
+    initialValue: defaultItemName,
+    maxLength: 50,
+    maxLengthError: t("yup.stringMax50"),
+    onPressOk: setItemName,
+  });
+
+  const formik = useFormik(formikConfig);
+
   const pickImage = async () => {
     let permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -50,44 +92,13 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
       quality: 1,
     });
 
-    /*
-    const [isItemNameModalVisible, setIsItemNameModalVisible] = useState(false);
-    const openItemNameModal = () => {
-      setIsItemNameModalVisible(true);
-    };
-    const closeItemNameModal = () => {
-      setIsItemNameModalVisible(false);
-    };*/
-
-    const fileUri = result.assets[0].uri;
-
-    /*const setItemName = async (name: string) => {
-      if (name) {
-        const { uri } = await VideoThumbnails.getThumbnailAsync(fileUri, {
-          time: 15000,
-        });
-        uploadVideoInChunks(fileUri, folderId, name, uri);
-      }
-      closeItemNameModal();
-    };
-
-    const defaultItemName = "";
-
-    const formikConfig = useTextFormikConfig({
-      initialValue: defaultItemName,
-      maxLength: 50,
-      maxLengthError: t("yup.stringMax50"),
-      onPressOk: setItemName,
-    });
-
-    const formik = useFormik(formikConfig);
-    */
+    setFileUri(result.assets[0].uri);
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      //openItemNameModal();
+      openItemNameModal();
 
-      Alert.prompt(
+      /*Alert.prompt(
         t("alert.enteritemnameheading"),
         t("alert.enteritemname"),
         async (name) => {
@@ -99,11 +110,11 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
           }
         },
         "plain-text"
-      );
+      );*/
     }
   };
 
-  console.log("This is folders items");
+  //console.log("This is folders items");
 
   const handleSelect = async (selectedOption) => {
     switch (selectedOption) {
@@ -137,8 +148,6 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
     },
   ];
 
-  const foldername = route.params?.foldername;
-  const folderId = route.params.folderId;
   const {
     data: foldersData,
     isLoading,
@@ -184,15 +193,16 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
         </View>
       )}
 
-      {/*<TextInputModal
+      <TextInputModal
         formik={formik}
-        defaultValue={defaultMediaName}
+        defaultValue={defaultItemName}
         placeholder={t("placeholder.videoName")}
-        title={t("placeholder.videoName")}
-        onClose={closeRenameMediaModal}
+        title={t("alert.enteritemnameheading")}
+        description={t("alert.enteritemname")}
+        onClose={closeItemNameModal}
         onPressOk={formik.handleSubmit}
-        visible={isRenameMediaModalVisible}
-      />*/}
+        visible={isItemNameModalVisible}
+      />
     </>
   );
 };

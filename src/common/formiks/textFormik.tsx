@@ -25,12 +25,13 @@ const useTextFormikConfig = ({
   }> = {
     //useMemo(() => {
     initialValues: {
-      textValue: "abc",
+      textValue: initialValue,
     },
     validationSchema: Yup.object({
       textValue: Yup.string()
         .trim()
         .required(t("yup.required"))
+        .min(1, t("yup.required"))
         .max(maxLength, maxLengthError),
     }),
     onSubmit: async (values) => {
