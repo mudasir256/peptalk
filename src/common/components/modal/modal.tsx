@@ -27,6 +27,7 @@ type Props = {
   loading?: boolean;
   selectedFolder?: Folder;
   showCancel?: boolean;
+  isHeading?: boolean;
 };
 
 const CustomModal = ({
@@ -41,6 +42,7 @@ const CustomModal = ({
   loading,
   selectedFolder,
   showCancel = true,
+  isHeading = true,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -85,7 +87,11 @@ const CustomModal = ({
               {showText && <Text style={style.description}>{description}</Text>}
               {showInput && (
                 <>
-                  <Text style={style.modalTitle}>{t("modal.folderName")}</Text>
+                  {isHeading && (
+                    <Text style={style.modalTitle}>
+                      {t("modal.folderName")}
+                    </Text>
+                  )}
                   <View>
                     <TextInputField
                       placeholder={t("modal.addFolder")}

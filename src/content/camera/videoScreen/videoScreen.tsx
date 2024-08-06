@@ -114,18 +114,18 @@ const VideoScreen = ({ route, navigation: { goBack } }) => {
           resizeMode="contain"
           paused={isPaused}
         />
-      </View>
-      <View style={style.buttonContainer}>
-        <PrimaryButton
-          title={t("common.discard")}
-          containerStyle={style.discard}
-          onPress={() => goBack()}
-        />
-        <PrimaryButton
-          title={t("common.save")}
-          containerStyle={style.save}
-          onPress={onMoveToFolderPress}
-        />
+        <View style={style.buttonContainer}>
+          <PrimaryButton
+            title={t("common.discard")}
+            containerStyle={style.discard}
+            onPress={() => goBack()}
+          />
+          <PrimaryButton
+            title={t("common.save")}
+            containerStyle={style.save}
+            onPress={onMoveToFolderPress}
+          />
+        </View>
       </View>
       <SaveVideoBottomSheet
         title={t("common.save")}

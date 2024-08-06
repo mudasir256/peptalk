@@ -29,6 +29,8 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
   const { t } = useTranslation();
   const [orderingMedia, setOrderingMedia] = useState("");
   const [image, setImage] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [fileUri, setFileUri] = useState("");
   const {
     uploadVideoInChunks,
     uploadProgress,
@@ -48,8 +50,6 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
 
   const foldername = route.params?.foldername;
   const folderId = route.params.folderId;
-
-  const [fileUri, setFileUri] = useState("");
 
   //const fileUri = result.assets[0].uri;
 
@@ -85,6 +85,7 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
       alert(t("alert.accesscameraroll"));
       return;
     }
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Videos,
       allowsEditing: true,
@@ -208,6 +209,7 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
 };
 
 export default FolderItems;
+
 export const style = StyleSheet.create({
   back: {
     ...styles.alignCenter,

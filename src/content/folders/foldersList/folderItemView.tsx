@@ -134,7 +134,10 @@ const FolderItemView = ({
             <Folders />
             <Text style={style.folderName}>{folder.folder_name}</Text>
           </View>
-          <TouchableOpacity onPress={onEllipsesPressHandler}>
+          <TouchableOpacity
+            style={style.ellipseIcon}
+            onPress={onEllipsesPressHandler}
+          >
             <Ellipses />
           </TouchableOpacity>
         </View>
@@ -185,7 +188,7 @@ const style = StyleSheet.create({
   },
   ellipseIcon: {
     color: COLORS.text,
-    marginHorizontal: SPACINGS.s,
+    paddingHorizontal: SPACINGS.tiny,
   },
   folderBottom: {
     ...styles.flexRow,

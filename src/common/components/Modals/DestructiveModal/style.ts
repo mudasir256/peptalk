@@ -33,6 +33,7 @@ export const style = StyleSheet.create({
   },
   cancel: {
     width: 110,
+    height:50,
     borderColor: COLORS.secondary,
   },
   ok: {

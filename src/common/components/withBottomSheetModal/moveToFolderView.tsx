@@ -11,7 +11,7 @@ import HomeFolder from "../homeFolder/homeFolder";
 import PrimaryButton from "../primaryButton";
 import { style } from "./style";
 import { BottomSheetView } from "@gorhom/bottom-sheet";
-import { CrossIcon } from "../../../assets/svgs/svgIcons";
+import { AddFolder, CrossIcon } from "../../../assets/svgs/svgIcons";
 import {
   useFoldersListQuery,
   useMoveFolderMutation,
@@ -21,6 +21,8 @@ import Toast from "react-native-toast-message";
 import { useTextFormikConfig } from "../../formiks/textFormik";
 import { useFormik } from "formik";
 import TextInputModal from "../Modals/TextInputModal/TextInputModal";
+import { COLORS } from "../../theme/colors";
+import { SPACINGS } from "../../theme/spacing";
 
 type Props = {
   handleClosePress: VoidFunction;
@@ -110,12 +112,39 @@ const MoveToFolderView = ({
         <BottomSheetView style={style.modalContainer}>
           <View style={style.head}>
             <Text style={style.move}>{title}</Text>
-            <TouchableOpacity
-              onPress={handleClosePress}
-              style={style.iconContainer}
-            >
-              <CrossIcon />
-            </TouchableOpacity>
+            <View className=" self-center flex-row" style={{ gap: 10 }}>
+              {openAddFolderPopup && (
+                <TouchableOpacity
+                  onPress={openAddFolderPopup}
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: COLORS.secondary,
+                    borderColor: COLORS.secondary,
+                    height: 32,
+                    width: 32,
+                    borderRadius: 20,
+                  }}
+                >
+                  <AddFolder />
+                </TouchableOpacity>
+              )}
+
+              <TouchableOpacity
+                onPress={handleClosePress}
+                style={{
+                  borderWidth: 2,
+                  borderColor: COLORS.secondary,
+                  borderRadius: 25,
+                  backgroundColor: COLORS.dropdownbg,
+                  padding: 8,
+                  marginLeft: SPACINGS.xs,
+                  height: 32,
+                }}
+              >
+                <CrossIcon />
+              </TouchableOpacity>
+            </View>
           </View>
           {data?.results && (
             <FlatList
@@ -144,7 +173,7 @@ const MoveToFolderView = ({
           loading={isLoading}
         />
       )}
-      {openAddFolderPopup && (
+      {/*openAddFolderPopup && (
         <View className=" flex-row self-stretch">
           <View className="flex-1 items-center">
             <PrimaryButton
@@ -154,7 +183,7 @@ const MoveToFolderView = ({
             />
           </View>
         </View>
-      )}
+      )*/}
 
       <TextInputModal
         formik={formik}

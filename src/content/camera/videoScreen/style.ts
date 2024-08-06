@@ -12,7 +12,7 @@ export const style = StyleSheet.create({
   },
   video: {
     width: "100%",
-    height: "65%",
+    height: "63.5%",
   },
   videoContainer: {},
   back: {

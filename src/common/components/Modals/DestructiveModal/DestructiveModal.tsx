@@ -105,6 +105,7 @@ const DestructiveModal = ({
                   flexDirection: "row",
                   justifyContent: "flex-end",
                   width: "100%",
+                  gap: 16,
                 }}
               >
                 <PrimaryButton
@@ -114,7 +115,7 @@ const DestructiveModal = ({
                 />
 
                 <TouchableOpacity
-                  className="h-[55px] border-[2px] rounded-full px-[22px] items-center justify-center flex-row ml-4"
+                  className="h-[50px] border-[2px] rounded-[25px] px-[12px] items-center justify-center flex-row"
                   style={{
                     gap: 16,
                     backgroundColor: COLORS.error,
