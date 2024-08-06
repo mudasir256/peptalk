@@ -61,19 +61,6 @@ const CameraPermissionHandler = ({ children }) => {
 
   if (!permissionsGranted) {
     showCameraPermissionErrorModal();
-    /*Alert.alert(
-      t("alert.permissionrequired"),
-      t("alert.camerapermission"),
-      [
-        {
-          text: t("modal.cancel"),
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: t("bottomTab.settings"), onPress: goToSettings },
-      ],
-      { cancelable: false }
-    );*/
 
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

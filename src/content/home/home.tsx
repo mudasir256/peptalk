@@ -21,11 +21,6 @@ const HomeScreen = () => {
     { refetchOnMountOrArgChange: true }
   );
 
-  /*const _refetch = () => {
-    console.log("refetching");
-    refetch();
-  };*/
-
   const handleSelect = useCallback(
     (selectedOption) => {
       switch (selectedOption) {

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
@@ -7,13 +7,9 @@ import { ButtonTextPrimary, Label } from "../../../common/theme/typography";
 import { SPACINGS } from "../../../common/theme/spacing";
 import { COLORS } from "../../../common/theme/colors";
 import { styles } from "../../../common/theme/styles";
-import { PasswordInput } from "../../../common/components/passwordInput/passwordInput";
 import PrimaryButton from "../../../common/components/primaryButton";
 import { TextInputField } from "../../../common/components/input/input";
-import {
-  useForgotPasswordMutation,
-  useUserQuery,
-} from "../../../common/store/slice/api/slice";
+import { useForgotPasswordMutation } from "../../../common/store/slice/api/slice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Toast from "react-native-toast-message";
@@ -48,8 +44,6 @@ const ResetPasswordWithEmail = () => {
         });
     },
   });
-
-  //console.log(data);
 
   const goBack = () => {
     navigation.goBack();

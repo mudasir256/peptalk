@@ -20,9 +20,9 @@ export const useGoogleSignin = () => {
   useEffect(() => {
     GoogleSignin.configure({
       webClientId:
-        "761974158882-9kc3bs445migs34p5bjjq7f7hb0ib073.apps.googleusercontent.com",
+        "260983470678-sq87q4u6noc91tc69klrbvl44h9c2dgu.apps.googleusercontent.com",
       iosClientId:
-        "761974158882-mc925asj9779rbl11blbpadgbgpuak53.apps.googleusercontent.com",
+        "260983470678-llgh2nsq1v9p3aa1g991s5pvo0b82ocu.apps.googleusercontent.com",
     });
   }, []);
 

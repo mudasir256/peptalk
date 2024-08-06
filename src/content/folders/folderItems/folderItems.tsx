@@ -1,11 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  Alert,
-  ActivityIndicator,
-} from "react-native";
+import { TouchableOpacity, View, Text, ActivityIndicator } from "react-native";
 import { styles } from "../../../common/theme/styles";
 import Header from "../../../common/header/header";
 import FolderItemsListView from "../../home/folderItemsList/FolderItemsListView";
@@ -41,7 +35,6 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
 
   const [isItemNameModalVisible, setIsItemNameModalVisible] = useState(false);
   const openItemNameModal = () => {
-    //console.log("Opening the modal");
     setIsItemNameModalVisible(true);
   };
   const closeItemNameModal = () => {
@@ -50,8 +43,6 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
 
   const foldername = route.params?.foldername;
   const folderId = route.params.folderId;
-
-  //const fileUri = result.assets[0].uri;
 
   const setItemName = useCallback(
     async (name: string) => {
@@ -98,24 +89,8 @@ const FolderItems = ({ route, navigation: { goBack } }) => {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
       openItemNameModal();
-
-      /*Alert.prompt(
-        t("alert.enteritemnameheading"),
-        t("alert.enteritemname"),
-        async (name) => {
-          if (name) {
-            const { uri } = await VideoThumbnails.getThumbnailAsync(fileUri, {
-              time: 15000,
-            });
-            uploadVideoInChunks(fileUri, folderId, name, uri);
-          }
-        },
-        "plain-text"
-      );*/
     }
   };
-
-  //console.log("This is folders items");
 
   const handleSelect = async (selectedOption) => {
     switch (selectedOption) {

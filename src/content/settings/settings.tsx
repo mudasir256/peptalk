@@ -254,13 +254,11 @@ const DeleteAccountModal = memo(
         password: Yup.string().trim().required(t("common.required")),
       }),
       onSubmit: async (values) => {
-        console.log(values);
         const password = values.password.trim();
         deleteAccount({ password })
           .then((data) => {
             const _data: any = data;
 
-            console.log(data);
             if (_data?.error?.data?.password?.[0]) {
               formik.setErrors({ password: _data?.error?.data?.password?.[0] });
 

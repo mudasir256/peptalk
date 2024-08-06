@@ -58,9 +58,7 @@ const MoveToFolderView = ({
     maxLength: 50,
     maxLengthError: t("yup.stringMax50"),
     onPressOk: async (name) => {
-      console.log("name", name);
       if (name) {
-        console.log("found name");
         onSavePress(selectedFolderId, name);
         handleClosePress();
       }

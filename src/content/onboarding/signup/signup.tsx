@@ -19,26 +19,7 @@ import SignupButtons from "./SignupButtons";
 export const SignupScreen = () => {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
-  const dispatch = useAppDispatch();
 
-  const { signInWithAppleId } = useAppleIdSignin();
-  const { onGoogleButtonPress } = useGoogleSignin();
-
-  const onAppldIdPress = () => {
-    /*Alert.alert(t("signUpScreen.termsAlert1"), t("signUpScreen.termsAlert2"), [
-      {
-        text: t("signUpScreen.cancel"),
-        onPress: () => console.log("cancel"),
-        style: "cancel",
-      },
-      {
-        text: t("signUpScreen.ok"),
-        onPress: signInWithAppleId,
-      },
-    ]);*/
-  };
-
-  const SignupWithEmail = () => navigate(LoginStackRoutes.SignUpWithEmail);
   const handleLogin = () => navigate(LoginStackRoutes.Login);
 
   return (
@@ -52,24 +33,6 @@ export const SignupScreen = () => {
       </ImageBackground>
 
       <View style={[style.buttonsContainer, styles.flex]}>
-        {/*<PrimaryButton
-          containerStyle={{ marginBottom: SPACINGS.md }}
-          title={t("signUpScreen.appleSignUp")}
-          icon={IMAGES.appleIcon}
-          onPress={onAppldIdPress}
-        />
-        <PrimaryButton
-          containerStyle={{ marginBottom: SPACINGS.md }}
-          title={t("signUpScreen.gmailSignUp")}
-          icon={IMAGES.googleIcon}
-          onPress={onGoogleButtonPress}
-        />
-        <PrimaryButton
-          containerStyle={{ alignSelf: "center" }}
-          title={t("signUpScreen.emailSignUp")}
-          icon={IMAGES.emailIcon}
-          onPress={SignupWithEmail}
-        />*/}
         <SignupButtons
           appleText={t("signUpScreen.appleSignUp")}
           gmailText={t("signUpScreen.gmailSignUp")}

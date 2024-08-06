@@ -115,7 +115,7 @@ const DestructiveModal = ({
                 />
 
                 <TouchableOpacity
-                  className="h-[50px] border-[2px] rounded-[25px] px-[12px] items-center justify-center flex-row"
+                  className="h-[50px] border-[2px] rounded-[25px] px-[12px] items-center justify-center flex-row ml-4"
                   style={{
                     gap: 16,
                     backgroundColor: COLORS.error,

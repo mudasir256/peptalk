@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, View } from "react-native";
+import { View } from "react-native";
 import { IMAGES } from "../../../assets/images";
 import PrimaryButton from "../../../common/components/primaryButton/index";
 import { LoginStackRoutes } from "../../../common/navigation/routes";
@@ -28,8 +28,6 @@ const SignupButtons = memo(
     const { onGoogleButtonPress, isLoading: isGoogleLodaing } =
       useGoogleSignin();
 
-    console.log(isGoogleLodaing, isAppleLoading);
-
     const isLoading = isAppleLoading || isGoogleLodaing;
 
     const [isAcceptPolicyModalVisible, setIsAcceptPolicyModalVisible] =
@@ -50,21 +48,6 @@ const SignupButtons = memo(
         return;
       }
       showAcceptPolicyModal();
-      /*Alert.alert(
-        t("signUpScreen.termsAlert1"),
-        t("signUpScreen.termsAlert2"),
-        [
-          {
-            text: t("signUpScreen.cancel"),
-            onPress: () => console.log("cancel"),
-            style: "cancel",
-          },
-          {
-            text: t("signUpScreen.ok"),
-            onPress: signInWithAppleId,
-          },
-        ]
-      );*/
     };
 
     const _onGoogleButtonPress = () => {
